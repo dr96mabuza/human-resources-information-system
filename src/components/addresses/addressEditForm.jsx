@@ -4,6 +4,7 @@ import Nav from "../Nav";
 import Header from "../Header";
 
 export default function AddressEditForm() {
+    const [success, setSuccess] = useState(false);
     const {id} = useParams();
     const [formData, setFormData] = useState({
         street: "",
@@ -18,58 +19,86 @@ export default function AddressEditForm() {
         const data = await res.json();
         const result = await data.result;
         setFormData({
-            street: await result[0].street,
-            suburb: await result[0].suburb,
-            city: await result[0].city,
-            province: await result[0].province,
-            postalCode: await result[0].postalCode
+            street: result[0].street,
+            suburb: result[0].suburb,
+            city: result[0].city,
+            province: result[0].province,
+            postalCode: result[0].postalCode
         });
     };
 
     useEffect(() => {
-        getAddress(id);
+        const g = async () => {
+            await getAddress(id);
+        }
+        g();
     },[id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
-            [name]: value,
+            [name]: name === 'postalCode' ? Number(value) : value,
         }));
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch(`http://localhost:5000/address/${id}/update`, {
+            method: "post",
+            mode: "cors",
+            headers: {
+                "content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+        console.log(formData)
+        const resJson = await response.json();
+        console.log(resJson)
+        if ( resJson.status === "ok") {
+            setSuccess(true);
+        }
+    }
+
+    
+
     return (
         <>
         <Header />
         <Nav />
-        <div /*style={{display:"none"}}*/ className="modal">
-            <h2>Edit address information</h2>
+        {success === false?
             <form>
+            <legend>Edit address information</legend>
                 <div>
                     <label>Street</label>
-                    <input type="text" value={formData.street} onChange={handleChange}/>
+                    <input type="text" value={formData.street} name="street" onChange={handleChange}/>
                 </div>
                 <div>
                     <label>Suburb</label>
-                    <input type="text" value={formData.suburb} onChange={handleChange}/>
+                    <input type="text" value={formData.suburb} name="suburb" onChange={handleChange}/>
                 </div>
                 <div>
                     <label>City</label>
-                    <input type="text" value={formData.city} onChange={handleChange}/>
+                    <input type="text" value={formData.city} name="city" onChange={handleChange}/>
                     
                 </div>
                 <div>
                     <label>Province</label>
-                    <input type="text" value={formData.province} onChange={handleChange}/>
+                    <input type="text" value={formData.province} name="province" onChange={handleChange}/>
                     
                 </div>
                 <div>
                     <label>Postal code</label>
-                    <input type="number" value={formData.postalCode} onChange={handleChange}/>
+                    <input type="number" value={formData.postalCode} name="postalCode" onChange={handleChange}/>
                     
                 </div>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+                <button type="submit" onClick={handleSubmit}>Submit</button>
+            </form> : 
+            <div>
+                <h3>New Address added!</h3>
+                <p>go to Addresses.</p>
+            </div>} 
+                
         </>
     );
 }

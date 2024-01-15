@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Header from "../Header";
+import Nav from "../Nav";
 
 export default function JobInfoEditForm() {
     const {id} = useParams();
+    const [success, setSuccess] = useState(false);
     const [formData, setFormData] = useState({
         company: "",
         jobRole: "",
@@ -15,10 +18,10 @@ export default function JobInfoEditForm() {
         const data = await res.json();
         const result = await data.result;
         setFormData({
-            company: await result[0].company,
-            jobRole: await result[0].jobRole,
-            reportsTo: await result[0].reportsTo,
-            employmentStatus: await result[0].employmentStatus,
+            company:  result[0].company,
+            jobRole:  result[0].jobRole,
+            reportsTo:  (result[0].reportsTo === undefined || result[0].reportsTo === null)? 0 : result[0].reportsTo,
+            employmentStatus:  result[0].employmentStatus,
         });
     };
 
@@ -30,35 +33,56 @@ export default function JobInfoEditForm() {
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
-            [name]: value,
+            [name]: name === "reportsTo"? Number(value): value,
         }));
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch(`http://localhost:5000/employmentdetail/${id}/update`, {
+            method: "post",
+            mode: "cors",
+            headers: {
+                "content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+        console.log(formData)
+        const resJson = await response.json();
+        // console.log(resJson)
+        if ( resJson.status === "ok") {
+            setSuccess(true);
+        }
+    }    
+
     return (
-        <div /*style={{display:"none"}}*/ className="modal">
-            <h2>Edit JobInfo</h2>
+        <div >
+            <Header />
+            <Nav />
             <form>
+                <legend>Edit JobInfo</legend>
                 <div>
                     <label>Company</label>
-                    <input type="text" value={formData.company} onChange={handleChange}/>
+                    <input type="text" value={formData.company} name="company" onChange={handleChange}/>
                     
                 </div>
                 <div>
                     <label>Role</label>
-                    <input type="text" value={formData.jobRole} onChange={handleChange}/>
+                    <input type="text" value={formData.jobRole} name="jobRole" onChange={handleChange}/>
                     
                 </div>
                 <div>
                 
                     <label>Senior/Manager</label>
-                    <input type="number" value={formData.reportsTo} onChange={handleChange}/>
+                    <input type="number" value={formData.reportsTo} name="reportTo" id="" onChange={handleChange}/>
                     
                 </div>
                 <div>
                     <label>Employment Status</label>
-                    <input type="text" value={formData.employmentStatus} onChange={handleChange}/>
+                    <input type="text" value={formData.employmentStatus} name="employmentStatus" onChange={handleChange}/>
                     
                 </div>
-                <button>Submit</button>
+                <button type="submit" onClick={handleSubmit}>Submit</button>
             </form>
         </div>
     );

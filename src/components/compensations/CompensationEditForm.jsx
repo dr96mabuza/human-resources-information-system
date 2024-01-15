@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Header from "../Header";
+import Nav from "../Nav";
 
 export default function CompansationForm() {
     const {id} = useParams();
@@ -28,30 +30,50 @@ export default function CompansationForm() {
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
-            [name]: value,
+            [name]: parseInt(value, 10),
         }));
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch(`http://localhost:5000/compansation/${id}/update`, {
+            method: "post",
+            mode: "cors",
+            headers: {
+                "content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+        const resJson = await response.json();
+        console.log(resJson)
+        // if ( resJson.status === "ok") {
+        //     setSuccess(true);
+        // }
+    }
+
     return (
-        <div /*style={{display:"none"}}*/ className="modal">
-            <h2>Edit Compensation</h2>
-            <form>
+        <>
+        <Header />
+        <Nav />
+        <form>
+                <legend>Edit Compensation</legend>
                 <div>
                     <label>Salary</label>
-                    <input type="number" value={formData.salary} onChange={handleChange}/>
+                    <input type="number" value={formData.salary} name="salary" onChange={handleChange}/>
                     
                 </div>
                 <div>
                     <label>Deductions</label>
-                    <input type="number" value={formData.deductions} onChange={handleChange}/>
+                    <input type="number" value={formData.deductions} name="deductions" onChange={handleChange}/>
                     
                 </div>
                 <div>
                     <label>Bonus</label>
-                    <input type="number" value={formData.bonus} onChange={handleChange}/>
+                    <input type="number" value={formData.bonus} name="bonus" onChange={handleChange}/>
                     
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit" onClick={handleSubmit}>Submit</button>
             </form>
-        </div>
+        </>
     );
 }

@@ -1,13 +1,15 @@
+import fs from "fs";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../Header";
 import Nav from "../Nav";
 
+
 export default function DocumentEditForm() {
     const {id} = useParams();
     const [formData, setFormData] = useState({
-        name: "",
-        data: "",
+        documentName: "",
+        document: "",
     
     });
 
@@ -16,8 +18,8 @@ export default function DocumentEditForm() {
         const data = await res.json();
         const result = await data.result;
         setFormData({
-            name: await result[0].documentName,
-            data: await result[0].data,
+            documentName: await result[0].documentName,
+            document: await result[0].document
         });
     };
 
@@ -32,26 +34,42 @@ export default function DocumentEditForm() {
             [name]: value,
         }));
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch(`http://localhost:5000/document/${id}/update`, {
+            method: "post",
+            mode: "cors",
+            headers: {
+                "content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+        const resJson = await response.json();
+        console.log(resJson)
+        // if ( resJson.status === "ok") {
+        //     setSuccess(true);
+        // }
+    }
     return (
         <>
         <Header />
         <Nav />
-        
-        <div /*style={{display:"none"}}*/ className="modal">
-            <h2>Edit Document</h2>
             <form>
+                <legend>Edit Document</legend>
                 <div>
-                    <input type="text" value={formData.name} onChange={handleChange}/>
-                    <label>name</label>
+                    <label>Name</label>
+                    <input type="text" value={formData.documentName} name="documentName" onChange={handleChange}/>
+                    
                 </div>
                 <div>
-                    <input type="file" value={formData.data} onChange={handleChange}/>
-                    <label>data</label>
+                    <label>Document</label>
+                    <input type="file" name="document" onChange={handleChange}/>
+                    
                 </div>
                 
-                <button>Submit</button>
+                <button type="submit" onClick={handleSubmit}>Submit</button>
             </form>
-        </div>
         </>
     );
 }

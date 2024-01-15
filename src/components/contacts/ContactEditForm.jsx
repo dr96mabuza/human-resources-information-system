@@ -8,7 +8,7 @@ export default function ContactEditForm() {
     const [formData, setFormData] = useState({
         email: "",
         cellphoneNumber: "",
-        workEmail: "",
+        companyEmail: "",
         alternateNumber: ""
     });
 
@@ -19,7 +19,7 @@ export default function ContactEditForm() {
         setFormData({
             email: await result[0].email,
             cellphoneNumber: await result[0].cellphoneNumber,
-            workEmail: await result[0].workEmail,
+            companyEmail: await result[0].companyEmail,
             alternateNumber: await result[0].alternateNumber
         });
     };
@@ -35,36 +35,52 @@ export default function ContactEditForm() {
             [name]: value,
         }));
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch(`http://localhost:5000/contact/${id}/update`, {
+            method: "post",
+            mode: "cors",
+            headers: {
+                "content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+        const resJson = await response.json();
+        console.log(resJson)
+        // if ( resJson.status === "ok") {
+        //     setSuccess(true);
+        // }
+    }
+
     return (
         <>
         <Header />
         <Nav />
-        <div /*style={{display:"none"}}*/ className="modal">
-            <h2>Edit Contact</h2>
             <form>
+                <legend>Edit Contact</legend>
                 <div>
                     <label>Email</label>
-                    <input type="text" value={formData.email} onChange={handleChange}/>
+                    <input type="text" value={formData.email} name="email" onChange={handleChange}/>
                     
                 </div>
                 <div>
                     <label>Contact Number</label>
-                    <input type="text" value={formData.cellphoneNumber} onChange={handleChange}/>
+                    <input type="text" value={formData.cellphoneNumber} name="cellphoneNumber" onChange={handleChange}/>
                     
                 </div>
                 <div>
                     <label>Second Email</label>
-                    <input type="text" value={formData.workEmail} onChange={handleChange}/>
+                    <input type="text" value={formData.companyEmail} name="companyEmail" onChange={handleChange}/>
                     
                 </div>
                 <div>
                     <label>Second Contact NUmber</label>
-                    <input type="text" value={formData.alternateNumber} onChange={handleChange}/>
+                    <input type="text" value={formData.alternateNumber} name="alternateNumber" onChange={handleChange}/>
                     
                 </div>
-                <button>Submit</button>
+                <button type="submit" onClick={handleSubmit}>Submit</button>
             </form>
-        </div>
         </>
     );
 }

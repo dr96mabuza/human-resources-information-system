@@ -37,39 +37,57 @@ export default function PersonalInfoEditForm() {
             [name]: value,
         }));
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch(`http://localhost:5000/employee/${id}/update`, {
+            method: "post",
+            mode: "cors",
+            headers: {
+                "content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+        const resJson = await response.json();
+        console.log(resJson)
+        // if ( resJson.status === "ok") {
+        //     setSuccess(true);
+        // }
+    }
+
     return (
         <>
         <Header />
         <Nav />
         <div /*style={{display:"none"}}*/ className="modal">
-            <h2>Edit Personal Information</h2>
             <form>
+                <legend>Edit Personal Information</legend>
                 <div>
                 <label>Name</label>
-                    <input type="text" value={formData.firstName} onChange={handleChange}/>
+                    <input type="text" value={formData.firstName} name="firstName" onChange={handleChange}/>
                     
                 </div>
                 <div>
                 <label>Surname</label>
-                    <input type="text" value={formData.lastName} onChange={handleChange}/>
+                    <input type="text" value={formData.lastName} name="lastName" onChange={handleChange}/>
                     
                 </div>
                 <div>
                 <label>ID Number</label>
-                    <input type="text" value={formData.idNumber} onChange={handleChange}/>
+                    <input type="text" value={formData.idNumber} name="idNumber" onChange={handleChange}/>
                     
                 </div>
                 <div>
                 <label>Gender</label>
-                <input type="text" value={formData.gender} onChange={handleChange}/>
+                <input type="text" value={formData.gender} name="gender" onChange={handleChange}/>
                     
                 </div>
                 <div>
                 <label>Date of birth</label>
-                <input type="text" value={formData.dateOfBirth} onChange={handleChange}/>
+                <input type="date" value={formData.dateOfBirth} name="dateOfBirth" onChange={handleChange}/>
                     
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit" onClick={handleSubmit}>Submit</button>
             </form>
         </div>
         </>
