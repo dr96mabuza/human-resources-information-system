@@ -33,97 +33,97 @@ const router = createBrowserRouter([
   },
   {
     // display all employees list
-    path: "/employees",
+    path: "employees",
     element: <Employee />
   },
   {
     // update employee by id
-    path: "/employee/:id/update",
+    path: "employee/:id/update",
     element: <PersonalInfoEditForm />
   },
   {
     // display all contact information for all employees
-    path: "/contacts",
+    path: "contacts",
     element: <Contacts />
   },
   {
     // update employee contact detail
-    path: "/contact/:id/update",
+    path: "contact/:id/update",
     element: <ContactEditForm />
   },
   {
-    path: "/contact/:employeeId/create",
+    path: "contact/:employeeId/create",
     element: <CreateContact />
   },
   {
     // display all employee documents 
-    path: "/documents",
+    path: "documents",
     element: <Documents />
   },
   {
     // update employee documents
-    path: "/document/:id/update",
+    path: "document/:id/update",
     element: <DocumentEditForm />
   },
   {
-    path: "/document/:employeeId/create",
+    path: "document/:employeeId/create",
     element: <CreateDocument />
   },
   {
     // go to employees leave details page
-    path: "/leaves",
+    path: "leaves",
     element: <Leave />
   },
   {
-    path: "/leave/:employeeId/create",
+    path: "leave/:employeeId/create",
     element: <CreateLeaveDetails />
   },
   {
     // display all employment details
-    path: "/employmentdetails",
+    path: "employmentdetails",
     element: <EmployementDetails />
   },
   {
     // update employee job details
-    path: "/employmentdetail/:id/update",
+    path: "employmentdetail/:id/update",
     element: <JobInfoEditForm />
   },
   {
-    path: "/employmentdetail/:employeeId/create",
+    path: "employmentdetail/:employeeId/create",
     element: <CreateEmploymentDetails />
   },
   {
     // create new employee
-    path: "/employee/create",
+    path: "employee/create",
     element: <CreateEmployee />
   },
   {
     // display all employee address information
-    path: "/addresses",
+    path: "addresses",
     element: <Addresses />
   },
   {
     // update employee address
-    path: "/address/:id/update",
+    path: "address/:id/update",
     element: <AddressEditForm />
   },
   {
     // create employee address 
-    path: "/address/:employeeId/create",
+    path: "address/:employeeId/create",
     element: <CreateAddress />
   },
   {
     // display all payroll packages
-    path: "/compensations",
+    path: "compensations",
     element: <Compensations />
   },
   {
     // update compensation package
-    path: "/compensation/:id/update",
+    path: "compensation/:id/update",
     element: <CompensationsEditForm />
   },
   {
-    path: "/compensation/:employeeId/create",
+    path: "compensation/:employeeId/create",
     element: <CreateCompensation />
   }
 ])
