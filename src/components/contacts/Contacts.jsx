@@ -53,7 +53,7 @@ export default function Contacts() {
               <td>{contact.companyEmail}</td>
               <td>{contact.alternateNumber}</td>
               <td><Link to={`/employee/${contact.employeeId}`}>{contact.employeeId}</Link></td>
-              <td><Link to={`/contact/${contact.id}/update`}><button type="submit">edit</button></Link></td>
+              <td><Link to={`/contact/${contact.id}/update`}><button type="submit">EDIT</button></Link></td>
               <td><button className="deleteBTN" onClick={() => {deleteContact(contact.id)}} onSubmit={handleSubmit} type="submit">DELETE</button></td>
             </tr>
           ))}

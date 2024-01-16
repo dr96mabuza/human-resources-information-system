@@ -47,7 +47,7 @@ form.inline {
   background-color: #fff;
 }
 
-.deleteBTN {
+button.deleteBTN[type=submit] {
   background-color: red;
 }
 

@@ -56,7 +56,7 @@ export default function Addresses() {
               <td>{address.province}</td>
               <td>{address.postalCode}</td>
               <td><Link to={`/employee/${address.employeeId}`}>{address.employeeId}</Link></td>
-                <td><Link to={`/address/${address.id}/update`}><button type="submit">edit</button></Link></td>
+                <td><Link to={`/address/${address.id}/update`}><button type="submit">EDIT</button></Link></td>
                 <td><button className="deleteBTN" onClick={() => {deleteAddress(address.id)}} onSubmit={handleSubmit} type="submit">DELETE</button></td>
               </tr>
           ))}

@@ -48,7 +48,7 @@ export default function Documents() {
                 <td>{doc.documentName}</td>
                 <td>{}</td>
                 <td><Link to={`/employee/${doc.employeeId}`}>{doc.employeeId}</Link></td>
-                <td><Link to={`/document/${doc.id}/update`}><button type="submit">edit</button></Link></td>
+                <td><Link to={`/document/${doc.id}/update`}><button type="submit">EDIT</button></Link></td>
                 <td><button className="deleteBTN" onClick={() => {deleteDocument(doc.id)}} onSubmit={handleSubmit} type="submit">DELETE</button></td>
               </tr>
               

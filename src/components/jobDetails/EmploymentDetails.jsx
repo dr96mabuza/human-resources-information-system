@@ -56,7 +56,7 @@ export default function EmployementDetails() {
               <td>{job.employmentStatus}</td>
               <td>{job.startDate}</td>
               <td><Link to={`/employee/${job.employeeId}`}>{job.employeeId}</Link></td>
-                <td><Link to={`/employmentdetail/${job.id}/update`}><button type="submit">edit</button></Link></td>
+                <td><Link to={`/employmentdetail/${job.id}/update`}><button type="submit">DELETE</button></Link></td>
                 <td><button className="deleteBTN" onClick={() => {deleteJobDetail(job.id)}} onSubmit={handleSubmit} type="submit">DELETE</button></td>
               
               </tr>
