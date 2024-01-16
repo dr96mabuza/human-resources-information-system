@@ -7,15 +7,29 @@ export default function Contacts() {
     
     const [data, setData] = useState([]);
     const fetchContactsList = async () => {
-        const res = await fetch(`http://localhost:5000/contacts`, { method: "GET", mode: "cors" });
-        const data = await res.json();
-        const results = await data.result;
-        setData(results);
+      const res = await fetch(`http://localhost:5000/contacts`, { method: "GET", mode: "cors" });
+      const data = await res.json();
+      const results = await data.result;
+      setData(results);
     }
 
     useEffect(() => {
-        fetchContactsList();
+      fetchContactsList();
     }, []);
+
+    const handleSubmit = () => {e.preventDefault();};
+
+    const deleteContact = async (id) => {
+      const response = await fetch(`http://localhost:5000/contact/${id}/delete`, {
+          method: "post",
+          mode: "cors"
+      });
+      const resJson = await response.json();
+
+      if (resJson.status === "ok") {
+        fetchContactsList()
+      }
+    }
 
     return (
         <>
@@ -40,6 +54,7 @@ export default function Contacts() {
               <td>{contact.alternateNumber}</td>
               <td><Link to={`/employee/${contact.employeeId}`}>{contact.employeeId}</Link></td>
               <td><Link to={`/contact/${contact.id}/update`}><button type="submit">edit</button></Link></td>
+              <td><button className="deleteBTN" onClick={() => {deleteContact(contact.id)}} onSubmit={handleSubmit} type="submit">DELETE</button></td>
             </tr>
           ))}
         </tbody>

@@ -16,6 +16,20 @@ export default function Documents() {
         fetchDocumentsList();
     }, []);
 
+    const handleSubmit = () => {e.preventDefault();};
+
+    const deleteDocument = async (id) => {
+      const response = await fetch(`http://localhost:5000/document/${id}/delete`, {
+          method: "post",
+          mode: "cors"
+      });
+      const resJson = await response.json();
+
+      if (resJson.status === "ok") {
+        fetchDocumentsList()
+      }
+    }
+
     return (
         <>
         <Header />
@@ -35,6 +49,7 @@ export default function Documents() {
                 <td>{}</td>
                 <td><Link to={`/employee/${doc.employeeId}`}>{doc.employeeId}</Link></td>
                 <td><Link to={`/document/${doc.id}/update`}><button type="submit">edit</button></Link></td>
+                <td><button className="deleteBTN" onClick={() => {deleteDocument(doc.id)}} onSubmit={handleSubmit} type="submit">DELETE</button></td>
               </tr>
               
             ))}

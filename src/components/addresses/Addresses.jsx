@@ -17,6 +17,20 @@ export default function Addresses() {
         fetchAddressesList();
     }, []);
 
+    const handleSubmit = () => {e.preventDefault();};
+
+    const deleteAddress = async (id) => {
+      const response = await fetch(`http://localhost:5000/address/${id}/delete`, {
+          method: "post",
+          mode: "cors"
+      });
+      const resJson = await response.json();
+
+      if (resJson.status === "ok") {
+        fetchAddressesList()
+      }
+  }
+
     return (
       <>
       
@@ -43,6 +57,7 @@ export default function Addresses() {
               <td>{address.postalCode}</td>
               <td><Link to={`/employee/${address.employeeId}`}>{address.employeeId}</Link></td>
                 <td><Link to={`/address/${address.id}/update`}><button type="submit">edit</button></Link></td>
+                <td><button className="deleteBTN" onClick={() => {deleteAddress(address.id)}} onSubmit={handleSubmit} type="submit">DELETE</button></td>
               </tr>
           ))}
         </tbody>

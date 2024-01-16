@@ -17,6 +17,20 @@ export default function EmployementDetails() {
         fetchJobDetailsList();
     }, []);
 
+    const handleSubmit = () => {e.preventDefault();};
+
+    const deleteJobDetail = async (id) => {
+      const response = await fetch(`http://localhost:5000/employmentdetail/${id}/delete`, {
+          method: "post",
+          mode: "cors"
+      });
+      const resJson = await response.json();
+
+      if (resJson.status === "ok") {
+        fetchJobDetailsList()
+      }
+    }
+
     return (
       <>
       
@@ -43,6 +57,8 @@ export default function EmployementDetails() {
               <td>{job.startDate}</td>
               <td><Link to={`/employee/${job.employeeId}`}>{job.employeeId}</Link></td>
                 <td><Link to={`/employmentdetail/${job.id}/update`}><button type="submit">edit</button></Link></td>
+                <td><button className="deleteBTN" onClick={() => {deleteJobDetail(job.id)}} onSubmit={handleSubmit} type="submit">DELETE</button></td>
+              
               </tr>
           ))}
         </tbody>
