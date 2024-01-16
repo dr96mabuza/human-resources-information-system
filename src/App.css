@@ -47,6 +47,10 @@ form.inline {
   background-color: #fff;
 }
 
+.deleteBTN {
+  background-color: red;
+}
+
 input.inline[type=submit] {
   width: 100%;
   background-color: #4CAF50;

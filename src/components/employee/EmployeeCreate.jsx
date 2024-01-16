@@ -61,11 +61,11 @@ export default function CreateEmployee() {
                   <legend><strong><em>PERSONAL DETAILS</em></strong></legend>
                   <div>
                       <label>Name</label>
-                      <input type="text" name="name" onChange={handleChange}/> 
+                      <input type="text" name="firstName" onChange={handleChange}/> 
                   </div>
                   <div>
                       <label>Surname</label>
-                      <input type="text" name="surname"  onChange={handleChange}/> 
+                      <input type="text" name="lastName"  onChange={handleChange}/> 
                   </div>
                   <div>
                       <label>ID Number</label>
