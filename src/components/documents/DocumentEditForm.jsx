@@ -14,7 +14,7 @@ export default function DocumentEditForm() {
     });
 
     const getDocument = async (id) => {
-        const res = await fetch(`http://localhost:5000/document/${id}`, { method: "GET", mode: "cors" });
+        const res = await fetch(`https://hris-qp6t.onrender.com/document/${id}`, { method: "GET", mode: "cors" });
         const data = await res.json();
         const result = await data.result;
         setFormData({
@@ -37,7 +37,7 @@ export default function DocumentEditForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:5000/document/${id}/update`, {
+        const response = await fetch(`https://hris-qp6t.onrender.com/document/${id}/update`, {
             method: "post",
             mode: "cors",
             headers: {

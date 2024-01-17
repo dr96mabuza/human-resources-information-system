@@ -14,7 +14,7 @@ export default function JobInfoEditForm() {
     });
 
     const getJobInfo = async (id) => {
-        const res = await fetch(`http://localhost:5000/employmentdetail/${id}`, { method: "GET", mode: "cors" });
+        const res = await fetch(`https://hris-qp6t.onrender.com/employmentdetail/${id}`, { method: "GET", mode: "cors" });
         const data = await res.json();
         const result = await data.result;
         setFormData({
@@ -39,7 +39,7 @@ export default function JobInfoEditForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:5000/employmentdetail/${id}/update`, {
+        const response = await fetch(`https://hris-qp6t.onrender.com/employmentdetail/${id}/update`, {
             method: "post",
             mode: "cors",
             headers: {

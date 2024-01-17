@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 export default function Documents() {
     const [data, setData] = useState([]);
     const fetchDocumentsList = async () => {
-        const res = await fetch(`http://localhost:5000/documents`, { method: "GET", mode: "cors" });
+        const res = await fetch(`https://hris-qp6t.onrender.com/documents`, { method: "GET", mode: "cors" });
         const data = await res.json();
         const results = await data.result;
         setData(results);
@@ -19,7 +19,7 @@ export default function Documents() {
     const handleSubmit = () => {e.preventDefault();};
 
     const deleteDocument = async (id) => {
-      const response = await fetch(`http://localhost:5000/document/${id}/delete`, {
+      const response = await fetch(`https://hris-qp6t.onrender.com/document/${id}/delete`, {
           method: "post",
           mode: "cors"
       });

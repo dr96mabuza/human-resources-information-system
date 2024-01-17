@@ -12,7 +12,7 @@ export default function Main() {
     });
 
     const fetchGetRequest = async (request) => {
-        const res = await fetch(`http://localhost:5000/${request}`, { method: "GET", mode: "cors" });
+        const res = await fetch(`https://hris-qp6t.onrender.com/${request}`, { method: "GET", mode: "cors" });
         const data = await res.json();
         return data;
     }

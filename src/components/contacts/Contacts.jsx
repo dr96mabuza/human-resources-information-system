@@ -7,7 +7,7 @@ export default function Contacts() {
     
     const [data, setData] = useState([]);
     const fetchContactsList = async () => {
-      const res = await fetch(`http://localhost:5000/contacts`, { method: "GET", mode: "cors" });
+      const res = await fetch(`https://hris-qp6t.onrender.com/contacts`, { method: "GET", mode: "cors" });
       const data = await res.json();
       const results = await data.result;
       setData(results);
@@ -20,7 +20,7 @@ export default function Contacts() {
     const handleSubmit = () => {e.preventDefault();};
 
     const deleteContact = async (id) => {
-      const response = await fetch(`http://localhost:5000/contact/${id}/delete`, {
+      const response = await fetch(`https://hris-qp6t.onrender.com/contact/${id}/delete`, {
           method: "post",
           mode: "cors"
       });

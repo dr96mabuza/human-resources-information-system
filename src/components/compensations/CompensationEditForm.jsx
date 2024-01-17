@@ -12,7 +12,7 @@ export default function CompansationForm() {
     });
 
     const getCompensation = async (id) => {
-        const res = await fetch(`http://localhost:5000/compansation/${id}`, { method: "GET", mode: "cors" });
+        const res = await fetch(`https://hris-qp6t.onrender.com/compansation/${id}`, { method: "GET", mode: "cors" });
         const data = await res.json();
         const result = await data.result;
         setFormData({
@@ -36,7 +36,7 @@ export default function CompansationForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:5000/compansation/${id}/update`, {
+        const response = await fetch(`https://hris-qp6t.onrender.com/compansation/${id}/update`, {
             method: "post",
             mode: "cors",
             headers: {

@@ -24,7 +24,7 @@ export default function CreateEmploymentDetails() {
 
     const handleEmploymentDetailsSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/employmentdetail/create", {
+        const response = await fetch("https://hris-qp6t.onrender.com/employmentdetail/create", {
             method: "post",
             mode: "cors",
             headers: {

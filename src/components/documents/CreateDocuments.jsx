@@ -22,7 +22,7 @@ export default function CreateDocument() {
 
     const handleDocumentSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/document/create", {
+        const response = await fetch("https://hris-qp6t.onrender.com/document/create", {
             method: "post",
             mode: "cors",
             headers: {

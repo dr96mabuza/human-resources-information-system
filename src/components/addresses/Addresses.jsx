@@ -6,7 +6,7 @@ import Nav from "../Nav";
 export default function Addresses() {
     const [data, setData] = useState([]);
     const fetchAddressesList = async () => {
-        const res = await fetch(`http://localhost:5000/addresses`, { method: "GET", mode: "cors" });
+        const res = await fetch(`https://hris-qp6t.onrender.com/addresses`, { method: "GET", mode: "cors" });
         const data = await res.json();
         const results = await data.result;
         setData(results);
@@ -20,7 +20,7 @@ export default function Addresses() {
     const handleSubmit = () => {e.preventDefault();};
 
     const deleteAddress = async (id) => {
-      const response = await fetch(`http://localhost:5000/address/${id}/delete`, {
+      const response = await fetch(`https://hris-qp6t.onrender.com/address/${id}/delete`, {
           method: "post",
           mode: "cors"
       });

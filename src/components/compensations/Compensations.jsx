@@ -6,7 +6,7 @@ import Nav from "../Nav";
 export default function Compensations() {
     const [data, setData] = useState([]);
     const fetchCompansationsList = async () => {
-        const res = await fetch(`http://localhost:5000/compansations`, { method: "GET", mode: "cors" });
+        const res = await fetch(`https://hris-qp6t.onrender.com/compansations`, { method: "GET", mode: "cors" });
         const data = await res.json();
         const results = await data.result;
         setData(results);

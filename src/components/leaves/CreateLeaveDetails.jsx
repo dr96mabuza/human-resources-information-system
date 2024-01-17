@@ -23,7 +23,7 @@ export default function CreateLeaveDetails() {
 
     const handleLeaveDetailsSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/leave/create", {
+        const response = await fetch("https://hris-qp6t.onrender.com/leave/create", {
             method: "post",
             mode: "cors",
             headers: {

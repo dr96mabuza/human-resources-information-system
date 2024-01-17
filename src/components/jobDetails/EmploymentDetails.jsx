@@ -6,7 +6,7 @@ import Header from "../Header";
 export default function EmployementDetails() {
     const [data, setData] = useState([]);
     const fetchJobDetailsList = async () => {
-        const res = await fetch(`http://localhost:5000/employmentdetails`, { method: "GET", mode: "cors" });
+        const res = await fetch(`https://hris-qp6t.onrender.com/employmentdetails`, { method: "GET", mode: "cors" });
         const data = await res.json();
         const results = await data.result;
         setData(results);
@@ -20,7 +20,7 @@ export default function EmployementDetails() {
     const handleSubmit = () => {e.preventDefault();};
 
     const deleteJobDetail = async (id) => {
-      const response = await fetch(`http://localhost:5000/employmentdetail/${id}/delete`, {
+      const response = await fetch(`https://hris-qp6t.onrender.com/employmentdetail/${id}/delete`, {
           method: "post",
           mode: "cors"
       });

@@ -13,7 +13,7 @@ export default function ContactEditForm() {
     });
 
     const getContact = async (id) => {
-        const res = await fetch(`http://localhost:5000/contact/${id}`, { method: "GET", mode: "cors" });
+        const res = await fetch(`https://hris-qp6t.onrender.com/contact/${id}`, { method: "GET", mode: "cors" });
         const data = await res.json();
         const result = await data.result;
         setFormData({
@@ -38,7 +38,7 @@ export default function ContactEditForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:5000/contact/${id}/update`, {
+        const response = await fetch(`https://hris-qp6t.onrender.com/contact/${id}/update`, {
             method: "post",
             mode: "cors",
             headers: {

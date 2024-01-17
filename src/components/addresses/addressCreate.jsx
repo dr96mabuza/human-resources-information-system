@@ -25,7 +25,7 @@ export default function CreateAddress() {
 
     const handleAddressSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/address/create", {
+        const response = await fetch("https://hris-qp6t.onrender.com/address/create", {
             method: "post",
             mode: "cors",
             headers: {

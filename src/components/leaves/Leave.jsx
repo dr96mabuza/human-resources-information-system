@@ -6,7 +6,7 @@ import Header from "../Header";
 export default function Leave() {
     const [data, setData] = useState([]);
     const fetchLeaveList = async () => {
-        const res = await fetch(`http://localhost:5000/leaves`, { method: "GET", mode: "cors" });
+        const res = await fetch(`https://hris-qp6t.onrender.com/leaves`, { method: "GET", mode: "cors" });
         const data = await res.json();
         const results = await data.result;
         setData(results);

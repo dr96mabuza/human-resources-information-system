@@ -23,7 +23,7 @@ export default function CreateCompensation() {
 
     const handleCompensationSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/compansation/create", {
+        const response = await fetch("https://hris-qp6t.onrender.com/compansation/create", {
             method: "post",
             mode: "cors",
             headers: {
