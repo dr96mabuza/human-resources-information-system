@@ -26,6 +26,7 @@ import CreateDocument from './components/documents/CreateDocuments.jsx'
 import CreateContact from './components/contacts/createContact.jsx'
 import Nav from './components/Nav.jsx'
 import Header from './components/Header.jsx'
+import PageNotFound from './components/404.jsx'
 
 const getRequest = async (route) => {
   const res = await fetch(route, { method: "GET", mode: "cors" });
@@ -50,13 +51,15 @@ const postRequest = async (route, data) => {
 
 }
 const parentRoutes = [
-  [
-    {
-      // Home path
-      path: "/",
-      element: <App />
-    }
-  ],
+  {
+    // Home path
+    path: "/",
+    element: <App />
+  },
+  {
+    path: "*",
+    element: <PageNotFound />
+  },
   {
     // display all employees list
     path: "employees",
@@ -193,8 +196,8 @@ const createRoutes = [
     path: "address/:employeeId/create",
     element: <CreateAddress 
       nav={<Nav />} 
-        header={<Header />} 
-        postRequest={postRequest}
+      header={<Header />} 
+      postRequest={postRequest}
     />
   },
   {

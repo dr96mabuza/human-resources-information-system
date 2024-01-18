@@ -141,3 +141,15 @@ div.stacktrace {
   font-size: small;
   font-family: monospace;
 }
+
+#pageNotFound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#pageNotFound > button a {
+  text-decoration: none;
+}
