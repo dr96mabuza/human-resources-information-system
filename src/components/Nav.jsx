@@ -1,4 +1,4 @@
-export default function Nav() {
+export default function Nav({name, link}) {
     return (
         <div id="nav">
             <nav>
@@ -10,7 +10,7 @@ export default function Nav() {
                 <a href="/employmentdetails">job details</a>
                 <a href="/leaves">Time off</a>
             </nav>
-            <a href="/employee/create"><button type="submit">Add Employee</button></a>
+            {!name && !link? (<></>) : (<a href={link}><button type="submit">{name}</button></a>)}
         </div>
 
     );

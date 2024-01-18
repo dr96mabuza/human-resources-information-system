@@ -1,19 +1,18 @@
 import { useState } from "react";
-import Header from "../Header";
-import Nav from "../Nav";
 import { Link, useParams } from "react-router-dom";
 
-export default function CreateAddress() {
+export default function CreateAddress({ nav, header, postRequest }) {
     const {employeeId} = useParams();
     const [addressSuccess, setAddressSuccess] = useState(false);
-    const [addressForm, setAddressForm] = useState({
+    const defaultState = {
         street: "",
         suburb: "",
         city: "",
         province: "",
         postalCode: 0,
         employeeId: !employeeId? 0 : Number(employeeId)
-    });     
+    };
+    const [addressForm, setAddressForm] = useState(defaultState);     
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,33 +24,18 @@ export default function CreateAddress() {
 
     const handleAddressSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("https://hris-qp6t.onrender.com/address/create", {
-            method: "post",
-            mode: "cors",
-            headers: {
-                "content-Type": "application/json"
-            },
-            body: JSON.stringify(addressForm)
-        });
-        const addressPostJson = await response.json();
+        const addressPostJson = await postRequest("https://hris-qp6t.onrender.com/address/create", addressForm);
 
         if (addressPostJson.status === "ok") {
             setAddressSuccess(true);
-            setAddressForm({
-                street: "",
-                suburb: "",
-                city: "",
-                province: "",
-                postalCode: 0,
-                employeeId: 0
-            });
+            setAddressForm(defaultState);
         }
     }
 
     return (
         <>
-            <Header />
-            <Nav />
+            {header}
+            {nav}
             {!addressSuccess? (
                 <form>
                     <legend><em><strong>ADD NEW ADDRESS</strong></em></legend>

@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Nav from "../Nav";
-import Header from "../Header";
 
-export default function PersonalInfoEditForm() {
+export default function PersonalInfoEditForm({nav, header, getRequest, postRequest}) {
     const {id} = useParams();
-    const [formData, setFormData] = useState({
+    const defaultState = {
         firstName: "",
         lastName: "",
         idNumber: "",
         gender: "",
         dateOfBirth: ""
-    });
+    };
+    const [formData, setFormData] = useState(defaultState);
 
     const getPersonalInfo = async (id) => {
-        const res = await fetch(`https://hris-qp6t.onrender.com/employee/${id}`, { method: "GET", mode: "cors" });
-        const data = await res.json();
-        const result = await data.result;
+        const result = await getRequest(`https://hris-qp6t.onrender.com/employee/${id}`);
         setFormData({
             firstName: await result[0].firstName,
             lastName: await result[0].lastName,
@@ -40,25 +37,18 @@ export default function PersonalInfoEditForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(`https://hris-qp6t.onrender.com/employee/${id}/update`, {
-            method: "post",
-            mode: "cors",
-            headers: {
-                "content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        });
-        const resJson = await response.json();
+        
+        const resJson = await postRequest(`https://hris-qp6t.onrender.com/employee/${id}/update`, formData);
         console.log(resJson)
-        // if ( resJson.status === "ok") {
-        //     setSuccess(true);
-        // }
+        if ( resJson.status === "ok") {
+            setFormData(defaultState);
+        }
     }
 
     return (
         <>
-        <Header />
-        <Nav />
+        {header}
+        {nav}
         <div /*style={{display:"none"}}*/ className="modal">
             <form>
                 <legend>Edit Personal Information</legend>

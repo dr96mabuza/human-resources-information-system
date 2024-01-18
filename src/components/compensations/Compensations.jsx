@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../Header";
-import Nav from "../Nav";
 
-export default function Compensations() {
+export default function Compensations({nav, header, getRequest}) {
     const [data, setData] = useState([]);
     const fetchCompansationsList = async () => {
-        const res = await fetch(`https://hris-qp6t.onrender.com/compansations`, { method: "GET", mode: "cors" });
-        const data = await res.json();
-        const results = await data.result;
-        setData(results);
-
+      const results = await getRequest(`https://hris-qp6t.onrender.com/compansations`);
+      setData(results);
     }
 
     useEffect(() => {
@@ -19,8 +14,8 @@ export default function Compensations() {
 
     return (
       <>
-        <Header />
-        <Nav />
+        {header}
+        {nav}
         <table>
           <thead>
             <tr>

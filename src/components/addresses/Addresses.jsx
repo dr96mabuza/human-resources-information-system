@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 import Header from "../Header";
 import Nav from "../Nav";
 
-export default function Addresses() {
+export default function Addresses({nav, header, getRequest, postRequest}) {
     const [data, setData] = useState([]);
     const fetchAddressesList = async () => {
-        const res = await fetch(`https://hris-qp6t.onrender.com/addresses`, { method: "GET", mode: "cors" });
-        const data = await res.json();
-        const results = await data.result;
-        setData(results);
-
+      const results = await getRequest(`https://hris-qp6t.onrender.com/addresses`);
+      setData(results);
     }
 
     useEffect(() => {
@@ -20,12 +17,7 @@ export default function Addresses() {
     const handleSubmit = () => {e.preventDefault();};
 
     const deleteAddress = async (id) => {
-      const response = await fetch(`https://hris-qp6t.onrender.com/address/${id}/delete`, {
-          method: "post",
-          mode: "cors"
-      });
-      const resJson = await response.json();
-
+      const resJson = await postRequest(`https://hris-qp6t.onrender.com/address/${id}/delete`, {});
       if (resJson.status === "ok") {
         fetchAddressesList()
       }
@@ -33,9 +25,8 @@ export default function Addresses() {
 
     return (
       <>
-      
-      <Header />
-        <Nav />
+        {header}
+        {nav}
         <table>
         <thead>
           <tr>

@@ -3,12 +3,10 @@ import Nav from "../Nav";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-export default function Documents() {
+export default function Documents({nav, header, getRequest, postRequest}) {
     const [data, setData] = useState([]);
     const fetchDocumentsList = async () => {
-        const res = await fetch(`https://hris-qp6t.onrender.com/documents`, { method: "GET", mode: "cors" });
-        const data = await res.json();
-        const results = await data.result;
+        const results = await getRequest(`https://hris-qp6t.onrender.com/documents`);
         setData(results);
     }
 
@@ -19,11 +17,7 @@ export default function Documents() {
     const handleSubmit = () => {e.preventDefault();};
 
     const deleteDocument = async (id) => {
-      const response = await fetch(`https://hris-qp6t.onrender.com/document/${id}/delete`, {
-          method: "post",
-          mode: "cors"
-      });
-      const resJson = await response.json();
+      const resJson = await postRequest(`https://hris-qp6t.onrender.com/document/${id}/delete`, {});
 
       if (resJson.status === "ok") {
         fetchDocumentsList()
@@ -32,8 +26,8 @@ export default function Documents() {
 
     return (
         <>
-        <Header />
-        <Nav />
+        {header}
+        {nav}
         <table>
           <thead>
             <tr>

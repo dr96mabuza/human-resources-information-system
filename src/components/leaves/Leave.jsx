@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 import Nav from "../Nav";
 import Header from "../Header";
 
-export default function Leave() {
+export default function Leave({header, nav, getRequest}) {
     const [data, setData] = useState([]);
     const fetchLeaveList = async () => {
-        const res = await fetch(`https://hris-qp6t.onrender.com/leaves`, { method: "GET", mode: "cors" });
-        const data = await res.json();
-        const results = await data.result;
-        setData(results);
-
+      const results = await getRequest(`https://hris-qp6t.onrender.com/leaves`);
+      setData(results);
     }
 
     useEffect(() => {
@@ -20,8 +17,8 @@ export default function Leave() {
     return (
       <>
       
-      <Header />
-        <Nav />
+        {header}
+        {nav}
         <table>
         <thead>
           <tr>

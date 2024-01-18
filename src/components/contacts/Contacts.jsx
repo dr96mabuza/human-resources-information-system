@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 import Header from "../Header";
 import Nav from "../Nav";
 
-export default function Contacts() {
+export default function Contacts({nav, header, getRequest, postRequest}) {
     
     const [data, setData] = useState([]);
     const fetchContactsList = async () => {
-      const res = await fetch(`https://hris-qp6t.onrender.com/contacts`, { method: "GET", mode: "cors" });
-      const data = await res.json();
-      const results = await data.result;
+      const results = await getRequest(`https://hris-qp6t.onrender.com/contacts`);
       setData(results);
     }
 
@@ -20,11 +18,7 @@ export default function Contacts() {
     const handleSubmit = () => {e.preventDefault();};
 
     const deleteContact = async (id) => {
-      const response = await fetch(`https://hris-qp6t.onrender.com/contact/${id}/delete`, {
-          method: "post",
-          mode: "cors"
-      });
-      const resJson = await response.json();
+      const resJson = await postRequest(`https://hris-qp6t.onrender.com/contact/${id}/delete`, {});
 
       if (resJson.status === "ok") {
         fetchContactsList()
@@ -33,8 +27,8 @@ export default function Contacts() {
 
     return (
         <>
-        <Header />
-        <Nav />
+        {header}
+        {nav}
         <table>
         <thead>
           <tr>

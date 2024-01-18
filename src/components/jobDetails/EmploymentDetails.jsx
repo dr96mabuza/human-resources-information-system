@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 import Nav from "../Nav";
 import Header from "../Header";
 
-export default function EmployementDetails() {
+export default function EmployementDetails({header, nav, postRequest, getRequest}) {
     const [data, setData] = useState([]);
     const fetchJobDetailsList = async () => {
-        const res = await fetch(`https://hris-qp6t.onrender.com/employmentdetails`, { method: "GET", mode: "cors" });
-        const data = await res.json();
-        const results = await data.result;
-        setData(results);
-
+      const results = await getRequest(`https://hris-qp6t.onrender.com/employmentdetails`);
+      setData(results);
     }
 
     useEffect(() => {
@@ -20,11 +17,7 @@ export default function EmployementDetails() {
     const handleSubmit = () => {e.preventDefault();};
 
     const deleteJobDetail = async (id) => {
-      const response = await fetch(`https://hris-qp6t.onrender.com/employmentdetail/${id}/delete`, {
-          method: "post",
-          mode: "cors"
-      });
-      const resJson = await response.json();
+      const resJson = await postRequest(`https://hris-qp6t.onrender.com/employmentdetail/${id}/delete`, {});
 
       if (resJson.status === "ok") {
         fetchJobDetailsList()
@@ -34,8 +27,8 @@ export default function EmployementDetails() {
     return (
       <>
       
-      <Header />
-        <Nav />
+        {header}
+        {nav}
         <table>
         <thead>
           <tr>

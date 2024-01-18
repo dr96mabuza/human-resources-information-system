@@ -1,42 +1,40 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Nav from "../Nav";
-import Header from "../Header";
 
-export default function Employee() {
-    const [data, setData] = useState([]);
-    const fetchEmployeesList = async () => {
-        const res = await fetch(`https://hris-qp6t.onrender.com/employees`, { method: "GET", mode: "cors" });
-        const data = await res.json();
-        const results = await data.result;
-        setData(results);
+export default function Employee({ nav, header, getRequest, postRequest }) {
+  const [data, setData] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getRequest(
+        "https://hris-qp6t.onrender.com/employees"
+      );
+      setData(result);
+    };
+
+    fetchData();
+
+    return () => {};
+  }, [getRequest]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const deleteEmployee = async (id) => {
+    const resJson = await postRequest(`https://hris-qp6t.onrender.com/employee/${id}/delete`, {});
+    if (resJson.status === "ok") {
+      setData(await getRequest(
+        "https://hris-qp6t.onrender.com/employees"
+      ));
     }
+  };
 
-    useEffect(() => {
-        fetchEmployeesList();
-    }, []);
-
-    const handleSubmit = () => {e.preventDefault();};
-
-    const deleteEmployee = async (id) => {
-        const response = await fetch(`https://hris-qp6t.onrender.com/employee/${id}/delete`, {
-            method: "post",
-            mode: "cors"
-        });
-        const resJson = await response.json();
-
-        if (resJson.status === "ok") {
-          fetchEmployeesList()
-        }
-    }
-
-    return (
-      <>
-      
-      <Header />
-        <Nav />
-        <table>
+  return (
+    <>
+      {header}
+      {nav}
+      <table>
         <thead>
           <tr>
             <th>Name</th>
@@ -54,12 +52,28 @@ export default function Employee() {
               <td>{person.idNumber}</td>
               <td>{person.gender}</td>
               <td>{person.dateOfBirth}</td>
-              <td><Link to={`/employee/${person.id}/update`}><button type="submit">EDIT</button></Link></td>
-              <td><button className="deleteBTN" onClick={() => {deleteEmployee(person.id)}} onSubmit={handleSubmit} type="submit">DELETE</button></td>
-              </tr>
+              <td>
+                <Link to={`/employee/${person.id}/update`}>
+                  <button type="submit">EDIT</button>
+                </Link>
+              </td>
+              <td>
+                <button
+                  className="deleteBTN"
+                  onClick={() => {
+                    deleteEmployee(person.id);
+                  }}
+                  onSubmit={handleSubmit}
+                  type="submit"
+                >
+                  DELETE
+                </button>
+              </td>
+            </tr>
           ))}
         </tbody>
         <tfoot></tfoot>
-      </table></>
-    );
+      </table>
+    </>
+  );
 }

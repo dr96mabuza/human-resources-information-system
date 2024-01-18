@@ -1,19 +1,18 @@
 import { useState } from "react";
-import Header from "../Header";
-import Nav from "../Nav";
 import { Link } from "react-router-dom";
 
-export default function CreateEmployee() {
+export default function CreateEmployee({ nav, header, postRequest }) {
     const [employeeSuccess, setEmployeeSuccess] = useState(false);
     const [id, setId] = useState(0);
-    const [employeeForm, setEmployeeForm] = useState({
+    const defaultState = {
         firstName: "",
         lastName: "",
         idNumber: "",
         gender: "",
         dateOfBirth: "",
         passwordSalt: ""
-    });     
+    }
+    const [employeeForm, setEmployeeForm] = useState(defaultState);     
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,37 +24,18 @@ export default function CreateEmployee() {
 
     const handleEmployeeSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("https://hris-qp6t.onrender.com/employee/create", {
-            method: "post",
-            mode: "cors",
-            headers: {
-                "content-Type": "application/json"
-            },
-            body: JSON.stringify(employeeForm)
-        });
-        const employeePostJson = await response.json();
+        const employeePostJson = await postRequest("https://hris-qp6t.onrender.com/employee/create", {});
         if (employeePostJson.status === "ok") {
             setEmployeeSuccess(true);
             setId(employeePostJson.result.insertId);
-            setEmployeeForm({
-                firstName: "",
-                lastName: "",
-                idNumber: "",
-                gender: "",
-                dateOfBirth: "",
-                passwordSalt: ""
-            });
+            setEmployeeForm(defaultState);
         }
-    }
-
-    const handleRedirect = () => {
-        setId(0);
     }
 
     return (
         <>
-        <Header />
-        <Nav />
+        {header}
+        {nav}
         {!employeeSuccess? (
                   <form method="post">
                   <legend><strong><em>PERSONAL DETAILS</em></strong></legend>
