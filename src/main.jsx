@@ -48,8 +48,19 @@ const postRequest = async (route, data) => {
     }
   );
   return await response.json();
-
 }
+
+const getEmployeeNamesList = async (data) => {
+  const employeeNames = await Promise.all(
+    data.map(async (item) => {
+      const results = await getRequest(`https://hris-qp6t.onrender.com/employee/${item.employeeId}`);
+      return `${results[0].firstName} ${results[0].lastName}`;
+    })
+  );
+
+  return employeeNames;
+}
+
 const parentRoutes = [
   {
     // Home path
@@ -90,6 +101,7 @@ const parentRoutes = [
         header={<Header />}
         getRequest={getRequest}
         postRequest={postRequest}
+        getEmployeeNamesList={getEmployeeNamesList}
       />
   },
   {
@@ -105,6 +117,7 @@ const parentRoutes = [
       header={<Header />}
       getRequest={getRequest}
       postRequest={postRequest}
+      getEmployeeNamesList={getEmployeeNamesList}
     />
   },
   {
@@ -119,6 +132,7 @@ const parentRoutes = [
       } 
       header={<Header />}
       getRequest={getRequest}
+      getEmployeeNamesList={getEmployeeNamesList}
     />
   },
   {
@@ -134,6 +148,7 @@ const parentRoutes = [
       header={<Header />}
       getRequest={getRequest}
       postRequest={postRequest}
+      getEmployeeNamesList={getEmployeeNamesList}
     />
   },
   {
@@ -147,7 +162,10 @@ const parentRoutes = [
       />
     } 
     header={<Header />}
-    getRequest={getRequest}/>
+    getRequest={getRequest}
+    getEmployeeNamesList={getEmployeeNamesList}
+    />
+    
   },
   {
     // display all payroll packages
@@ -161,6 +179,7 @@ const parentRoutes = [
       } 
       header={<Header />}
       getRequest={getRequest}
+      getEmployeeNamesList={getEmployeeNamesList}
     />
   }
 ];

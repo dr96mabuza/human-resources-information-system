@@ -1,18 +1,26 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Header from "../Header";
-import Nav from "../Nav";
 
-export default function Addresses({nav, header, getRequest, postRequest}) {
+export default function Addresses({nav, header, getRequest, postRequest, getEmployeeNamesList}) {
     const [data, setData] = useState([]);
+    const [employeeNames, setEmployeeNames] = useState([]);
     const fetchAddressesList = async () => {
       const results = await getRequest(`https://hris-qp6t.onrender.com/addresses`);
       setData(results);
     }
 
     useEffect(() => {
-        fetchAddressesList();
+      fetchAddressesList();
     }, []);
+
+    useEffect(() => {
+      const getEmployeeNames = async () => {
+        const employeeNamesList = await getEmployeeNamesList(data);
+        setEmployeeNames(employeeNamesList);
+      };
+
+      getEmployeeNames();
+    }, [data]);
 
     const handleSubmit = () => {e.preventDefault();};
 
@@ -21,7 +29,7 @@ export default function Addresses({nav, header, getRequest, postRequest}) {
       if (resJson.status === "ok") {
         fetchAddressesList()
       }
-  }
+    }
 
     return (
       <>
@@ -35,20 +43,20 @@ export default function Addresses({nav, header, getRequest, postRequest}) {
             <th>City</th>
             <th>Province</th>
             <th>Postal Code</th>
-            <th>Employee ID</th>
+            <th>Employee</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((address) => (
+          {data.map((address, index) => (
             <tr key={address.id}>
               <td>{address.street}</td>
               <td>{address.suburb}</td>
               <td>{address.city}</td>
               <td>{address.province}</td>
               <td>{address.postalCode}</td>
-              <td><Link to={`/employee/${address.employeeId}`}>{address.employeeId}</Link></td>
-                <td><Link to={`/address/${address.id}/update`}><button type="submit">EDIT</button></Link></td>
-                <td><button className="deleteBTN" onClick={() => {deleteAddress(address.id)}} onSubmit={handleSubmit} type="submit">DELETE</button></td>
+              <td><Link to={`/employee/${address.employeeId}`}>{employeeNames[index]}</Link></td>
+              <td><Link to={`/address/${address.id}/update`}><button type="submit">EDIT</button></Link></td>
+              <td><button className="deleteBTN" onClick={() => {deleteAddress(address.id)}} onSubmit={handleSubmit} type="submit">DELETE</button></td>
               </tr>
           ))}
         </tbody>

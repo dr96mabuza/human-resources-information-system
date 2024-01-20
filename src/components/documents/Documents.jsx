@@ -3,8 +3,9 @@ import Nav from "../Nav";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-export default function Documents({nav, header, getRequest, postRequest}) {
+export default function Documents({nav, header, getRequest, postRequest, getEmployeeNamesList}) {
     const [data, setData] = useState([]);
+    const [employeeNames, setEmployeeNames] = useState([]);
     const fetchDocumentsList = async () => {
         const results = await getRequest(`https://hris-qp6t.onrender.com/documents`);
         setData(results);
@@ -13,6 +14,15 @@ export default function Documents({nav, header, getRequest, postRequest}) {
     useEffect(() => {
         fetchDocumentsList();
     }, []);
+
+    useEffect(() => {
+      const getEmployeeNames = async () => {
+        const employeeNamesList = await getEmployeeNamesList(data);
+        setEmployeeNames(employeeNamesList);
+      };
+
+      getEmployeeNames();
+    }, [data]);
 
     const handleSubmit = () => {e.preventDefault();};
 
@@ -33,15 +43,15 @@ export default function Documents({nav, header, getRequest, postRequest}) {
             <tr>
               <th>name</th>
               <th>content</th>
-              <th>Employee ID</th>
+              <th>Employee</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((doc) => (
+            {data.map((doc, index) => (
               <tr key={doc.id}>
                 <td>{doc.documentName}</td>
                 <td>{}</td>
-                <td><Link to={`/employee/${doc.employeeId}`}>{doc.employeeId}</Link></td>
+                <td><Link to={`/employee/${doc.employeeId}`}>{employeeNames[index]}</Link></td>
                 <td><Link to={`/document/${doc.id}/update`}><button type="submit">EDIT</button></Link></td>
                 <td><button className="deleteBTN" onClick={() => {deleteDocument(doc.id)}} onSubmit={handleSubmit} type="submit">DELETE</button></td>
               </tr>
