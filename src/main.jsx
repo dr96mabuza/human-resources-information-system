@@ -61,6 +61,15 @@ const getEmployeeNamesList = async (data) => {
   return employeeNames;
 }
 
+const fetchEmployees = async () => {
+  const employees = await getRequest("https://hris-qp6t.onrender.com/employees");
+  const result = await Promise.all(employees.map((employee) => {
+      return {id: employee.id, fullname: `${employee.firstName} ${employee.lastName}`};
+  }));
+  // console.log(result);
+  return result;
+};
+
 const parentRoutes = [
   {
     // Home path
@@ -193,20 +202,40 @@ const parentRoutes = [
 
 const createRoutes = [
   {
-    path: "contact/:employeeId/create",
-    element: <CreateContact />
+    path: "contact/create",
+    element: <CreateContact 
+      nav={<Nav />} 
+      header={<Header />} 
+      postRequest={postRequest}
+      fetchEmployees={fetchEmployees} 
+    />
   },
   {
-    path: "document/:employeeId/create",
-    element: <CreateDocument />
+    path: "document/create",
+    element: <CreateDocument
+      nav={<Nav />} 
+      header={<Header />} 
+      postRequest={postRequest}
+      fetchEmployees={fetchEmployees} 
+    />
   },
   {
-    path: "leave/:employeeId/create",
-    element: <CreateLeaveDetails />
+    path: "leave/create",
+    element: <CreateLeaveDetails 
+      nav={<Nav />} 
+      header={<Header />} 
+      postRequest={postRequest}
+      fetchEmployees={fetchEmployees} 
+    />
   },
   {
-    path: "employmentdetail/:employeeId/create",
-    element: <CreateEmploymentDetails />
+    path: "employmentdetail/create",
+    element: <CreateEmploymentDetails 
+      nav={<Nav />} 
+      header={<Header />} 
+      postRequest={postRequest}
+      fetchEmployees={fetchEmployees} 
+    />
   },
   {
     // create new employee
@@ -219,16 +248,22 @@ const createRoutes = [
   },
   {
     // create employee address 
-    path: "address/:employeeId/create",
+    path: "address/create",
     element: <CreateAddress 
       nav={<Nav />} 
       header={<Header />} 
       postRequest={postRequest}
+      fetchEmployees={fetchEmployees}
     />
   },
   {
-    path: "compensation/:employeeId/create",
-    element: <CreateCompensation />
+    path: "compensation/create",
+    element: <CreateCompensation
+      nav={<Nav />} 
+      header={<Header />} 
+      postRequest={postRequest}
+      fetchEmployees={fetchEmployees} 
+    />
   }
 ];
 

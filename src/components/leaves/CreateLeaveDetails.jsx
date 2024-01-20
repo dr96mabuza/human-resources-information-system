@@ -1,16 +1,14 @@
-import { useState } from "react";
-import Header from "../Header";
-import Nav from "../Nav";
-import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function CreateLeaveDetails() {
-    const {employeeId} = useParams();
-    const [leaveDetailsSuccess, setLeaveDetailsSuccess] = useState(false);
+export default function CreateLeaveDetails({nav, header, postRequest, fetchEmployees }) {
+    const navigate = useNavigate();
+    const [employeeNames, setEmployeeNames] = useState([]);
     const [leaveDetailsForm, setLeaveDetailsForm] = useState({
         balance: 0,
         daysAbsent: 0,
         reportsTo: 0,
-        employeeId: !employeeId? 0 : Number(employeeId)
+        employeeId: 0
     });     
 
     const handleChange = (e) => {
@@ -23,15 +21,7 @@ export default function CreateLeaveDetails() {
 
     const handleLeaveDetailsSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("https://hris-qp6t.onrender.com/leave/create", {
-            method: "post",
-            mode: "cors",
-            headers: {
-                "content-Type": "application/json"
-            },
-            body: JSON.stringify(leaveDetailsForm)
-        });
-        const leaveDetailsPostJson = await response.json();
+        const leaveDetailsPostJson = await postRequest("https://hris-qp6t.onrender.com/leave/create", leaveDetailsForm);
         if (leaveDetailsPostJson.status === "ok") {
             setLeaveDetailsSuccess(true);
             setLeaveDetailsForm({
@@ -40,29 +30,44 @@ export default function CreateLeaveDetails() {
                 reportsTo: 0,
                 employeeId: 0
             });
+            navigate("/leaves");
         }
     }
 
+    useEffect(() => {
+        const requestData = async () => {
+            try {
+                const res = await fetchEmployees();
+                setEmployeeNames(res);
+            } catch (error) {
+                console.log("Error fetching employees:", error);
+            }
+        };
+    
+        requestData();
+    }, [fetchEmployees]);
+
     return (
         <>
-        <Header />
-        <Nav />
-        {!leaveDetailsSuccess? (
+        {header}
+        {nav}
             <form>
                 <legend><em><strong>ADD NEW LEAVE DETAILS</strong></em></legend>
+                <div>
+                    <label>Employee</label>
+                        <select name="employeeId" onChange={handleChange}>
+                            <option key="0" >Select an Option</option>
+                            {employeeNames.map((name) => {
+                                return <option key={name.id} value={name.id}>{name.fullname}</option>
+                            })}
+                    </select>
+                </div>
                 <div>
                     <label>Available days</label>
                     <input type="number" name="balance" onChange={handleChange}/> 
                 </div>
                     <button type="submit" onClick={handleLeaveDetailsSubmit}>Submit</button>
             </form>
-        ) : (
-           <div>
-            <h3>Leave Details Successfully Added</h3>
-            <p onClick={handleRedirect}><Link to={`/employmentdetail/${employeeId}/create`}>Click here!</Link> to add a job details.</p>
-            <p onClick={handleRedirect}><Link to="/">Click here</Link> to go home.</p>
-           </div>
-        )}
         </>
     );
 }

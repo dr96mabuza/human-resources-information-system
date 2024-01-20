@@ -1,41 +1,30 @@
-import { useState } from "react";
-import Header from "../Header";
-import Nav from "../Nav";
-import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function CreateContact() {
-    const {employeeId} = useParams();
-    const [contactSuccess, setContactSuccess] = useState(false);
+export default function CreateContact({nav, header, postRequest, fetchEmployees }) {
+    const navigate = useNavigate();
+    const [employeeNames, setEmployeeNames] = useState([]);
     const [contactForm, setContactForm] = useState({
         email: "",
         cellphoneNumber: "",
         companyEmail: "",
         alternateNumber: "",
-        employeeId: !employeeId? 0 : Number(employeeId)
+        employeeId: 0
     });     
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setContactForm((prevData) => ({
             ...prevData,
-            [name]: value,
+            [name]: name === "employeeId"? Number(value): value,
         }));
     }
 
     const handleContactSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("https://hris-qp6t.onrender.com/contact/create", {
-            method: "post",
-            mode: "cors",
-            headers: {
-                "content-Type": "application/json"
-            },
-            body: JSON.stringify(contactForm)
-        });
-        const contactPostJson = await response.json();
+        const contactPostJson = await postRequest("https://hris-qp6t.onrender.com/contact/create", contactForm);
 
         if (contactPostJson.status === "ok") {
-            setContactSuccess(true);
             setContactForm({
                 email: "",
                 cellphoneNumber: "",
@@ -43,16 +32,38 @@ export default function CreateContact() {
                 alternateNumber: "",
                 employeeId: 0
             });
+            navigate("/contacts")
         }
     }
 
+    useEffect(() => {
+        const requestData = async () => {
+            try {
+                const res = await fetchEmployees();
+                setEmployeeNames(res);
+            } catch (error) {
+                console.log("Error fetching employees:", error);
+            }
+        };
+        requestData();
+    }, [fetchEmployees]);
+
     return (
         <>
-        <Header />
-        <Nav />
-        {!contactSuccess? (
+            {header}
+            {nav}
+        
             <form>
                <legend><em><strong>ADD NEW CONTACT</strong></em></legend>
+               <div>
+                    <label>Employee</label>
+                        <select name="employeeId" onChange={handleChange}>
+                            <option key="0" >Select an Option</option>
+                            {employeeNames.map((name) => {
+                                return <option key={name.id} value={name.id}>{name.fullname}</option>
+                            })}
+                    </select>
+                </div>
                <div>
                     <label>Email</label>
                     <input type="text" name="email" onChange={handleChange}/>    
@@ -71,17 +82,6 @@ export default function CreateContact() {
                 </div>
                <button type="submit" onClick={handleContactSubmit}>Submit</button>
             </form>
-        ) : (
-            <div>
-                <h3>Contact Successfully added</h3>
-                <p onClick={handleRedirect}>
-                    <Link to={`/compensation/${employeeId}/create`}>
-                        Click here
-                    </Link> to add compensation details for employee: {employeeId}
-                    </p>
-                <p onClick={handleRedirect}><Link>Click here</Link> to go home</p>
-           </div>
-        )}
         </>
     );
 }
