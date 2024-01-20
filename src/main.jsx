@@ -80,6 +80,7 @@ const parentRoutes = [
           <Nav 
             name={"Add Employee"} 
             link={"employee/create"}
+            location={"/employees"}
           />
         } 
         header={<Header />}
@@ -96,6 +97,7 @@ const parentRoutes = [
           <Nav 
             name={"Add Contact"} 
             link={"contact/create"}
+            location={"/contacts"}
           />
         } 
         header={<Header />}
@@ -112,6 +114,7 @@ const parentRoutes = [
         <Nav 
           name={"Add Document"} 
           link={"document/create"}
+          location={"/documents"}
         />
       } 
       header={<Header />}
@@ -128,6 +131,7 @@ const parentRoutes = [
         <Nav 
           name={"Add Leave"} 
           link={"leave/create"}
+          location={"/leaves"}
         />
       } 
       header={<Header />}
@@ -143,6 +147,7 @@ const parentRoutes = [
         <Nav 
           name={"Add Address"} 
           link={"address/create"}
+          location={"/addresses"}
         />
       } 
       header={<Header />}
@@ -159,6 +164,7 @@ const parentRoutes = [
       <Nav 
         name={"Add Employment Detail"} 
         link={"employmentdetail/create"}
+        location={"/employmentdetails"}
       />
     } 
     header={<Header />}
@@ -175,6 +181,7 @@ const parentRoutes = [
         <Nav 
           name={"Add Compensation"} 
           link={"compensation/create"}
+          location={"/compensations"}
         />
       } 
       header={<Header />}

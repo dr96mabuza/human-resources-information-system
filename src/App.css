@@ -86,23 +86,33 @@ button[type=submit]:hover {
   background-color: #45a049;
 }
 
-nav {
+ul {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
   margin-bottom: 2em;
   margin-top: 1em;
+  padding: 0%;
 }
 
-nav a {
+a {
+  color: black;
+  /* pointer-events: none; */
+  text-decoration: none;
+}
+
+ul li {
   display: block;
   padding: 5px 15px;
   text-align: center;
   color: #464141;
+  
 }
 
-nav a:hover {
+ul li:hover, ul li a:hover {
   background-color: #4CAF50;
   color: #ffffff;
+  
 }
 
 table {
