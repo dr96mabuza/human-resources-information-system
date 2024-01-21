@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Icon from "@mdi/react";
+import {
+  mdiDeleteCircleOutline,
+  mdiOpenInNew,
+  mdiFileEditOutline,
+} from "@mdi/js";
 
 export default function Employee({ nav, header, getRequest, postRequest }) {
   const [data, setData] = useState([]);
@@ -7,7 +13,7 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getRequest(
-        "https://hris-qp6t.onrender.com/employees"
+        "https://hris-qp6t.onrender.com/employees",
       );
       setData(result);
     };
@@ -22,58 +28,69 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
   };
 
   const deleteEmployee = async (id) => {
-    const resJson = await postRequest(`https://hris-qp6t.onrender.com/employee/${id}/delete`, {});
+    const resJson = await postRequest(
+      `https://hris-qp6t.onrender.com/employee/${id}/delete`,
+      {},
+    );
     if (resJson.status === "ok") {
-      setData(await getRequest(
-        "https://hris-qp6t.onrender.com/employees"
-      ));
+      setData(await getRequest("https://hris-qp6t.onrender.com/employees"));
     }
   };
 
   return (
-    <>
-      {header}
+    <div className="main">
+      {/* {header} */}
       {nav}
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>ID Number</th>
-            <th>Gender</th>
-            <th>Date of birth</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((person) => (
-            <tr key={person.id}>
-              <td>{person.firstName}</td>
-              <td>{person.lastName}</td>
-              <td>{person.idNumber}</td>
-              <td>{person.gender}</td>
-              <td>{person.dateOfBirth}</td>
-              <td>
-                <Link to={`/employee/${person.id}/update`}>
-                  <button type="submit">EDIT</button>
-                </Link>
-              </td>
-              <td>
-                <button
-                  className="deleteBTN"
-                  onClick={() => {
-                    deleteEmployee(person.id);
-                  }}
-                  onSubmit={handleSubmit}
-                  type="submit"
-                >
-                  DELETE
-                </button>
-              </td>
+      <div className="content">
+        <div>
+          <a href="/employee/create">
+            <button type="submit">CREATE EMPLOYEE</button>
+          </a>
+        </div>
+        <h4>Employees</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>ID Number</th>
+              <th>Gender</th>
+              <th>Date of birth</th>
             </tr>
-          ))}
-        </tbody>
-        <tfoot></tfoot>
-      </table>
-    </>
+          </thead>
+          <tbody>
+            {data.map((person) => (
+              <tr key={person.id}>
+                <td>{person.firstName}</td>
+                <td>{person.lastName}</td>
+                <td>{person.idNumber}</td>
+                <td>{person.gender}</td>
+                <td>{person.dateOfBirth}</td>
+                <td>
+                  <Link>
+                    <Icon path={mdiOpenInNew} size={1} />
+                  </Link>
+                  <Link to={`/employee/${person.id}/update`}>
+                    <Icon path={mdiFileEditOutline} size={1} />
+                  </Link>
+
+                  <Icon
+                    path={mdiDeleteCircleOutline}
+                    size={1}
+                    className="deleteBTN"
+                    onClick={() => {
+                      deleteEmployee(person.id);
+                    }}
+                    onSubmit={handleSubmit}
+                    type="submit"
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot></tfoot>
+        </table>
+      </div>
+    </div>
   );
 }
