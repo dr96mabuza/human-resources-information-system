@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 
 export default function CreateAddress({
   nav,
@@ -68,49 +70,54 @@ export default function CreateAddress({
     <div className="main">
       {/* {header} */}
       {nav}
-      <form>
-        <legend>
-          <em>
-            <strong>ADD NEW ADDRESS</strong>
-          </em>
-        </legend>
-        <div>
-          <label>Employee</label>
-          <select name="employeeId" onChange={handleChange}>
-            <option key="0">Select an Option</option>
-            {employeeNames.map((name) => {
-              return (
-                <option key={name.id} value={name.id}>
-                  {name.fullname}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div>
-          <label>Street</label>
-          <input type="text" name="street" onChange={handleChange} />
-        </div>
-        <div>
-          <label>Suburb</label>
-          <input type="text" name="suburb" onChange={handleChange} />
-        </div>
-        <div>
-          <label>City</label>
-          <input type="text" name="city" onChange={handleChange} />
-        </div>
-        <div>
-          <label>Province</label>
-          <input type="text" name="province" onChange={handleChange} />
-        </div>
-        <div>
-          <label>Postal code</label>
-          <input type="number" name="postalCode" onChange={handleChange} />
-        </div>
-        <button type="submit" onClick={handleAddressSubmit}>
-          Submit
-        </button>
-      </form>
+      <div className="content edit">
+        <a href="/addresses">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
+        <form>
+          <legend>
+            <em>
+              <strong>ADD NEW ADDRESS</strong>
+            </em>
+          </legend>
+          <div>
+            <label>Employee</label>
+            <select name="employeeId" onChange={handleChange}>
+              <option key="0">Select an Option</option>
+              {employeeNames.map((name) => {
+                return (
+                  <option key={name.id} value={name.id}>
+                    {name.fullname}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div>
+            <label>Street</label>
+            <input type="text" name="street" onChange={handleChange} />
+          </div>
+          <div>
+            <label>Suburb</label>
+            <input type="text" name="suburb" onChange={handleChange} />
+          </div>
+          <div>
+            <label>City</label>
+            <input type="text" name="city" onChange={handleChange} />
+          </div>
+          <div>
+            <label>Province</label>
+            <input type="text" name="province" onChange={handleChange} />
+          </div>
+          <div>
+            <label>Postal code</label>
+            <input type="number" name="postalCode" onChange={handleChange} />
+          </div>
+          <button type="submit" onClick={handleAddressSubmit}>
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

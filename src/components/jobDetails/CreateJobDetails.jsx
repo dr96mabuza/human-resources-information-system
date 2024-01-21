@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 
 export default function CreateEmploymentDetails({
   nav,
@@ -59,47 +61,61 @@ export default function CreateEmploymentDetails({
 
   return (
     <div className="main">
-      {/* {header} */}
       {nav}
-      <form>
-        <legend>
-          <em>
-            <strong>ADD NEW JOB DETAILS</strong>
-          </em>
-        </legend>
-        <div>
-          <label>Employee</label>
-          <select name="employeeId" onChange={handleChange}>
-            <option key="0">Select an Option</option>
-            {employeeNames.map((name) => {
-              return (
-                <option key={name.id} value={name.id}>
-                  {name.fullname}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div>
-          <label>Company</label>
-          <input type="text" name="company" onChange={handleChange} />
-        </div>
-        <div>
-          <label>Role</label>
-          <input type="text" name="jobRole" onChange={handleChange} />
-        </div>
-        <div>
-          <label>Senior/Manager</label>
-          <input type="number" name="reportTo" id="" onChange={handleChange} />
-        </div>
-        <div>
-          <label>Employment Status</label>
-          <input type="text" name="employmentStatus" onChange={handleChange} />
-        </div>
-        <button type="submit" onClick={handleEmploymentDetailsSubmit}>
-          Submit
-        </button>
-      </form>
+      <div className="content edit">
+        <a href="/employmentdetails">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
+        <form>
+          <legend>
+            <em>
+              <strong>ADD NEW JOB DETAILS</strong>
+            </em>
+          </legend>
+          <div>
+            <label>Employee Name</label>
+            <select name="employeeId" onChange={handleChange}>
+              <option key="0">Select an Option</option>
+              {employeeNames.map((name) => {
+                return (
+                  <option key={name.id} value={name.id}>
+                    {name.fullname}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div>
+            <label>Company</label>
+            <input type="text" name="company" onChange={handleChange} />
+          </div>
+          <div>
+            <label>Role</label>
+            <input type="text" name="jobRole" onChange={handleChange} />
+          </div>
+          <div>
+            <label>Senior/Manager</label>
+            <input
+              type="number"
+              name="reportTo"
+              id=""
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Employment Status</label>
+            <select name="employmentStatus" onChange={handleChange}>
+              <option value="">Select an Option</option>
+              <option value="Full Time">Full Time</option>
+              <option value="Part Time">Part Time</option>
+              <option value="Remote">Remote</option>
+            </select>
+          </div>
+          <button type="submit" onClick={handleEmploymentDetailsSubmit}>
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

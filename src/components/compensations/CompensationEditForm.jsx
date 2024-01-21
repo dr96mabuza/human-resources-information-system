@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../Header";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 import Nav from "../Nav";
 
 export default function CompansationForm() {
@@ -61,39 +62,48 @@ export default function CompansationForm() {
     <div className="main">
       {/* <Header /> */}
       <Nav />
-      <form>
-        <legend>Edit Compensation</legend>
-        <div>
-          <label>Salary</label>
-          <input
-            type="number"
-            value={formData.salary}
-            name="salary"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Deductions</label>
-          <input
-            type="number"
-            value={formData.deductions}
-            name="deductions"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Bonus</label>
-          <input
-            type="number"
-            value={formData.bonus}
-            name="bonus"
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit" onClick={handleSubmit}>
-          Submit
-        </button>
-      </form>
+      <div className=" content edit">
+        <a href="/compensations">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
+        <form>
+          <legend>
+            <em>
+              <strong>EDIT COMPENSATION</strong>
+            </em>
+          </legend>
+          <div>
+            <label>Salary</label>
+            <input
+              type="number"
+              value={formData.salary}
+              name="salary"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Deductions</label>
+            <input
+              type="number"
+              value={formData.deductions}
+              name="deductions"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Bonus</label>
+            <input
+              type="number"
+              value={formData.bonus}
+              name="bonus"
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit" onClick={handleSubmit}>
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

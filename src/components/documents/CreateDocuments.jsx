@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 
 export default function CreateDocument({
   nav,
@@ -54,39 +56,49 @@ export default function CreateDocument({
 
   return (
     <div className="main">
-      {/* {header} */}
       {nav}
-      <form>
-        <legend>
-          <em>
-            <strong>ADD NEW DOCUMENT</strong>
-          </em>
-        </legend>
-        <div>
-          <label>Employee Name</label>
-          <select name="employeeId" onChange={handleChange}>
-            <option key="0">Select an Option</option>
-            {employeeNames.map((name) => {
-              return (
-                <option key={name.id} value={name.id}>
-                  {name.fullname}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div>
-          <label>Document Name</label>
-          <input type="text" name="documentName" onChange={handleChange} />
-        </div>
-        <div>
-          <label>Document</label>
-          <input type="file" name="document" onChange={handleChange} />
-        </div>
-        <button type="submit" onClick={handleDocumentSubmit}>
-          Submit
-        </button>
-      </form>
+      <div className="content edit">
+        <a href="/documents">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
+        <form>
+          <legend>
+            <em>
+              <strong>ADD NEW DOCUMENT</strong>
+            </em>
+          </legend>
+          <div>
+            <label>Employee Name</label>
+            <select name="employeeId" onChange={handleChange}>
+              <option key="0">Select an Option</option>
+              {employeeNames.map((name) => {
+                return (
+                  <option key={name.id} value={name.id}>
+                    {name.fullname}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div>
+            <label>Document Type</label>
+            <select name="documentName" onChange={handleChange}>
+              <option value="">Select an Option</option>
+              <option value="Resume">Resume</option>
+              <option value="Certificate">Certificate</option>
+              <option value="Tax">Tax</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label>Document</label>
+            <input type="file" name="document" onChange={handleChange} />
+          </div>
+          <button type="submit" onClick={handleDocumentSubmit}>
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

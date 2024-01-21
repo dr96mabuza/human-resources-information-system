@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 
 export default function CreateCompensation({
   nav,
-  header,
   postRequest,
   fetchEmployees,
 }) {
@@ -56,43 +57,47 @@ export default function CreateCompensation({
 
   return (
     <div className="main">
-      {/* {header} */}
       {nav}
-      <form>
-        <legend>
-          <em>
-            <strong>ADD NEW COMPENSATION DETAILS</strong>
-          </em>
-        </legend>
-        <div>
-          <label>Employee</label>
-          <select name="employeeId" onChange={handleChange}>
-            <option key="0">Select an Option</option>
-            {employeeNames.map((name) => {
-              return (
-                <option key={name.id} value={name.id}>
-                  {name.fullname}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div>
-          <label>Salary</label>
-          <input type="number" name="salary" onChange={handleChange} />
-        </div>
-        <div>
-          <label>Deductions</label>
-          <input type="number" name="deductions" onChange={handleChange} />
-        </div>
-        <div>
-          <label>Bonus</label>
-          <input type="number" name="bonus" onChange={handleChange} />
-        </div>
-        <button type="submit" onClick={handleCompensationSubmit}>
-          Submit
-        </button>
-      </form>
+      <div className="content edit">
+        <a href="/compensations">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
+        <form>
+          <legend>
+            <em>
+              <strong>ADD NEW COMPENSATION DETAILS</strong>
+            </em>
+          </legend>
+          <div>
+            <label>Employee</label>
+            <select name="employeeId" onChange={handleChange}>
+              <option key="0">Select an Option</option>
+              {employeeNames.map((name) => {
+                return (
+                  <option key={name.id} value={name.id}>
+                    {name.fullname}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div>
+            <label>Salary</label>
+            <input type="number" name="salary" onChange={handleChange} />
+          </div>
+          <div>
+            <label>Deductions</label>
+            <input type="number" name="deductions" onChange={handleChange} />
+          </div>
+          <div>
+            <label>Bonus</label>
+            <input type="number" name="bonus" onChange={handleChange} />
+          </div>
+          <button type="submit" onClick={handleCompensationSubmit}>
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

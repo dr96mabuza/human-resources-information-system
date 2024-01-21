@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 
 export default function PersonalInfoEditForm({
   nav,
@@ -57,11 +59,18 @@ export default function PersonalInfoEditForm({
 
   return (
     <div className="main">
-      {/* {header} */}
       {nav}
-      <div /*style={{display:"none"}}*/ className="modal">
+
+      <div className="content edit">
+        <a href="/employees">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
         <form>
-          <legend>Edit Personal Information</legend>
+          <legend>
+            <em>
+              <strong>EDIT PERSONAL INFORMATION</strong>
+            </em>
+          </legend>
           <div>
             <label>Name</label>
             <input

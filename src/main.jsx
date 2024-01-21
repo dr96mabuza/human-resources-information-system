@@ -91,13 +91,7 @@ const parentRoutes = [
     path: "employees",
     element: (
       <Employee
-        nav={
-          <Nav
-            name={"Add Employee"}
-            link={"employee/create"}
-            location={"/employees"}
-          />
-        }
+        nav={<Nav location={"/employees"} />}
         header={<Header />}
         getRequest={getRequest}
         postRequest={postRequest}
@@ -109,13 +103,7 @@ const parentRoutes = [
     path: "contacts",
     element: (
       <Contacts
-        nav={
-          <Nav
-            name={"Add Contact"}
-            link={"contact/create"}
-            location={"/contacts"}
-          />
-        }
+        nav={<Nav location={"/contacts"} />}
         header={<Header />}
         getRequest={getRequest}
         postRequest={postRequest}
@@ -128,14 +116,7 @@ const parentRoutes = [
     path: "documents",
     element: (
       <Documents
-        nav={
-          <Nav
-            name={"Add Document"}
-            link={"document/create"}
-            location={"/documents"}
-          />
-        }
-        header={<Header />}
+        nav={<Nav location={"/documents"} />}
         getRequest={getRequest}
         postRequest={postRequest}
         getEmployeeNamesList={getEmployeeNamesList}
@@ -147,9 +128,7 @@ const parentRoutes = [
     path: "leaves",
     element: (
       <Leave
-        nav={
-          <Nav name={"Add Leave"} link={"leave/create"} location={"/leaves"} />
-        }
+        nav={<Nav location={"/leaves"} />}
         header={<Header />}
         getRequest={getRequest}
         getEmployeeNamesList={getEmployeeNamesList}
@@ -161,13 +140,7 @@ const parentRoutes = [
     path: "addresses",
     element: (
       <Addresses
-        nav={
-          <Nav
-            name={"Add Address"}
-            link={"address/create"}
-            location={"/addresses"}
-          />
-        }
+        nav={<Nav location={"/addresses"} />}
         header={<Header />}
         getRequest={getRequest}
         postRequest={postRequest}
@@ -180,13 +153,7 @@ const parentRoutes = [
     path: "employmentdetails",
     element: (
       <EmployementDetails
-        nav={
-          <Nav
-            name={"Add Employment Detail"}
-            link={"employmentdetail/create"}
-            location={"/employmentdetails"}
-          />
-        }
+        nav={<Nav location={"/employmentdetails"} />}
         header={<Header />}
         getRequest={getRequest}
         getEmployeeNamesList={getEmployeeNamesList}
@@ -198,13 +165,7 @@ const parentRoutes = [
     path: "compensations",
     element: (
       <Compensations
-        nav={
-          <Nav
-            name={"Add Compensation"}
-            link={"compensation/create"}
-            location={"/compensations"}
-          />
-        }
+        nav={<Nav location={"/compensations"} />}
         header={<Header />}
         getRequest={getRequest}
         getEmployeeNamesList={getEmployeeNamesList}
@@ -218,7 +179,7 @@ const createRoutes = [
     path: "contact/create",
     element: (
       <CreateContact
-        nav={<Nav />}
+        nav={<Nav location={"/contacts"} />}
         header={<Header />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
@@ -229,7 +190,7 @@ const createRoutes = [
     path: "document/create",
     element: (
       <CreateDocument
-        nav={<Nav />}
+        nav={<Nav location={"/documents"} />}
         header={<Header />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
@@ -240,7 +201,7 @@ const createRoutes = [
     path: "leave/create",
     element: (
       <CreateLeaveDetails
-        nav={<Nav />}
+        nav={<Nav location={"/leaves"} />}
         header={<Header />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
@@ -251,7 +212,7 @@ const createRoutes = [
     path: "employmentdetail/create",
     element: (
       <CreateEmploymentDetails
-        nav={<Nav />}
+        nav={<Nav location={"/emplotmentdetails"} />}
         header={<Header />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
@@ -263,7 +224,7 @@ const createRoutes = [
     path: "employee/create",
     element: (
       <CreateEmployee
-        nav={<Nav />}
+        nav={<Nav location={"/employees"} />}
         header={<Header />}
         postRequest={postRequest}
       />
@@ -274,7 +235,7 @@ const createRoutes = [
     path: "address/create",
     element: (
       <CreateAddress
-        nav={<Nav />}
+        nav={<Nav location={"/addresses"} />}
         header={<Header />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
@@ -285,7 +246,7 @@ const createRoutes = [
     path: "compensation/create",
     element: (
       <CreateCompensation
-        nav={<Nav />}
+        nav={<Nav location={"/compensations"} />}
         header={<Header />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
@@ -337,7 +298,13 @@ const updateRoutes = [
   {
     // update employee address
     path: "address/:id/update",
-    element: <AddressEditForm />,
+    element: (
+      <AddressEditForm
+        nav={<Nav location={"/addresses"} />}
+        getRequest={getRequest}
+        postRequest={postRequest}
+      />
+    ),
   },
   {
     // update compensation package

@@ -1,7 +1,8 @@
 import fs from "fs";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../Header";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 import Nav from "../Nav";
 
 export default function DocumentEditForm() {
@@ -57,28 +58,36 @@ export default function DocumentEditForm() {
   };
   return (
     <div className="main">
-      {/* <Header /> */}
       <Nav />
-      <form>
-        <legend>Edit Document</legend>
-        <div>
-          <label>Name</label>
-          <input
-            type="text"
-            value={formData.documentName}
-            name="documentName"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Document</label>
-          <input type="file" name="document" onChange={handleChange} />
-        </div>
+      <div className="content edit">
+        <a href="/documents">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
+        <form>
+          <legend>
+            <em>
+              <strong>EDIT DOCUMENT</strong>
+            </em>
+          </legend>
+          <div>
+            <label>Name</label>
+            <input
+              type="text"
+              value={formData.documentName}
+              name="documentName"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Document</label>
+            <input type="file" name="document" onChange={handleChange} />
+          </div>
 
-        <button type="submit" onClick={handleSubmit}>
-          Submit
-        </button>
-      </form>
+          <button type="submit" onClick={handleSubmit}>
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

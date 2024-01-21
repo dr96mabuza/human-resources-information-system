@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 
 export default function CreateLeaveDetails({
   nav,
@@ -57,35 +59,39 @@ export default function CreateLeaveDetails({
 
   return (
     <div className="main">
-      {/* {header} */}
       {nav}
-      <form>
-        <legend>
-          <em>
-            <strong>ADD NEW LEAVE DETAILS</strong>
-          </em>
-        </legend>
-        <div>
-          <label>Employee</label>
-          <select name="employeeId" onChange={handleChange}>
-            <option key="0">Select an Option</option>
-            {employeeNames.map((name) => {
-              return (
-                <option key={name.id} value={name.id}>
-                  {name.fullname}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div>
-          <label>Available days</label>
-          <input type="number" name="balance" onChange={handleChange} />
-        </div>
-        <button type="submit" onClick={handleLeaveDetailsSubmit}>
-          Submit
-        </button>
-      </form>
+      <div className="content edit">
+        <a href="/leaves">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
+        <form>
+          <legend>
+            <em>
+              <strong>ADD NEW LEAVE DETAILS</strong>
+            </em>
+          </legend>
+          <div>
+            <label>Employee</label>
+            <select name="employeeId" onChange={handleChange}>
+              <option key="0">Select an Option</option>
+              {employeeNames.map((name) => {
+                return (
+                  <option key={name.id} value={name.id}>
+                    {name.fullname}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div>
+            <label>Available days</label>
+            <input type="number" name="balance" onChange={handleChange} />
+          </div>
+          <button type="submit" onClick={handleLeaveDetailsSubmit}>
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

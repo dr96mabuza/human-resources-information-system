@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../Header";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 import Nav from "../Nav";
 
 export default function ContactEditForm() {
@@ -63,48 +64,57 @@ export default function ContactEditForm() {
     <div className="main">
       {/* <Header /> */}
       <Nav />
-      <form>
-        <legend>Edit Contact</legend>
-        <div>
-          <label>Email</label>
-          <input
-            type="text"
-            value={formData.email}
-            name="email"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Contact Number</label>
-          <input
-            type="text"
-            value={formData.cellphoneNumber}
-            name="cellphoneNumber"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Second Email</label>
-          <input
-            type="text"
-            value={formData.companyEmail}
-            name="companyEmail"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Second Contact NUmber</label>
-          <input
-            type="text"
-            value={formData.alternateNumber}
-            name="alternateNumber"
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit" onClick={handleSubmit}>
-          Submit
-        </button>
-      </form>
+      <div className="content edit">
+        <a href="/contacts">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
+        <form>
+          <legend>
+            <em>
+              <strong>EDIT CONTACT</strong>
+            </em>
+          </legend>
+          <div>
+            <label>Email</label>
+            <input
+              type="text"
+              value={formData.email}
+              name="email"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Contact Number</label>
+            <input
+              type="text"
+              value={formData.cellphoneNumber}
+              name="cellphoneNumber"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Second Email</label>
+            <input
+              type="text"
+              value={formData.companyEmail}
+              name="companyEmail"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Second Contact NUmber</label>
+            <input
+              type="text"
+              value={formData.alternateNumber}
+              name="alternateNumber"
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit" onClick={handleSubmit}>
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

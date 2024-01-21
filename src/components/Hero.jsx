@@ -54,7 +54,7 @@ export default function Main() {
   }, []);
 
   return (
-    <section id="main">
+    <section id="main" className="content">
       {/* <Nav /> */}
       {counts.error ? (
         <section>

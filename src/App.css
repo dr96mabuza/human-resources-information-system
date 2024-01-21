@@ -208,11 +208,19 @@ div.stacktrace {
 }
 
 #nav {
-  border-right: solid #464141 1px;
+  border-right: solid #45a049 1px;
   position: sticky;
   top: 0;
 }
 
 .main form legend {
   margin-bottom: 2rem;
+}
+
+.edit {
+  margin-top: 1rem;
+}
+
+.edit a {
+  padding-left: 1rem;
 }

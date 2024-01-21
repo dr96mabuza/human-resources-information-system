@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 
 export default function CreateContact({
   nav,
@@ -58,48 +60,51 @@ export default function CreateContact({
 
   return (
     <div className="main">
-      {/* {header} */}
       {nav}
-
-      <form>
-        <legend>
-          <em>
-            <strong>ADD NEW CONTACT</strong>
-          </em>
-        </legend>
-        <div>
-          <label>Employee</label>
-          <select name="employeeId" onChange={handleChange}>
-            <option key="0">Select an Option</option>
-            {employeeNames.map((name) => {
-              return (
-                <option key={name.id} value={name.id}>
-                  {name.fullname}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div>
-          <label>Email</label>
-          <input type="text" name="email" onChange={handleChange} />
-        </div>
-        <div>
-          <label>Contact Number</label>
-          <input type="text" name="cellphoneNumber" onChange={handleChange} />
-        </div>
-        <div>
-          <label>Second Email</label>
-          <input type="text" name="companyEmail" onChange={handleChange} />
-        </div>
-        <div>
-          <label>Second Contact Number</label>
-          <input type="text" name="alternateNumber" onChange={handleChange} />
-        </div>
-        <button type="submit" onClick={handleContactSubmit}>
-          Submit
-        </button>
-      </form>
+      <div className="content edit">
+        <a href="/contacts">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
+        <form>
+          <legend>
+            <em>
+              <strong>ADD NEW CONTACT</strong>
+            </em>
+          </legend>
+          <div>
+            <label>Employee</label>
+            <select name="employeeId" onChange={handleChange}>
+              <option key="0">Select an Option</option>
+              {employeeNames.map((name) => {
+                return (
+                  <option key={name.id} value={name.id}>
+                    {name.fullname}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div>
+            <label>Email</label>
+            <input type="text" name="email" onChange={handleChange} />
+          </div>
+          <div>
+            <label>Contact Number</label>
+            <input type="text" name="cellphoneNumber" onChange={handleChange} />
+          </div>
+          <div>
+            <label>Second Email</label>
+            <input type="text" name="companyEmail" onChange={handleChange} />
+          </div>
+          <div>
+            <label>Second Contact Number</label>
+            <input type="text" name="alternateNumber" onChange={handleChange} />
+          </div>
+          <button type="submit" onClick={handleContactSubmit}>
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

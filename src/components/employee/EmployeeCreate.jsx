@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 
 export default function CreateEmployee({ nav, header, postRequest }) {
   const [employeeSuccess, setEmployeeSuccess] = useState(false);
@@ -37,9 +39,11 @@ export default function CreateEmployee({ nav, header, postRequest }) {
 
   return (
     <div className="main">
-      {/* {header} */}
       {nav}
-      {!employeeSuccess ? (
+      <div className="content edit">
+        <a href="/employees">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
         <form method="post">
           <legend>
             <strong>
@@ -74,18 +78,7 @@ export default function CreateEmployee({ nav, header, postRequest }) {
             Next
           </button>
         </form>
-      ) : (
-        <div>
-          <h3>Employee Successfully added</h3>
-          <p onClick={handleRedirect}>
-            <Link to={`/address/${id}/create`}>Click here</Link> to add address
-            for {employeeForm.firstName} {employeeForm.lastName}
-          </p>
-          <p onClick={handleRedirect}>
-            <Link to="/">Click here</Link> to go home
-          </p>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

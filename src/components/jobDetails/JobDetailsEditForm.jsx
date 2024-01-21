@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../Header";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 import Nav from "../Nav";
 
 export default function JobInfoEditForm() {
@@ -39,7 +40,8 @@ export default function JobInfoEditForm() {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: name === "reportsTo" ? Number(value) : value,
+      [name]:
+        name === "reportsTo" ? (value === 0 ? null : Number(value)) : value,
     }));
   };
 
@@ -68,49 +70,58 @@ export default function JobInfoEditForm() {
     <div className="main">
       {/* <Header /> */}
       <Nav />
-      <form>
-        <legend>Edit JobInfo</legend>
-        <div>
-          <label>Company</label>
-          <input
-            type="text"
-            value={formData.company}
-            name="company"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Role</label>
-          <input
-            type="text"
-            value={formData.jobRole}
-            name="jobRole"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Senior/Manager</label>
-          <input
-            type="number"
-            value={formData.reportsTo}
-            name="reportTo"
-            id=""
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Employment Status</label>
-          <input
-            type="text"
-            value={formData.employmentStatus}
-            name="employmentStatus"
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit" onClick={handleSubmit}>
-          Submit
-        </button>
-      </form>
+      <div className="content edit">
+        <a href="/employmentdetails">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
+        <form>
+          <legend>
+            <em>
+              <strong>EDIT EMPLOYMENT DETAILS</strong>
+            </em>
+          </legend>
+          <div>
+            <label>Company</label>
+            <input
+              type="text"
+              value={formData.company}
+              name="company"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Role</label>
+            <input
+              type="text"
+              value={formData.jobRole}
+              name="jobRole"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Senior/Manager</label>
+            <input
+              type="number"
+              value={formData.reportsTo}
+              name="reportTo"
+              id=""
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Employment Status</label>
+            <input
+              type="text"
+              value={formData.employmentStatus}
+              name="employmentStatus"
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit" onClick={handleSubmit}>
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

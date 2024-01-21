@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
-export default function Nav({ name, link, location }) {
+export default function Nav({ location }) {
   return (
     <div id="nav">
       <Link to="/">
         <h2>H R M S</h2>
       </Link>
       <ul>
-        {location === "/address" ? (
+        {location === "/addresses" ? (
           <li style={{ backgroundColor: "#4CAF50" }}>
             <a href="/addresses" style={{ color: "#ffffff" }}>
               Addresses

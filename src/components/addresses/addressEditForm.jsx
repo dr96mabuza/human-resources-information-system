@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Nav from "../Nav";
-import Header from "../Header";
+import { useParams, useNavigate } from "react-router-dom";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 
-export default function AddressEditForm() {
-  const [success, setSuccess] = useState(false);
+export default function AddressEditForm({ nav, getRequest, postRequest }) {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [formData, setFormData] = useState({
     street: "",
@@ -15,12 +15,9 @@ export default function AddressEditForm() {
   });
 
   const getAddress = async (id) => {
-    const res = await fetch(`https://hris-qp6t.onrender.com/address/${id}`, {
-      method: "GET",
-      mode: "cors",
-    });
-    const data = await res.json();
-    const result = await data.result;
+    const result = await getRequest(
+      `https://hris-qp6t.onrender.com/address/${id}`,
+    );
     setFormData({
       street: result[0].street,
       suburb: result[0].suburb,
@@ -47,32 +44,28 @@ export default function AddressEditForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(
+    const resJson = await postRequest(
       `https://hris-qp6t.onrender.com/address/${id}/update`,
-      {
-        method: "post",
-        mode: "cors",
-        headers: {
-          "content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      },
+      formData,
     );
-    console.log(formData);
-    const resJson = await response.json();
-    console.log(resJson);
     if (resJson.status === "ok") {
-      setSuccess(true);
+      navigate("/addresses");
     }
   };
 
   return (
     <div className="main">
-      {/* <Header /> */}
-      <Nav />
-      {success === false ? (
+      {nav}
+      <div className="content edit">
+        <a href="/addresses">
+          <Icon path={mdiArrowLeft} size={1} />
+        </a>
         <form>
-          <legend>Edit address information</legend>
+          <legend>
+            <em>
+              <strong>EDIT ADDRESS INFORMATION</strong>
+            </em>
+          </legend>
           <div>
             <label>Street</label>
             <input
@@ -122,12 +115,7 @@ export default function AddressEditForm() {
             Submit
           </button>
         </form>
-      ) : (
-        <div>
-          <h3>New Address added!</h3>
-          <p>go to Addresses.</p>
-        </div>
-      )}
+      </div>
     </div>
   );
 }
