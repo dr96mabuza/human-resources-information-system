@@ -130,22 +130,22 @@ ul li:hover {
 } */
 
 table {
-  table-layout: fixed;
+  /* table-layout: fixed; */
   width: 89%;
   border-collapse: collapse;
   margin-top: 1em;
   margin-left: 1rem;
   /* border: solid #464141 1px; */
   border-radius: 25px;
-  height: fit-content;
+  /* height: fit-content; */
   background-color: whitesmoke;
 }
 
 td {
   padding: 1em;
   text-align: left;
-  width: 10px;
-  overflow: auto;
+  /* width: 10px; */
+  /* overflow: auto; */
 }
 
 th {
