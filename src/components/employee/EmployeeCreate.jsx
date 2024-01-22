@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateEmployee({ nav, header, postRequest }) {
-  const [employeeSuccess, setEmployeeSuccess] = useState(false);
-  const [id, setId] = useState(0);
+  const navigate = useNavigate();
   const defaultState = {
     firstName: "",
     lastName: "",
@@ -28,12 +27,11 @@ export default function CreateEmployee({ nav, header, postRequest }) {
     e.preventDefault();
     const employeePostJson = await postRequest(
       "https://hris-qp6t.onrender.com/employee/create",
-      {},
+      employeeForm,
     );
     if (employeePostJson.status === "ok") {
-      setEmployeeSuccess(true);
-      setId(employeePostJson.result.insertId);
       setEmployeeForm(defaultState);
+      navigate("/employees");
     }
   };
 
@@ -65,6 +63,7 @@ export default function CreateEmployee({ nav, header, postRequest }) {
           <div>
             <label>Gender</label>
             <select name="gender" onChange={handleChange}>
+              <option value="">Select an Option</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Prefer not to state">Prefer not to state</option>

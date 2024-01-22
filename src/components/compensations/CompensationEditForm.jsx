@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
 import Nav from "../Nav";
 
-export default function CompansationForm() {
+export default function CompansationForm({ nav, getRequest, postRequest }) {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [formData, setFormData] = useState({
     salary: 0,
@@ -13,12 +14,9 @@ export default function CompansationForm() {
   });
 
   const getCompensation = async (id) => {
-    const res = await fetch(
+    const result = await getRequest(
       `https://hris-qp6t.onrender.com/compansation/${id}`,
-      { method: "GET", mode: "cors" },
     );
-    const data = await res.json();
-    const result = await data.result;
     setFormData({
       salary: await result[0].salary,
       deductions: await result[0].deductions,
@@ -34,34 +32,24 @@ export default function CompansationForm() {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: parseInt(value, 10),
+      [name]: Number(value),
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(
+    const resJson = await postRequest(
       `https://hris-qp6t.onrender.com/compansation/${id}/update`,
-      {
-        method: "post",
-        mode: "cors",
-        headers: {
-          "content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      },
+      formData,
     );
-    const resJson = await response.json();
-    console.log(resJson);
-    // if ( resJson.status === "ok") {
-    //     setSuccess(true);
-    // }
+    if (resJson.status === "ok") {
+      navigate("/compensations");
+    }
   };
 
   return (
     <div className="main">
-      {/* <Header /> */}
-      <Nav />
+      {nav}
       <div className=" content edit">
         <a href="/compensations">
           <Icon path={mdiArrowLeft} size={1} />

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
+import { useNavigate } from "react-router-dom";
 
 export default function PersonalInfoEditForm({
   nav,
@@ -9,6 +10,7 @@ export default function PersonalInfoEditForm({
   getRequest,
   postRequest,
 }) {
+  const navigate = useNavigate();
   const { id } = useParams();
   const defaultState = {
     firstName: "",
@@ -54,6 +56,7 @@ export default function PersonalInfoEditForm({
     console.log(resJson);
     if (resJson.status === "ok") {
       setFormData(defaultState);
+      navigate("/employees");
     }
   };
 
@@ -100,12 +103,12 @@ export default function PersonalInfoEditForm({
           </div>
           <div>
             <label>Gender</label>
-            <input
-              type="text"
-              value={formData.gender}
-              name="gender"
-              onChange={handleChange}
-            />
+            <select name="gender" onChange={handleChange}>
+              <option value="">Select an Option</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Prefer not to state">Prefer not to state</option>
+            </select>
           </div>
           <div>
             <label>Date of birth</label>

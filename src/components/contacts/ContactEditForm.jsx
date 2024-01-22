@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
 import Nav from "../Nav";
 
 export default function ContactEditForm() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [formData, setFormData] = useState({
     email: "",
@@ -55,9 +56,9 @@ export default function ContactEditForm() {
     );
     const resJson = await response.json();
     console.log(resJson);
-    // if ( resJson.status === "ok") {
-    //     setSuccess(true);
-    // }
+    if (resJson.status === "ok") {
+      navigate("/contacts");
+    }
   };
 
   return (
