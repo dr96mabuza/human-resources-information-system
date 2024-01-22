@@ -29,6 +29,7 @@ import Header from "./components/Header.jsx";
 import PageNotFound from "./components/404.jsx";
 import Login from "./components/Login.jsx";
 import Signup from "./Signup.jsx";
+import Search from "./components/Search.jsx";
 
 const getRequest = async (route) => {
   const res = await fetch(route, { method: "GET", mode: "cors" });
@@ -90,11 +91,15 @@ const parentRoutes = [
   },
   {
     path: "/login",
-    element: <Login />
+    element: <Login />,
+  },
+  {
+    path: "/search",
+    element: <Search nav={<Nav />} />,
   },
   {
     path: "/signup",
-    element: <Signup />
+    element: <Signup />,
   },
   {
     // display all employees list

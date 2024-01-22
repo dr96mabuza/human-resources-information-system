@@ -145,6 +145,7 @@ td {
   padding: 1em;
   text-align: left;
   width: 10px;
+  overflow: auto;
 }
 
 th {
@@ -225,13 +226,21 @@ div.stacktrace {
   padding-left: 1rem;
 }
 
-#login, #signup {
+#login,
+#signup {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100svh;
 }
 
-#login form legend, #signup form legend {
+#login form legend,
+#signup form legend {
   margin-bottom: 1rem;
+}
+
+#search {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }

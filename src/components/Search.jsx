@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Icon from "@mdi/react";
 import {
@@ -6,28 +6,10 @@ import {
   mdiOpenInNew,
   mdiFileEditOutline,
 } from "@mdi/js";
-import { useNavigate } from "react-router-dom";
 
-export default function Employee({ nav, header, getRequest, postRequest }) {
-  const navigate = useNavigate();
-  const [search, setSearch] = useState({
-    search: "",
-  });
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getRequest(
-        "https://hris-qp6t.onrender.com/employees",
-      );
-      setData(result);
-    };
-
-    fetchData();
-
-    return () => {};
-  }, [getRequest]);
-
+export default function Search({ nav }) {
+  const location = useLocation();
+  const searchResults = location.state;
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -42,56 +24,14 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
     }
   };
 
-  const handleSearchClick = (e) => {
-    e.preventDefault();
-    const result = [];
-    data.forEach((item) => {
-      for (const key in item) {
-        if (
-          item[key] === search.search ||
-          item[key] === Number(search.search)
-        ) {
-          result.push(item);
-        }
-      }
-    });
-    navigate("/search", { state: result });
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setSearch((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
   return (
     <div className="main">
-      {/* {header} */}
       {nav}
-      <div className="content">
-        <div>
-          <a href="/employee/create">
-            <button type="submit">CREATE EMPLOYEE</button>
-          </a>
-        </div>
-        <h4>Employees</h4>
-        <form id="search">
-          <input
-            type="text"
-            placeholder="search....."
-            onChange={handleChange}
-            required
-          />
-          <button type="submit" onClick={handleSearchClick}>
-            SEARCH
-          </button>
-        </form>
+      <div className="content edit">
+        <h4>Search Results</h4>
         <table>
           <thead>
             <tr>
-              <th>Emp. ID</th>
               <th>Name</th>
               <th>Surname</th>
               <th>ID Number</th>
@@ -100,9 +40,8 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
             </tr>
           </thead>
           <tbody>
-            {data.map((person) => (
+            {searchResults.map((person) => (
               <tr key={person.id}>
-                <td>{person.id}</td>
                 <td>{person.firstName}</td>
                 <td>{person.lastName}</td>
                 <td>{person.idNumber}</td>

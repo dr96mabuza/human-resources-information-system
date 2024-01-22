@@ -49,24 +49,25 @@ export default function Compensations({
         <table>
           <thead>
             <tr>
-              {/* <th>ID</th> */}
+              <th>Emp. ID</th>
+              <th>Employee</th>
               <th>Salary</th>
               <th>Deductions</th>
               <th>Bonus</th>
-              <th>Employee</th>
             </tr>
           </thead>
           <tbody>
             {data.map((compensation, index) => (
               <tr key={compensation.id}>
-                <td>{compensation.salary}</td>
-                <td>{compensation.deductions}</td>
-                <td>{compensation.bonus}</td>
+                <td>{compensation.employeeId}</td>
                 <td>
                   <Link to={`/employee/${compensation.employeeId}`}>
                     {employeeNames[index]}
                   </Link>
                 </td>
+                <td>{compensation.salary}</td>
+                <td>{compensation.deductions}</td>
+                <td>{compensation.bonus}</td>
                 <td>
                   <Link to={`/compensation/${compensation.id}/update`}>
                     <Icon path={mdiFileEditOutline} size={1} />

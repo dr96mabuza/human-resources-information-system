@@ -43,21 +43,23 @@ export default function Leave({
         <table>
           <thead>
             <tr>
+              <th>Emp. ID</th>
+              <th>Employee</th>
               <th>Days Balance</th>
               <th>Days Absent</th>
-              <th>Employee</th>
             </tr>
           </thead>
           <tbody>
             {data.map((job, index) => (
               <tr key={job.id}>
-                <td>{job.leaveBalance}</td>
-                <td>{job.daysAbsent}</td>
+                <td>{job.employeeId}</td>
                 <td>
                   <Link to={`/employee/${job.employeeId}`}>
                     {employeeNames[index]}
                   </Link>
                 </td>
+                <td>{job.leaveBalance}</td>
+                <td>{job.daysAbsent}</td>
               </tr>
             ))}
           </tbody>

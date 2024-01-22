@@ -64,27 +64,29 @@ export default function Addresses({
         <table>
           <thead>
             <tr>
+              <th>Emp. ID</th>
+              <th>Employee</th>
               <th>Street</th>
               <th>Suburb</th>
               <th>City</th>
               <th>Province</th>
               <th>Postal Code</th>
-              <th>Employee</th>
             </tr>
           </thead>
           <tbody>
             {data.map((address, index) => (
               <tr key={address.id}>
-                <td>{address.street}</td>
-                <td>{address.suburb}</td>
-                <td>{address.city}</td>
-                <td>{address.province}</td>
-                <td>{address.postalCode}</td>
+                <td>{address.employeeId}</td>
                 <td>
                   <Link to={`/employee/${address.employeeId}`}>
                     {employeeNames[index]}
                   </Link>
                 </td>
+                <td>{address.street}</td>
+                <td>{address.suburb}</td>
+                <td>{address.city}</td>
+                <td>{address.province}</td>
+                <td>{address.postalCode}</td>
                 <td>
                   <Link to={`/address/${address.id}/update`}>
                     <Icon path={mdiFileEditOutline} size={1} />

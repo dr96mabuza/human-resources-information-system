@@ -65,21 +65,23 @@ export default function Documents({
         <table>
           <thead>
             <tr>
-              <th>name</th>
-              <th>content</th>
+              <th>Emp. ID</th>
               <th>Employee</th>
+              <th>Doc. Name</th>
+              <th>Content</th>
             </tr>
           </thead>
           <tbody>
             {data.map((doc, index) => (
               <tr key={doc.id}>
-                <td>{doc.documentName}</td>
-                <td>{}</td>
+                <td>{doc.employeeId}</td>
                 <td>
                   <Link to={`/employee/${doc.employeeId}`}>
                     {employeeNames[index]}
                   </Link>
                 </td>
+                <td>{doc.documentName}</td>
+                <td>{}</td>
                 <td>
                   <Link to={`/document/${doc.id}/update`}>
                     <Icon path={mdiFileEditOutline} size={1} />

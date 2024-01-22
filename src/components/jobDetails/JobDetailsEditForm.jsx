@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
 import Nav from "../Nav";
 
-export default function JobInfoEditForm() {
+export default function JobInfoEditForm({ nav, getRequest, postRequest }) {
+  const navigate = useNavigate();
   const { id } = useParams();
-  const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
     company: "",
     jobRole: "",
@@ -15,12 +15,9 @@ export default function JobInfoEditForm() {
   });
 
   const getJobInfo = async (id) => {
-    const res = await fetch(
+    const result = await getRequest(
       `https://hris-qp6t.onrender.com/employmentdetail/${id}`,
-      { method: "GET", mode: "cors" },
     );
-    const data = await res.json();
-    const result = await data.result;
     setFormData({
       company: result[0].company,
       jobRole: result[0].jobRole,
@@ -40,35 +37,25 @@ export default function JobInfoEditForm() {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]:
-        name === "reportsTo" ? (value === 0 ? null : Number(value)) : value,
+      [name]: name === "reportsTo" ? Number(value) : value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(
+    const resJson = await postRequest(
       `https://hris-qp6t.onrender.com/employmentdetail/${id}/update`,
-      {
-        method: "post",
-        mode: "cors",
-        headers: {
-          "content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      },
+      formData,
     );
-    console.log(formData);
-    const resJson = await response.json();
-    // console.log(resJson)
+    //
     if (resJson.status === "ok") {
-      setSuccess(true);
+      navigate("/employmentdetails");
     }
+    console.log(resJson);
   };
 
   return (
     <div className="main">
-      {/* <Header /> */}
       <Nav />
       <div className="content edit">
         <a href="/employmentdetails">
@@ -103,7 +90,7 @@ export default function JobInfoEditForm() {
             <input
               type="number"
               value={formData.reportsTo}
-              name="reportTo"
+              name="reportsTo"
               id=""
               onChange={handleChange}
             />

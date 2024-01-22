@@ -46,7 +46,9 @@ export default function Login() {
             required
           />
         </div>
-        <p>Dont have an account yet? <a href="/signup">Click here to signup!</a></p>
+        <p>
+          Dont have an account yet? <a href="/signup">Click here to signup!</a>
+        </p>
         <button type="submit">SUBMIT</button>
       </form>
     </div>

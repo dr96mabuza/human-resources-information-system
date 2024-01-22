@@ -65,17 +65,24 @@ export default function EmployementDetails({
         <table>
           <thead>
             <tr>
+              <th>Emp. ID</th>
+              <th>Employee</th>
               <th>Company</th>
               <th>Role</th>
               <th>Senior/Manager</th>
               <th>Status</th>
               <th>Start Date</th>
-              <th>Employee ID</th>
             </tr>
           </thead>
           <tbody>
             {data.map((job, index) => (
               <tr key={job.id}>
+                <td>{job.employeeId}</td>
+                <td>
+                  <Link to={`/employee/${job.employeeId}`}>
+                    {employeeNames[index]}
+                  </Link>
+                </td>
                 <td>{job.company}</td>
                 <td>{job.jobRole}</td>
                 <td>
@@ -85,11 +92,6 @@ export default function EmployementDetails({
                 </td>
                 <td>{job.employmentStatus}</td>
                 <td>{job.startDate}</td>
-                <td>
-                  <Link to={`/employee/${job.employeeId}`}>
-                    {employeeNames[index]}
-                  </Link>
-                </td>
                 <td>
                   <Link to={`/employmentdetail/${job.id}/update`}>
                     <Icon path={mdiFileEditOutline} size={1} />

@@ -4,7 +4,7 @@ export default function Signup() {
   const [form, setForm] = useState({
     email: "",
     password: "",
-    passwordConfirm: ""
+    passwordConfirm: "",
   });
 
   const handleChange = (e) => {
