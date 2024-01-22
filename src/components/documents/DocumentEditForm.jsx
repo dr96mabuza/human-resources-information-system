@@ -5,7 +5,7 @@ import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
 import Nav from "../Nav";
 
-export default function DocumentEditForm() {
+export default function DocumentEditForm({nav, getRequest, postRequest}) {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     documentName: "",
@@ -13,12 +13,7 @@ export default function DocumentEditForm() {
   });
 
   const getDocument = async (id) => {
-    const res = await fetch(`https://hris-qp6t.onrender.com/document/${id}`, {
-      method: "GET",
-      mode: "cors",
-    });
-    const data = await res.json();
-    const result = await data.result;
+    const result = await getRequest(`https://hris-qp6t.onrender.com/document/${id}`);
     setFormData({
       documentName: await result[0].documentName,
       document: await result[0].document,
@@ -39,26 +34,15 @@ export default function DocumentEditForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(
-      `https://hris-qp6t.onrender.com/document/${id}/update`,
-      {
-        method: "post",
-        mode: "cors",
-        headers: {
-          "content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      },
-    );
-    const resJson = await response.json();
-    console.log(resJson);
-    // if ( resJson.status === "ok") {
-    //     setSuccess(true);
-    // }
+    const resJson = await postRequest(`https://hris-qp6t.onrender.com/document/${id}/update`, formData);
+
+    if ( resJson.status === "ok") {
+        navigate("/documents")
+    }
   };
   return (
     <div className="main">
-      <Nav />
+      {nav}
       <div className="content edit">
         <a href="/documents">
           <Icon path={mdiArrowLeft} size={1} />

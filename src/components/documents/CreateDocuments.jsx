@@ -5,7 +5,6 @@ import { mdiArrowLeft } from "@mdi/js";
 
 export default function CreateDocument({
   nav,
-  header,
   postRequest,
   fetchEmployees,
 }) {

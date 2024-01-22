@@ -56,7 +56,7 @@ export default function JobInfoEditForm({ nav, getRequest, postRequest }) {
 
   return (
     <div className="main">
-      <Nav />
+      {nav}
       <div className="content edit">
         <a href="/employmentdetails">
           <Icon path={mdiArrowLeft} size={1} />

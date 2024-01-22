@@ -51,7 +51,6 @@ export default function Contacts({
 
   return (
     <div className="main">
-      {/* {header} */}
       {nav}
       <div className="content">
         <div>

@@ -9,7 +9,6 @@ import Icon from "@mdi/react";
 
 export default function Documents({
   nav,
-  header,
   getRequest,
   postRequest,
   getEmployeeNamesList,
@@ -53,7 +52,6 @@ export default function Documents({
 
   return (
     <div className="main">
-      {/* {header} */}
       {nav}
       <div className="content">
         <div>

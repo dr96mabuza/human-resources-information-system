@@ -5,7 +5,6 @@ import { mdiArrowLeft } from "@mdi/js";
 
 export default function CreateLeaveDetails({
   nav,
-  header,
   postRequest,
   fetchEmployees,
 }) {

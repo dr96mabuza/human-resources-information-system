@@ -68,7 +68,6 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
 
   return (
     <div className="main">
-      {/* {header} */}
       {nav}
       <div className="content">
         <div>

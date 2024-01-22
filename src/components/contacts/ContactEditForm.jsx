@@ -4,7 +4,7 @@ import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
 import Nav from "../Nav";
 
-export default function ContactEditForm() {
+export default function ContactEditForm({nav, getRequest, postRequest}) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -15,12 +15,7 @@ export default function ContactEditForm() {
   });
 
   const getContact = async (id) => {
-    const res = await fetch(`https://hris-qp6t.onrender.com/contact/${id}`, {
-      method: "GET",
-      mode: "cors",
-    });
-    const data = await res.json();
-    const result = await data.result;
+    const result = await getRequest(`https://hris-qp6t.onrender.com/contact/${id}`);
     setFormData({
       email: await result[0].email,
       cellphoneNumber: await result[0].cellphoneNumber,
@@ -43,19 +38,7 @@ export default function ContactEditForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(
-      `https://hris-qp6t.onrender.com/contact/${id}/update`,
-      {
-        method: "post",
-        mode: "cors",
-        headers: {
-          "content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      },
-    );
-    const resJson = await response.json();
-    console.log(resJson);
+    const resJson = await postRequest(`https://hris-qp6t.onrender.com/contact/${id}/update`, formData);
     if (resJson.status === "ok") {
       navigate("/contacts");
     }
@@ -63,8 +46,7 @@ export default function ContactEditForm() {
 
   return (
     <div className="main">
-      {/* <Header /> */}
-      <Nav />
+      {nav}
       <div className="content edit">
         <a href="/contacts">
           <Icon path={mdiArrowLeft} size={1} />
