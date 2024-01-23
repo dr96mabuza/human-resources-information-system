@@ -42,20 +42,12 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
     }
   };
 
-  const handleSearchClick = (e) => {
+  const handleSearchClick = async (e) => {
     e.preventDefault();
-    const result = [];
-    data.forEach((item) => {
-      for (const key in item) {
-        if (
-          item[key] === search.search ||
-          item[key] === Number(search.search)
-        ) {
-          result.push(item);
-        }
-      }
-    });
-    navigate("/search", { state: result });
+    const result = await postRequest("https://hris-qp6t.onrender.com/search", search);
+    if (result.status === "ok") {
+      navigate("/search", { state: result });
+    }
   };
 
   const handleChange = (e) => {
