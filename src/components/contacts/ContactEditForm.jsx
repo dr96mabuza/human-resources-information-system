@@ -4,7 +4,7 @@ import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
 import Nav from "../Nav";
 
-export default function ContactEditForm({nav, getRequest, postRequest}) {
+export default function ContactEditForm({ nav, getRequest, postRequest }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -15,7 +15,9 @@ export default function ContactEditForm({nav, getRequest, postRequest}) {
   });
 
   const getContact = async (id) => {
-    const result = await getRequest(`https://hris-qp6t.onrender.com/contact/${id}`);
+    const result = await getRequest(
+      `https://hris-qp6t.onrender.com/contact/${id}`,
+    );
     setFormData({
       email: await result[0].email,
       cellphoneNumber: await result[0].cellphoneNumber,
@@ -38,7 +40,10 @@ export default function ContactEditForm({nav, getRequest, postRequest}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const resJson = await postRequest(`https://hris-qp6t.onrender.com/contact/${id}/update`, formData);
+    const resJson = await postRequest(
+      `https://hris-qp6t.onrender.com/contact/${id}/update`,
+      formData,
+    );
     if (resJson.status === "ok") {
       navigate("/contacts");
     }

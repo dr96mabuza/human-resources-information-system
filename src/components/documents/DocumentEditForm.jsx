@@ -1,11 +1,9 @@
-import fs from "fs";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
-import Nav from "../Nav";
 
-export default function DocumentEditForm({nav, getRequest, postRequest}) {
+export default function DocumentEditForm({ nav, getRequest, postRequest }) {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     documentName: "",
@@ -13,7 +11,9 @@ export default function DocumentEditForm({nav, getRequest, postRequest}) {
   });
 
   const getDocument = async (id) => {
-    const result = await getRequest(`https://hris-qp6t.onrender.com/document/${id}`);
+    const result = await getRequest(
+      `https://hris-qp6t.onrender.com/document/${id}`,
+    );
     setFormData({
       documentName: await result[0].documentName,
       document: await result[0].document,
@@ -34,10 +34,13 @@ export default function DocumentEditForm({nav, getRequest, postRequest}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const resJson = await postRequest(`https://hris-qp6t.onrender.com/document/${id}/update`, formData);
+    const resJson = await postRequest(
+      `https://hris-qp6t.onrender.com/document/${id}/update`,
+      formData,
+    );
 
-    if ( resJson.status === "ok") {
-        navigate("/documents")
+    if (resJson.status === "ok") {
+      navigate("/documents");
     }
   };
   return (

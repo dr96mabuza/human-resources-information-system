@@ -3,11 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
 
-export default function CreateDocument({
-  nav,
-  postRequest,
-  fetchEmployees,
-}) {
+export default function CreateDocument({ nav, postRequest, fetchEmployees }) {
   const navigate = useNavigate();
   const [employeeNames, setEmployeeNames] = useState([]);
   const [documentForm, setDocumentForm] = useState({

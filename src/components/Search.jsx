@@ -48,9 +48,9 @@ export default function Search({ nav }) {
                 <td>{person.gender}</td>
                 <td>{person.dateOfBirth}</td>
                 <td>
-                  <Link>
+                  {/* <Link>
                     <Icon path={mdiOpenInNew} size={1} />
-                  </Link>
+                  </Link> */}
                   <Link to={`/employee/${person.id}/update`}>
                     <Icon path={mdiFileEditOutline} size={1} />
                   </Link>

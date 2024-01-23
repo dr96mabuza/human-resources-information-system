@@ -6,13 +6,9 @@ import {
   mdiOpenInNew,
   mdiFileEditOutline,
 } from "@mdi/js";
-import { useNavigate } from "react-router-dom";
+import SearchBar from "../../SearchBar";
 
 export default function Employee({ nav, header, getRequest, postRequest }) {
-  const navigate = useNavigate();
-  const [search, setSearch] = useState({
-    search: "",
-  });
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -42,22 +38,6 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
     }
   };
 
-  const handleSearchClick = async (e) => {
-    e.preventDefault();
-    const result = await postRequest("https://hris-qp6t.onrender.com/search", search);
-    if (result.status === "ok") {
-      navigate("/search", { state: result });
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setSearch((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
   return (
     <div className="main">
       {nav}
@@ -68,17 +48,7 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
           </a>
         </div>
         <h4>Employees</h4>
-        <form id="search">
-          <input
-            type="text"
-            placeholder="search....."
-            onChange={handleChange}
-            required
-          />
-          <button type="submit" onClick={handleSearchClick}>
-            SEARCH
-          </button>
-        </form>
+        <SearchBar postRequest={postRequest} />
         <table>
           <thead>
             <tr>
@@ -100,9 +70,9 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
                 <td>{person.gender}</td>
                 <td>{person.dateOfBirth}</td>
                 <td>
-                  <Link>
+                  {/* <Link>
                     <Icon path={mdiOpenInNew} size={1} />
-                  </Link>
+                  </Link> */}
                   <Link to={`/employee/${person.id}/update`}>
                     <Icon path={mdiFileEditOutline} size={1} />
                   </Link>
