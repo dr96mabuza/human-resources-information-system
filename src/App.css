@@ -262,3 +262,10 @@ div.stacktrace {
   align-content: flex-end;
   justify-items: center;
 }
+
+#nomatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+}

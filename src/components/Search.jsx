@@ -29,6 +29,7 @@ export default function Search({ nav }) {
       {nav}
       <div className="content edit">
         <h4>Search Results</h4>
+        {searchResults.length > 0 ? 
         <table>
           <thead>
             <tr>
@@ -70,7 +71,8 @@ export default function Search({ nav }) {
             ))}
           </tbody>
           <tfoot></tfoot>
-        </table>
+        </table> : <div id="nomatch">
+        <h3>No Match Found</h3></div>}
       </div>
     </div>
   );
