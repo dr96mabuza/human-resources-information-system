@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Nav from "../Nav";
-import Header from "../Header";
 
 export default function Leave({
   header,
@@ -31,7 +29,6 @@ export default function Leave({
 
   return (
     <div className="main">
-      {/* {header} */}
       {nav}
       <div className="content">
         <div>
@@ -45,21 +42,27 @@ export default function Leave({
             <tr>
               <th>Emp. ID</th>
               <th>Employee</th>
-              <th>Days Balance</th>
-              <th>Days Absent</th>
+              <th>Type</th>
+              <th>Reason</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Approval</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((job, index) => (
-              <tr key={job.id}>
-                <td>{job.employeeId}</td>
+            {data.map((leave, index) => (
+              <tr key={leave.id}>
+                <td>{leave.employee_id}</td>
                 <td>
-                  <Link to={`/employee/${job.employeeId}`}>
+                  <Link to={`/employee/${leave.employee_id}`}>
                     {employeeNames[index]}
                   </Link>
                 </td>
-                <td>{job.leaveBalance}</td>
-                <td>{job.daysAbsent}</td>
+                <td>{leave.leave_type}</td>
+                <td>{leave.reason}</td>
+                <td>{leave.start_date}</td>
+                <td>{leave.end_date}</td>
+                <td>{leave.approval? "Approved" : "Declined"}</td>
               </tr>
             ))}
           </tbody>
