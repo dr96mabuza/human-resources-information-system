@@ -39,6 +39,7 @@ export default function CreateDocument({ nav, postRequest, fetchEmployees }) {
       "https://hris-qp6t.onrender.com/document/create",
       documentForm,
     );
+    console.log(documentForm)
     if (documentPostJson.status === "ok") {
       setDocumentForm({
         documentName: "",

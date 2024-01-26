@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import {date} from "./../../../helpers/dateHelper"
+const dateFormatter = date()
 
 export default function Leave({
   header,
@@ -31,11 +33,11 @@ export default function Leave({
     <div className="main">
       {nav}
       <div className="content">
-        <div>
+        {/* <div>
           <a href="/leave/create">
             <button type="submit">ADD LEAVE</button>
           </a>
-        </div>
+        </div> */}
         <h4>Leave Management</h4>
         <table>
           <thead>
@@ -51,7 +53,7 @@ export default function Leave({
           </thead>
           <tbody>
             {data.map((leave, index) => (
-              <tr key={leave.id}>
+              <tr key={leave.leave_id}>
                 <td>{leave.employee_id}</td>
                 <td>
                   <Link to={`/employee/${leave.employee_id}`}>
@@ -60,8 +62,8 @@ export default function Leave({
                 </td>
                 <td>{leave.leave_type}</td>
                 <td>{leave.reason}</td>
-                <td>{leave.start_date}</td>
-                <td>{leave.end_date}</td>
+                <td>{dateFormatter.ISOToDate(leave.start_date)}</td>
+                <td>{dateFormatter.ISOToDate(leave.end_date)}</td>
                 <td>{leave.approval? "Approved" : "Declined"}</td>
               </tr>
             ))}

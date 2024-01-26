@@ -7,6 +7,7 @@ import {
   mdiFileEditOutline,
 } from "@mdi/js";
 import SearchBar from "../../SearchBar";
+import { date } from "../../../helpers/dateHelper";
 
 export default function Employee({ nav, header, getRequest, postRequest }) {
   const [data, setData] = useState([]);
@@ -68,7 +69,7 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
                 <td>{person.lastName}</td>
                 <td>{person.idNumber}</td>
                 <td>{person.gender}</td>
-                <td>{person.dateOfBirth}</td>
+                <td>{date().ISOToDate(person.dateOfBirth)}</td>
                 <td>
                   {/* <Link>
                     <Icon path={mdiOpenInNew} size={1} />

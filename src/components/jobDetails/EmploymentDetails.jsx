@@ -6,6 +6,7 @@ import {
   mdiFileEditOutline,
 } from "@mdi/js";
 import Icon from "@mdi/react";
+import { date } from "../../../helpers/dateHelper";
 
 export default function EmployementDetails({
   header,
@@ -91,7 +92,7 @@ export default function EmployementDetails({
                   </Link>
                 </td>
                 <td>{job.employmentStatus}</td>
-                <td>{job.startDate}</td>
+                <td>{date().ISOToDate(job.startDate)}</td>
                 <td>
                   <Link to={`/employmentdetail/${job.id}/update`}>
                     <Icon path={mdiFileEditOutline} size={1} />
