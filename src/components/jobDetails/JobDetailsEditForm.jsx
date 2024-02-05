@@ -7,12 +7,13 @@ import Nav from "../Nav";
 export default function JobInfoEditForm({ nav, getRequest, postRequest }) {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [formData, setFormData] = useState({
+  const defaultState = {
     company: "",
     jobRole: "",
     reportsTo: 0,
     employmentStatus: "",
-  });
+  };
+  const [formData, setFormData] = useState(defaultState);
 
   const getJobInfo = async (id) => {
     const result = await getRequest(
@@ -57,58 +58,64 @@ export default function JobInfoEditForm({ nav, getRequest, postRequest }) {
   return (
     <div className="main">
       {nav}
-      <div className="content edit">
-        <a href="/employmentdetails">
-          <Icon path={mdiArrowLeft} size={1} />
-        </a>
-        <form>
-          <legend>
-            <em>
-              <strong>EDIT EMPLOYMENT DETAILS</strong>
-            </em>
-          </legend>
-          <div>
-            <label>Company</label>
-            <input
-              type="text"
-              value={formData.company}
-              name="company"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Role</label>
-            <input
-              type="text"
-              value={formData.jobRole}
-              name="jobRole"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Senior/Manager</label>
-            <input
-              type="number"
-              value={formData.reportsTo}
-              name="reportsTo"
-              id=""
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Employment Status</label>
-            <input
-              type="text"
-              value={formData.employmentStatus}
-              name="employmentStatus"
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit" onClick={handleSubmit}>
-            Submit
-          </button>
-        </form>
-      </div>
+      {defaultState === formData ? (
+        <section className="loaderContainer">
+          <div className="loader"></div>
+        </section>
+      ) : (
+        <div className="content edit">
+          <a href="/employmentdetails">
+            <Icon path={mdiArrowLeft} size={1} />
+          </a>
+          <form>
+            <legend>
+              <em>
+                <strong>EDIT EMPLOYMENT DETAILS</strong>
+              </em>
+            </legend>
+            <div>
+              <label>Company</label>
+              <input
+                type="text"
+                value={formData.company}
+                name="company"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Role</label>
+              <input
+                type="text"
+                value={formData.jobRole}
+                name="jobRole"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Senior/Manager</label>
+              <input
+                type="number"
+                value={formData.reportsTo}
+                name="reportsTo"
+                id=""
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Employment Status</label>
+              <input
+                type="text"
+                value={formData.employmentStatus}
+                name="employmentStatus"
+                onChange={handleChange}
+              />
+            </div>
+            <button type="submit" onClick={handleSubmit}>
+              Submit
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

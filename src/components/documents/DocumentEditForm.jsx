@@ -5,10 +5,11 @@ import { mdiArrowLeft } from "@mdi/js";
 
 export default function DocumentEditForm({ nav, getRequest, postRequest }) {
   const { id } = useParams();
-  const [formData, setFormData] = useState({
+  const defaultState = {
     documentName: "",
     document: "",
-  });
+  };
+  const [formData, setFormData] = useState(defaultState);
 
   const getDocument = async (id) => {
     const result = await getRequest(
@@ -46,35 +47,41 @@ export default function DocumentEditForm({ nav, getRequest, postRequest }) {
   return (
     <div className="main">
       {nav}
-      <div className="content edit">
-        <a href="/documents">
-          <Icon path={mdiArrowLeft} size={1} />
-        </a>
-        <form>
-          <legend>
-            <em>
-              <strong>EDIT DOCUMENT</strong>
-            </em>
-          </legend>
-          <div>
-            <label>Name</label>
-            <input
-              type="text"
-              value={formData.documentName}
-              name="documentName"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Document</label>
-            <input type="file" name="document" onChange={handleChange} />
-          </div>
+      {defaultState === formData ? (
+        <section className="loaderContainer">
+          <div className="loader"></div>
+        </section>
+      ) : (
+        <div className="content edit">
+          <a href="/documents">
+            <Icon path={mdiArrowLeft} size={1} />
+          </a>
+          <form>
+            <legend>
+              <em>
+                <strong>EDIT DOCUMENT</strong>
+              </em>
+            </legend>
+            <div>
+              <label>Name</label>
+              <input
+                type="text"
+                value={formData.documentName}
+                name="documentName"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Document</label>
+              <input type="file" name="document" onChange={handleChange} />
+            </div>
 
-          <button type="submit" onClick={handleSubmit}>
-            Submit
-          </button>
-        </form>
-      </div>
+            <button type="submit" onClick={handleSubmit}>
+              Submit
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

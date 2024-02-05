@@ -7,12 +7,13 @@ import Nav from "../Nav";
 export default function ContactEditForm({ nav, getRequest, postRequest }) {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [formData, setFormData] = useState({
+  const defaultState = {
     email: "",
     cellphoneNumber: "",
     companyEmail: "",
     alternateNumber: "",
-  });
+  };
+  const [formData, setFormData] = useState(defaultState);
 
   const getContact = async (id) => {
     const result = await getRequest(
@@ -52,57 +53,63 @@ export default function ContactEditForm({ nav, getRequest, postRequest }) {
   return (
     <div className="main">
       {nav}
-      <div className="content edit">
-        <a href="/contacts">
-          <Icon path={mdiArrowLeft} size={1} />
-        </a>
-        <form>
-          <legend>
-            <em>
-              <strong>EDIT CONTACT</strong>
-            </em>
-          </legend>
-          <div>
-            <label>Email</label>
-            <input
-              type="text"
-              value={formData.email}
-              name="email"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Contact Number</label>
-            <input
-              type="text"
-              value={formData.cellphoneNumber}
-              name="cellphoneNumber"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Second Email</label>
-            <input
-              type="text"
-              value={formData.companyEmail}
-              name="companyEmail"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Second Contact NUmber</label>
-            <input
-              type="text"
-              value={formData.alternateNumber}
-              name="alternateNumber"
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit" onClick={handleSubmit}>
-            Submit
-          </button>
-        </form>
-      </div>
+      {defaultState === formData ? (
+        <section className="loaderContainer">
+          <div className="loader"></div>
+        </section>
+      ) : (
+        <div className="content edit">
+          <a href="/contacts">
+            <Icon path={mdiArrowLeft} size={1} />
+          </a>
+          <form>
+            <legend>
+              <em>
+                <strong>EDIT CONTACT</strong>
+              </em>
+            </legend>
+            <div>
+              <label>Email</label>
+              <input
+                type="text"
+                value={formData.email}
+                name="email"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Contact Number</label>
+              <input
+                type="text"
+                value={formData.cellphoneNumber}
+                name="cellphoneNumber"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Second Email</label>
+              <input
+                type="text"
+                value={formData.companyEmail}
+                name="companyEmail"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Second Contact NUmber</label>
+              <input
+                type="text"
+                value={formData.alternateNumber}
+                name="alternateNumber"
+                onChange={handleChange}
+              />
+            </div>
+            <button type="submit" onClick={handleSubmit}>
+              Submit
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

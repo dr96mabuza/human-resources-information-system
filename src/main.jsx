@@ -54,7 +54,7 @@ const getEmployeeNamesList = async (data) => {
   const employeeNames = await Promise.all(
     data.map(async (item) => {
       const results = await getRequest(
-        `https://hris-qp6t.onrender.com/employee/${Object.keys(item).includes("employeeId")? item.employeeId : item.employee_id}`,
+        `https://hris-qp6t.onrender.com/employee/${Object.keys(item).includes("employeeId") ? item.employeeId : item.employee_id}`,
       );
       return `${results[0].firstName} ${results[0].lastName}`;
     }),

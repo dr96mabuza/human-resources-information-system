@@ -3,12 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
 
-export default function CreateAddress({
-  nav,
-  header,
-  postRequest,
-  fetchEmployees,
-}) {
+export default function CreateAddress({ nav, postRequest, fetchEmployees }) {
   const navigate = useNavigate();
   const [employeeNames, setEmployeeNames] = useState([]);
   const defaultState = {
@@ -20,6 +15,9 @@ export default function CreateAddress({
     employeeId: 0,
   };
   const [addressForm, setAddressForm] = useState(defaultState);
+
+  // const loaderContainer = document.querySelector(".loaderContainer").;
+  // loaderContainer.style.display = "none"
 
   useEffect(() => {
     const requestData = async () => {
@@ -45,6 +43,8 @@ export default function CreateAddress({
 
   const handleAddressSubmit = async (e) => {
     e.preventDefault();
+    // loaderContainer.style.display = "flex";
+    // document.querySelector(".content").style.display = "none";
     if (
       addressForm.postalCode != 0 &&
       addressForm.employeeId != 0 &&
@@ -69,6 +69,9 @@ export default function CreateAddress({
   return (
     <div className="main">
       {nav}
+      {/* <section className="loaderContainer">
+          <div className="loader"></div>
+        </section> */}
       <div className="content edit">
         <a href="/addresses">
           <Icon path={mdiArrowLeft} size={1} />

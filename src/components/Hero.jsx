@@ -1,7 +1,7 @@
 import Nav from "./Nav";
 import { useEffect, useState } from "react";
 export default function Main() {
-  const [counts, setCounts] = useState({
+  const defaultState = {
     addressCount: 0,
     contactCount: 0,
     compensationCount: 0,
@@ -9,7 +9,8 @@ export default function Main() {
     employeeCount: 0,
     employementDetailCount: 0,
     leaveCount: 0,
-  });
+  };
+  const [counts, setCounts] = useState(defaultState);
 
   const fetchGetRequest = async (request) => {
     const res = await fetch(`https://hris-qp6t.onrender.com/${request}`, {
@@ -55,10 +56,9 @@ export default function Main() {
 
   return (
     <section id="main" className="content">
-      {/* <Nav /> */}
-      {counts.error ? (
-        <section>
-          <p>Error: route to error page!</p>
+      {counts === defaultState ? (
+        <section className="loaderContainer">
+          <div className="loader"></div>
         </section>
       ) : (
         <section>

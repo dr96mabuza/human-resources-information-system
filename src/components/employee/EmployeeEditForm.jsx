@@ -63,67 +63,72 @@ export default function PersonalInfoEditForm({
   return (
     <div className="main">
       {nav}
-
-      <div className="content edit">
-        <a href="/employees">
-          <Icon path={mdiArrowLeft} size={1} />
-        </a>
-        <form>
-          <legend>
-            <em>
-              <strong>EDIT PERSONAL INFORMATION</strong>
-            </em>
-          </legend>
-          <div>
-            <label>Name</label>
-            <input
-              type="text"
-              value={formData.firstName}
-              name="firstName"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Surname</label>
-            <input
-              type="text"
-              value={formData.lastName}
-              name="lastName"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>ID Number</label>
-            <input
-              type="text"
-              value={formData.idNumber}
-              name="idNumber"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Gender</label>
-            <select name="gender" onChange={handleChange}>
-              <option value="">Select an Option</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Prefer not to state">Prefer not to state</option>
-            </select>
-          </div>
-          <div>
-            <label>Date of birth</label>
-            <input
-              type="date"
-              value={formData.dateOfBirth}
-              name="dateOfBirth"
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit" onClick={handleSubmit}>
-            Submit
-          </button>
-        </form>
-      </div>
+      {defaultState === formData ? (
+        <section className="loaderContainer">
+          <div className="loader"></div>
+        </section>
+      ) : (
+        <div className="content edit">
+          <a href="/employees">
+            <Icon path={mdiArrowLeft} size={1} />
+          </a>
+          <form>
+            <legend>
+              <em>
+                <strong>EDIT PERSONAL INFORMATION</strong>
+              </em>
+            </legend>
+            <div>
+              <label>Name</label>
+              <input
+                type="text"
+                value={formData.firstName}
+                name="firstName"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Surname</label>
+              <input
+                type="text"
+                value={formData.lastName}
+                name="lastName"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>ID Number</label>
+              <input
+                type="text"
+                value={formData.idNumber}
+                name="idNumber"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Gender</label>
+              <select name="gender" onChange={handleChange}>
+                <option value="">Select an Option</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Prefer not to state">Prefer not to state</option>
+              </select>
+            </div>
+            <div>
+              <label>Date of birth</label>
+              <input
+                type="date"
+                value={formData.dateOfBirth}
+                name="dateOfBirth"
+                onChange={handleChange}
+              />
+            </div>
+            <button type="submit" onClick={handleSubmit}>
+              Submit
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

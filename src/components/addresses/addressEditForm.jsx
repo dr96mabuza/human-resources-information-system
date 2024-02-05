@@ -6,13 +6,14 @@ import { mdiArrowLeft } from "@mdi/js";
 export default function AddressEditForm({ nav, getRequest, postRequest }) {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [formData, setFormData] = useState({
+  const defaultState = {
     street: "",
     suburb: "",
     city: "",
     province: "",
     postalCode: 0,
-  });
+  };
+  const [formData, setFormData] = useState(defaultState);
 
   const getAddress = async (id) => {
     const result = await getRequest(
@@ -56,66 +57,72 @@ export default function AddressEditForm({ nav, getRequest, postRequest }) {
   return (
     <div className="main">
       {nav}
-      <div className="content edit">
-        <a href="/addresses">
-          <Icon path={mdiArrowLeft} size={1} />
-        </a>
-        <form>
-          <legend>
-            <em>
-              <strong>EDIT ADDRESS INFORMATION</strong>
-            </em>
-          </legend>
-          <div>
-            <label>Street</label>
-            <input
-              type="text"
-              value={formData.street}
-              name="street"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Suburb</label>
-            <input
-              type="text"
-              value={formData.suburb}
-              name="suburb"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>City</label>
-            <input
-              type="text"
-              value={formData.city}
-              name="city"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Province</label>
-            <input
-              type="text"
-              value={formData.province}
-              name="province"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Postal code</label>
-            <input
-              type="number"
-              value={formData.postalCode}
-              name="postalCode"
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit" onClick={handleSubmit}>
-            Submit
-          </button>
-        </form>
-      </div>
+      {defaultState === formData ? (
+        <section className="loaderContainer">
+          <div className="loader"></div>
+        </section>
+      ) : (
+        <div className="content edit">
+          <a href="/addresses">
+            <Icon path={mdiArrowLeft} size={1} />
+          </a>
+          <form>
+            <legend>
+              <em>
+                <strong>EDIT ADDRESS INFORMATION</strong>
+              </em>
+            </legend>
+            <div>
+              <label>Street</label>
+              <input
+                type="text"
+                value={formData.street}
+                name="street"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Suburb</label>
+              <input
+                type="text"
+                value={formData.suburb}
+                name="suburb"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>City</label>
+              <input
+                type="text"
+                value={formData.city}
+                name="city"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Province</label>
+              <input
+                type="text"
+                value={formData.province}
+                name="province"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Postal code</label>
+              <input
+                type="number"
+                value={formData.postalCode}
+                name="postalCode"
+                onChange={handleChange}
+              />
+            </div>
+            <button type="submit" onClick={handleSubmit}>
+              Submit
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

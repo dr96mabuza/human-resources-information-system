@@ -53,53 +53,60 @@ export default function Documents({
   return (
     <div className="main">
       {nav}
-      <div className="content">
-        <div>
-          <a href="/document/create">
-            <button type="submit">ADD DOCUMENT</button>
-          </a>
-        </div>
-        <h4>Documents</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>Emp. ID</th>
-              <th>Employee</th>
-              <th>Doc. Name</th>
-              <th>Content</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((doc, index) => (
-              <tr key={doc.id}>
-                <td>{doc.employeeId}</td>
-                <td>
-                  <Link to={`/employee/${doc.employeeId}`}>
-                    {employeeNames[index]}
-                  </Link>
-                </td>
-                <td>{doc.documentName}</td>
-                <td>{}</td>
-                <td>
-                  <Link to={`/document/${doc.id}/update`}>
-                    <Icon path={mdiFileEditOutline} size={1} />
-                  </Link>
-                  <Icon
-                    path={mdiDeleteCircleOutline}
-                    size={1}
-                    className="deleteBTN"
-                    onClick={() => {
-                      deleteDocument(doc.id);
-                    }}
-                    onSubmit={handleSubmit}
-                    type="submit"
-                  />
-                </td>
+      {data.toString() === [].toString() &&
+      employeeNames.toString() === [].toString() ? (
+        <section className="loaderContainer">
+          <div className="loader"></div>
+        </section>
+      ) : (
+        <div className="content">
+          <div>
+            <a href="/document/create">
+              <button type="submit">ADD DOCUMENT</button>
+            </a>
+          </div>
+          <h4>Documents</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Emp. ID</th>
+                <th>Employee</th>
+                <th>Doc. Name</th>
+                <th>Content</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {data.map((doc, index) => (
+                <tr key={doc.id}>
+                  <td>{doc.employeeId}</td>
+                  <td>
+                    <Link to={`/employee/${doc.employeeId}`}>
+                      {employeeNames[index]}
+                    </Link>
+                  </td>
+                  <td>{doc.documentName}</td>
+                  <td>{}</td>
+                  <td>
+                    <Link to={`/document/${doc.id}/update`}>
+                      <Icon path={mdiFileEditOutline} size={1} />
+                    </Link>
+                    <Icon
+                      path={mdiDeleteCircleOutline}
+                      size={1}
+                      className="deleteBTN"
+                      onClick={() => {
+                        deleteDocument(doc.id);
+                      }}
+                      onSubmit={handleSubmit}
+                      type="submit"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

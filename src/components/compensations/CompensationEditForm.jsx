@@ -7,11 +7,12 @@ import Nav from "../Nav";
 export default function CompansationForm({ nav, getRequest, postRequest }) {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [formData, setFormData] = useState({
+  const defaultState = {
     salary: 0,
     deductions: 0,
     bonus: 0,
-  });
+  };
+  const [formData, setFormData] = useState(defaultState);
 
   const getCompensation = async (id) => {
     const result = await getRequest(
@@ -50,48 +51,54 @@ export default function CompansationForm({ nav, getRequest, postRequest }) {
   return (
     <div className="main">
       {nav}
-      <div className=" content edit">
-        <a href="/compensations">
-          <Icon path={mdiArrowLeft} size={1} />
-        </a>
-        <form>
-          <legend>
-            <em>
-              <strong>EDIT COMPENSATION</strong>
-            </em>
-          </legend>
-          <div>
-            <label>Salary</label>
-            <input
-              type="number"
-              value={formData.salary}
-              name="salary"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Deductions</label>
-            <input
-              type="number"
-              value={formData.deductions}
-              name="deductions"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Bonus</label>
-            <input
-              type="number"
-              value={formData.bonus}
-              name="bonus"
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit" onClick={handleSubmit}>
-            Submit
-          </button>
-        </form>
-      </div>
+      {defaultState === formData ? (
+        <section className="loaderContainer">
+          <div className="loader"></div>
+        </section>
+      ) : (
+        <div className=" content edit">
+          <a href="/compensations">
+            <Icon path={mdiArrowLeft} size={1} />
+          </a>
+          <form>
+            <legend>
+              <em>
+                <strong>EDIT COMPENSATION</strong>
+              </em>
+            </legend>
+            <div>
+              <label>Salary</label>
+              <input
+                type="number"
+                value={formData.salary}
+                name="salary"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Deductions</label>
+              <input
+                type="number"
+                value={formData.deductions}
+                name="deductions"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Bonus</label>
+              <input
+                type="number"
+                value={formData.bonus}
+                name="bonus"
+                onChange={handleChange}
+              />
+            </div>
+            <button type="submit" onClick={handleSubmit}>
+              Submit
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
