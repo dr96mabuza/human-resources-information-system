@@ -54,6 +54,7 @@ export default function Leave({
                 <th>Reason</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>Days Absent</th>
                 <th>Approval</th>
               </tr>
             </thead>
@@ -70,6 +71,7 @@ export default function Leave({
                   <td>{leave.reason}</td>
                   <td>{dateFormatter.ISOToDate(leave.start_date)}</td>
                   <td>{dateFormatter.ISOToDate(leave.end_date)}</td>
+                  <td>{leave.days_absent}</td>
                   <td>{leave.approval ? "Approved" : "Declined"}</td>
                 </tr>
               ))}
