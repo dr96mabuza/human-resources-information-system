@@ -28,7 +28,7 @@ export default function Login() {
             type="email"
             name="email"
             id=""
-            value={form.email}
+            // value={form.email}
             placeholder="email@hrms.com"
             onChange={handleChange}
             required
@@ -40,7 +40,7 @@ export default function Login() {
             type="password"
             name="password"
             id=""
-            value={form.password}
+            // value={form.password}
             placeholder="password"
             onChange={handleChange}
             required

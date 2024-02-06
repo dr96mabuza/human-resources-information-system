@@ -247,6 +247,7 @@ div.stacktrace {
   justify-content: center;
   align-items: center;
   height: 100svh;
+  width: 100vw;
 }
 
 #login form legend,

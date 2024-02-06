@@ -29,7 +29,7 @@ export default function Signup() {
             type="email"
             name="email"
             id=""
-            value={form.email}
+            // value={form.email}
             onChange={handleChange}
             placeholder="user@hrms.com"
             required
@@ -41,7 +41,7 @@ export default function Signup() {
             type="password"
             name="password"
             id=""
-            value={form.password}
+            // value={form.password}
             onChange={handleChange}
             placeholder="password"
             required
@@ -53,7 +53,7 @@ export default function Signup() {
             type="password"
             name="passwordConfirm"
             id=""
-            value={form.passwordConfirm}
+            // value={form.passwordConfirm}
             onChange={handleChange}
             placeholder="confirm password"
             required
