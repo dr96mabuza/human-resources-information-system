@@ -19,9 +19,9 @@ export default function CompansationForm({ nav, getRequest, postRequest }) {
       `https://hris-qp6t.onrender.com/compansation/${id}`,
     );
     setFormData({
-      salary: await result[0].salary,
-      deductions: await result[0].deductions,
-      bonus: await result[0].bonus,
+      salary: await result.salary,
+      deductions: await result.deductions,
+      bonus: await result.bonus,
     });
   };
 

@@ -26,11 +26,11 @@ export default function PersonalInfoEditForm({
       `https://hris-qp6t.onrender.com/employee/${id}`,
     );
     setFormData({
-      firstName: await result[0].firstName,
-      lastName: await result[0].lastName,
-      idNumber: await result[0].idNumber,
-      gender: await result[0].gender,
-      dateOfBirth: await result[0].dateOfBirth,
+      firstName: await result.firstName,
+      lastName: await result.lastName,
+      idNumber: await result.idNumber,
+      gender: await result.gender,
+      dateOfBirth: await result.dateOfBirth,
     });
   };
 

@@ -20,11 +20,11 @@ export default function AddressEditForm({ nav, getRequest, postRequest }) {
       `https://hris-qp6t.onrender.com/address/${id}`,
     );
     setFormData({
-      street: result[0].street,
-      suburb: result[0].suburb,
-      city: result[0].city,
-      province: result[0].province,
-      postalCode: result[0].postalCode,
+      street: result.street,
+      suburb: result.suburb,
+      city: result.city,
+      province: result.province,
+      postalCode: result.postalCode,
     });
   };
 

@@ -43,7 +43,7 @@ export default function CreateDocument({ nav, postRequest, fetchEmployees }) {
     if (documentPostJson.status === "ok") {
       setDocumentForm({
         documentName: "",
-        document: [],
+        document: null,
         employeeId: 0,
       });
       navigate("/documents");

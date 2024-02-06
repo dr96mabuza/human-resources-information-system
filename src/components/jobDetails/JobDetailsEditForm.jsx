@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
-import Nav from "../Nav";
 
 export default function JobInfoEditForm({ nav, getRequest, postRequest }) {
   const navigate = useNavigate();
@@ -20,13 +19,13 @@ export default function JobInfoEditForm({ nav, getRequest, postRequest }) {
       `https://hris-qp6t.onrender.com/employmentdetail/${id}`,
     );
     setFormData({
-      company: result[0].company,
-      jobRole: result[0].jobRole,
+      company: result.company,
+      jobRole: result.jobRole,
       reportsTo:
-        result[0].reportsTo === undefined || result[0].reportsTo === null
+        result.reportsTo === undefined || result.reportsTo === null
           ? 0
-          : result[0].reportsTo,
-      employmentStatus: result[0].employmentStatus,
+          : result.reportsTo,
+      employmentStatus: result.employmentStatus,
     });
   };
 
@@ -52,7 +51,6 @@ export default function JobInfoEditForm({ nav, getRequest, postRequest }) {
     if (resJson.status === "ok") {
       navigate("/employmentdetails");
     }
-    console.log(resJson);
   };
 
   return (

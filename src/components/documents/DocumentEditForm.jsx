@@ -16,8 +16,8 @@ export default function DocumentEditForm({ nav, getRequest, postRequest }) {
       `https://hris-qp6t.onrender.com/document/${id}`,
     );
     setFormData({
-      documentName: await result[0].documentName,
-      document: await result[0].document,
+      documentName: await result.documentName,
+      document: await result.document,
     });
   };
 

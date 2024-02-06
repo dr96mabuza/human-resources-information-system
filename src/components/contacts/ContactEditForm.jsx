@@ -20,10 +20,10 @@ export default function ContactEditForm({ nav, getRequest, postRequest }) {
       `https://hris-qp6t.onrender.com/contact/${id}`,
     );
     setFormData({
-      email: await result[0].email,
-      cellphoneNumber: await result[0].cellphoneNumber,
-      companyEmail: await result[0].companyEmail,
-      alternateNumber: await result[0].alternateNumber,
+      email: await result.email,
+      cellphoneNumber: await result.cellphoneNumber,
+      companyEmail: await result.companyEmail,
+      alternateNumber: await result.alternateNumber,
     });
   };
 

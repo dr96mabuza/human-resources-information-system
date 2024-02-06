@@ -3,7 +3,7 @@ body {
   /* margin-top: 1em; */
   font-family: "Pangolin", sans-serif;
   background-color: #f0f0f0;
-  width: 90%;
+  max-width: 90%;
   display: inline-block;
 }
 
@@ -134,7 +134,7 @@ table {
   width: 89%;
   border-collapse: collapse;
   margin-top: 1em;
-  margin-left: 1rem;
+  margin-left: 3.3rem;
   /* border: solid #464141 1px; */
   border-radius: 25px;
   /* height: fit-content; */
@@ -214,16 +214,19 @@ div.stacktrace {
 
   justify-content: flex-end;
   align-items: center;
+  width: 95%;
+  /* padding-left: 50px; */
 }
 
 .content h4 {
-  padding-left: 2rem;
+  padding-left: 3.3rem;
 }
 
 #nav {
   border-right: solid #45a049 1px;
   position: sticky;
   top: 0;
+  min-width: 200px;
 }
 
 .main form legend {
@@ -256,11 +259,9 @@ div.stacktrace {
   flex-direction: row;
   gap: 10px;
   width: 89%;
-}
-
-#search {
   align-content: flex-end;
   justify-items: center;
+  margin-left: 2em;
 }
 
 #nomatch {
