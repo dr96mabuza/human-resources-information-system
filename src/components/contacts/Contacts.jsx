@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import {
   mdiDeleteCircleOutline,
@@ -14,6 +14,7 @@ export default function Contacts({
   postRequest,
   getEmployeeNamesList,
 }) {
+  const navigate = useNavigate()
   const [data, setData] = useState([]);
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchContactsList = async () => {
@@ -22,6 +23,9 @@ export default function Contacts({
   };
 
   useEffect(() => {
+    if (localStorage.getItem("hrmsToken") === null || localStorage.getItem("hrmsToken") === "") {
+      navigate("/login")
+    }
     fetchContactsList();
   }, []);
 

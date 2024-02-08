@@ -324,3 +324,19 @@ div.stacktrace {
       100% 0%;
   }
 }
+
+span {
+  color: red;
+  font-size: 10px;
+  display: none;
+}
+
+input:invalid ~ span,
+select:invalid ~ span {
+  display: block;
+}
+
+input:valid,
+select:valid {
+  border: solid #45a049 5px;
+}

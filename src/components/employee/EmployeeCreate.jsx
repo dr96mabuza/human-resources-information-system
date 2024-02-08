@@ -10,8 +10,6 @@ export default function CreateEmployee({ nav, header, postRequest }) {
     lastName: "",
     idNumber: "",
     gender: "",
-    dateOfBirth: "",
-    passwordSalt: "",
   };
   const [employeeForm, setEmployeeForm] = useState(defaultState);
 
@@ -68,10 +66,6 @@ export default function CreateEmployee({ nav, header, postRequest }) {
               <option value="Female">Female</option>
               <option value="Prefer not to state">Prefer not to state</option>
             </select>
-          </div>
-          <div>
-            <label>Date of birth</label>
-            <input type="date" name="dateOfBirth" onChange={handleChange} />
           </div>
           <button type="submit" onClick={handleEmployeeSubmit}>
             Next

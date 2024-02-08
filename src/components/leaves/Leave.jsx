@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { date } from "./../../../helpers/dateHelper";
 const dateFormatter = date();
 
@@ -9,6 +9,7 @@ export default function Leave({
   getRequest,
   getEmployeeNamesList,
 }) {
+  const navigate = useNavigate()
   const [data, setData] = useState([]);
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchLeaveList = async () => {
@@ -17,6 +18,9 @@ export default function Leave({
   };
 
   useEffect(() => {
+    if (localStorage.getItem("hrmsToken") === null || localStorage.getItem("hrmsToken") === "") {
+      navigate("/login")
+    }
     fetchLeaveList();
   }, []);
 

@@ -16,6 +16,10 @@ export default function CreateAddress({ nav, postRequest, fetchEmployees }) {
   };
   const [addressForm, setAddressForm] = useState(defaultState);
 
+  if (localStorage.getItem("hrmsToken") === undefined) {
+    navigate("/login")
+  }
+
   // const loaderContainer = document.querySelector(".loaderContainer").;
   // loaderContainer.style.display = "none"
 
@@ -43,8 +47,28 @@ export default function CreateAddress({ nav, postRequest, fetchEmployees }) {
 
   const handleAddressSubmit = async (e) => {
     e.preventDefault();
-    // loaderContainer.style.display = "flex";
-    // document.querySelector(".content").style.display = "none";
+    if (
+      addressForm.postalCode < 1 ||
+      addressForm.employeeId < 1 ||
+      addressForm.street.length < 1 ||
+      addressForm.suburb.length < 1 ||
+      addressForm.city.length < 1 ||
+      addressForm.province.length < 1
+    ) {
+      const addressCreateForm = document.querySelector("form");
+      const invalidFields = addressCreateForm.querySelectorAll(
+        "input:invalid, select:invalid",
+      );
+      invalidFields.forEach((field) => {
+        setTimeout(() => {
+          field.style.border = "1px solid #ccc";
+        }, 1000);
+
+        field.style.border = "solid red 5px";
+      });
+      return;
+    }
+
     if (
       addressForm.postalCode != 0 &&
       addressForm.employeeId != 0 &&
@@ -67,7 +91,7 @@ export default function CreateAddress({ nav, postRequest, fetchEmployees }) {
   };
 
   return (
-    <div className="main">
+    <div className="main" id="addressCreateForm">
       {nav}
       {/* <section className="loaderContainer">
           <div className="loader"></div>
@@ -83,9 +107,9 @@ export default function CreateAddress({ nav, postRequest, fetchEmployees }) {
             </em>
           </legend>
           <div>
-            <label>Employee</label>
-            <select name="employeeId" onChange={handleChange}>
-              <option key="0">Select an Option</option>
+            <label>Select a Employee:</label>
+            <select name="employeeId" onChange={handleChange} required={true}>
+              <option key="0"></option>
               {employeeNames.map((name) => {
                 return (
                   <option key={name.id} value={name.id}>
@@ -94,26 +118,75 @@ export default function CreateAddress({ nav, postRequest, fetchEmployees }) {
                 );
               })}
             </select>
+            <span>Select current employee</span>
           </div>
           <div>
             <label>Street</label>
-            <input type="text" name="street" onChange={handleChange} />
+            <input
+              type="text"
+              name="street"
+              onChange={handleChange}
+              minLength={8}
+              required={true}
+            />
+            <span>
+              Street should be a minimun length of 6 and should include a
+              number.
+            </span>
           </div>
           <div>
             <label>Suburb</label>
-            <input type="text" name="suburb" onChange={handleChange} />
+            <input
+              type="text"
+              name="suburb"
+              onChange={handleChange}
+              minLength={3}
+              required={true}
+            />
+            <span>Suburb should be a minimum length of 3.</span>
           </div>
           <div>
             <label>City</label>
-            <input type="text" name="city" onChange={handleChange} />
+            <input
+              type="text"
+              name="city"
+              onChange={handleChange}
+              minLength={3}
+              required={true}
+            />
+            <span>City should be a minimum length of 3.</span>
           </div>
           <div>
-            <label>Province</label>
-            <input type="text" name="province" onChange={handleChange} />
+            <label>Select a Province:</label>
+            <select
+              name="province"
+              onChange={handleChange}
+              minLength={7}
+              required={true}
+            >
+              <option key="0" value=""></option>
+              <option value="Eastern Cape">Eastern Cape</option>
+              <option value="Free State">Free State</option>
+              <option value="Gauteng">Gauteng</option>
+              <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+              <option value="Limpopo">Limpopo</option>
+              <option value="Mpumalanga">Mpumalanga</option>
+              <option value="Northern Cape">Northern Cape</option>
+              <option value="North West">North West</option>
+              <option value="Western Cape">Western Cape</option>
+            </select>
+            <span>Select valid province.</span>
           </div>
           <div>
             <label>Postal code</label>
-            <input type="number" name="postalCode" onChange={handleChange} />
+            <input
+              type="number"
+              name="postalCode"
+              onChange={handleChange}
+              minLength={1}
+              required={true}
+            />
+            <span>Enter valid postal code.</span>
           </div>
           <button type="submit" onClick={handleAddressSubmit}>
             Submit

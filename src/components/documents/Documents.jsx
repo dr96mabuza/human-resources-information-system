@@ -3,7 +3,7 @@ import {
   mdiOpenInNew,
   mdiFileEditOutline,
 } from "@mdi/js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Icon from "@mdi/react";
 
@@ -13,6 +13,7 @@ export default function Documents({
   postRequest,
   getEmployeeNamesList,
 }) {
+  const navigate = useNavigate()
   const [data, setData] = useState([]);
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchDocumentsList = async () => {
@@ -23,6 +24,9 @@ export default function Documents({
   };
 
   useEffect(() => {
+    if (localStorage.getItem("hrmsToken") === null || localStorage.getItem("hrmsToken") === "") {
+      navigate("/login")
+    }
     fetchDocumentsList();
   }, []);
 

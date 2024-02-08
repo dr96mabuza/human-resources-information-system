@@ -32,7 +32,14 @@ import Signup from "./Signup.jsx";
 import Search from "./components/Search.jsx";
 
 const getRequest = async (route) => {
-  const res = await fetch(route, { method: "GET", mode: "cors" });
+  const res = await fetch(route, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "content-Type": "application/json",
+      "authorization": localStorage.getItem("hrmsToken")? `Bearer ${localStorage.getItem("hrmsToken")}`: "",
+    },
+  });
   const data = await res.json();
   const results = await data.result;
   return results;
@@ -44,6 +51,7 @@ const postRequest = async (route, data) => {
     mode: "cors",
     headers: {
       "content-Type": "application/json",
+      "authorization": localStorage.getItem("hrmsToken")? `Bearer ${localStorage.getItem("hrmsToken")}`: "",
     },
     body: JSON.stringify(data),
   });
@@ -91,7 +99,7 @@ const parentRoutes = [
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <Login postRequest={postRequest} />,
   },
   {
     path: "/search",
@@ -99,7 +107,7 @@ const parentRoutes = [
   },
   {
     path: "/signup",
-    element: <Signup />,
+    element: <Signup postRequest={postRequest} />,
   },
   {
     // display all employees list

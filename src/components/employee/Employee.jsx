@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import {
   mdiDeleteCircleOutline,
@@ -11,8 +11,12 @@ import { date } from "../../../helpers/dateHelper";
 
 export default function Employee({ nav, header, getRequest, postRequest }) {
   const [data, setData] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if (localStorage.getItem("hrmsToken") === null || localStorage.getItem("hrmsToken") === "") {
+      navigate("/login")
+    }
     const fetchData = async () => {
       const result = await getRequest(
         "https://hris-qp6t.onrender.com/employees",
