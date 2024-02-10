@@ -5,7 +5,7 @@ import { mdiArrowLeft } from "@mdi/js";
 
 export default function CreateContact({
   nav,
-  header,
+  invalidInputs,
   postRequest,
   fetchEmployees,
 }) {
@@ -29,10 +29,7 @@ export default function CreateContact({
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
-    const contactPostJson = await postRequest(
-      "contact/create",
-      contactForm,
-    );
+    const contactPostJson = await postRequest("contact/create", contactForm);
 
     if (contactPostJson.status === "ok") {
       setContactForm({

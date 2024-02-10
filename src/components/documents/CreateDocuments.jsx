@@ -3,7 +3,12 @@ import { useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
 
-export default function CreateDocument({ nav, postRequest, fetchEmployees }) {
+export default function CreateDocument({
+  nav,
+  postRequest,
+  fetchEmployees,
+  invalidInputs,
+}) {
   const navigate = useNavigate();
   const [employeeNames, setEmployeeNames] = useState([]);
   const [documentForm, setDocumentForm] = useState({
@@ -35,10 +40,7 @@ export default function CreateDocument({ nav, postRequest, fetchEmployees }) {
 
   const handleDocumentSubmit = async (e) => {
     e.preventDefault();
-    const documentPostJson = await postRequest(
-      "document/create",
-      documentForm,
-    );
+    const documentPostJson = await postRequest("document/create", documentForm);
     console.log(documentForm);
     if (documentPostJson.status === "ok") {
       setDocumentForm({

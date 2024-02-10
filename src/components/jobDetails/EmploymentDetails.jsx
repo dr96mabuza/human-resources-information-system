@@ -10,23 +10,22 @@ import { date } from "../../../helpers/dateHelper";
 
 export default function EmployementDetails({
   nav,
+  isLoggedIn,
   postRequest,
   getRequest,
   getEmployeeNamesList,
 }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchJobDetailsList = async () => {
-    const results = await getRequest(
-      `employmentdetails`,
-    );
+    const results = await getRequest(`employmentdetails`);
     setData(results);
   };
 
   useEffect(() => {
-    if (localStorage.getItem("hrmsToken") === null || localStorage.getItem("hrmsToken") === "") {
-      navigate("/login")
+    if (!isLoggedIn) {
+      navigate("/login");
     }
     fetchJobDetailsList();
   }, []);
@@ -45,10 +44,7 @@ export default function EmployementDetails({
   };
 
   const deleteJobDetail = async (id) => {
-    const resJson = await postRequest(
-      `employmentdetail/${id}/delete`,
-      {},
-    );
+    const resJson = await postRequest(`employmentdetail/${id}/delete`, {});
 
     if (resJson.status === "ok") {
       fetchJobDetailsList();

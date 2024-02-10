@@ -31,13 +31,22 @@ import Login from "./components/Login.jsx";
 import Signup from "./Signup.jsx";
 import Search from "./components/Search.jsx";
 
+const isLoggedIn = () => {
+  return (
+    localStorage.getItem("hrmsToken") === null ||
+    localStorage.getItem("hrmsToken") === ""
+  );
+};
+
 const getRequest = async (route) => {
   const res = await fetch(`https://hris-qp6t.onrender.com/${route}`, {
     method: "GET",
     mode: "cors",
     headers: {
       "content-Type": "application/json",
-      "authorization": localStorage.getItem("hrmsToken")? `Bearer ${localStorage.getItem("hrmsToken")}`: "",
+      authorization: localStorage.getItem("hrmsToken")
+        ? `Bearer ${localStorage.getItem("hrmsToken")}`
+        : "",
     },
   });
   const data = await res.json();
@@ -51,7 +60,9 @@ const postRequest = async (route, data) => {
     mode: "cors",
     headers: {
       "content-Type": "application/json",
-      "authorization": localStorage.getItem("hrmsToken")? `Bearer ${localStorage.getItem("hrmsToken")}`: "",
+      authorization: localStorage.getItem("hrmsToken")
+        ? `Bearer ${localStorage.getItem("hrmsToken")}`
+        : "",
     },
     body: JSON.stringify(data),
   });
@@ -72,9 +83,7 @@ const getEmployeeNamesList = async (data) => {
 };
 
 const fetchEmployees = async () => {
-  const employees = await getRequest(
-    "employees",
-  );
+  const employees = await getRequest("employees");
   const result = await Promise.all(
     employees.map((employee) => {
       return {
@@ -85,6 +94,18 @@ const fetchEmployees = async () => {
   );
   // console.log(result);
   return result;
+};
+
+const invalidInputs = () => {
+  const form = document.querySelector("form");
+  const invalidFields = form.querySelectorAll("input:invalid, select:invalid");
+  invalidFields.forEach((field) => {
+    setTimeout(() => {
+      field.style.border = "1px solid #ccc";
+    }, 1000);
+
+    field.style.border = "solid red 5px";
+  });
 };
 
 const parentRoutes = [
@@ -99,7 +120,7 @@ const parentRoutes = [
   },
   {
     path: "/login",
-    element: <Login postRequest={postRequest} />,
+    element: <Login postRequest={postRequest} invalidInputs={invalidInputs} />,
   },
   {
     path: "/search",
@@ -107,7 +128,7 @@ const parentRoutes = [
   },
   {
     path: "/signup",
-    element: <Signup postRequest={postRequest} />,
+    element: <Signup postRequest={postRequest} invalidInputs={invalidInputs} />,
   },
   {
     // display all employees list
@@ -117,6 +138,7 @@ const parentRoutes = [
         nav={<Nav location={"/employees"} />}
         getRequest={getRequest}
         postRequest={postRequest}
+        isLoggedIn={isLoggedIn}
       />
     ),
   },
@@ -129,6 +151,7 @@ const parentRoutes = [
         getRequest={getRequest}
         postRequest={postRequest}
         getEmployeeNamesList={getEmployeeNamesList}
+        isLoggedIn={isLoggedIn}
       />
     ),
   },
@@ -141,6 +164,7 @@ const parentRoutes = [
         getRequest={getRequest}
         postRequest={postRequest}
         getEmployeeNamesList={getEmployeeNamesList}
+        isLoggedIn={isLoggedIn}
       />
     ),
   },
@@ -152,6 +176,7 @@ const parentRoutes = [
         nav={<Nav location={"/leaves"} />}
         getRequest={getRequest}
         getEmployeeNamesList={getEmployeeNamesList}
+        isLoggedIn={isLoggedIn}
       />
     ),
   },
@@ -164,6 +189,7 @@ const parentRoutes = [
         getRequest={getRequest}
         postRequest={postRequest}
         getEmployeeNamesList={getEmployeeNamesList}
+        isLoggedIn={isLoggedIn}
       />
     ),
   },
@@ -175,6 +201,7 @@ const parentRoutes = [
         nav={<Nav location={"/employmentdetails"} />}
         getRequest={getRequest}
         getEmployeeNamesList={getEmployeeNamesList}
+        isLoggedIn={isLoggedIn}
       />
     ),
   },
@@ -186,6 +213,7 @@ const parentRoutes = [
         nav={<Nav location={"/compensations"} />}
         getRequest={getRequest}
         getEmployeeNamesList={getEmployeeNamesList}
+        isLoggedIn={isLoggedIn}
       />
     ),
   },
@@ -199,6 +227,7 @@ const createRoutes = [
         nav={<Nav location={"/contacts"} />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
+        invalidInputs={invalidInputs}
       />
     ),
   },
@@ -209,6 +238,7 @@ const createRoutes = [
         nav={<Nav location={"/documents"} />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
+        invalidInputs={invalidInputs}
       />
     ),
   },
@@ -219,6 +249,7 @@ const createRoutes = [
         nav={<Nav location={"/leaves"} />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
+        invalidInputs={invalidInputs}
       />
     ),
   },
@@ -229,6 +260,7 @@ const createRoutes = [
         nav={<Nav location={"/emplotmentdetails"} />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
+        invalidInputs={invalidInputs}
       />
     ),
   },
@@ -239,6 +271,7 @@ const createRoutes = [
       <CreateEmployee
         nav={<Nav location={"/employees"} />}
         postRequest={postRequest}
+        invalidInputs={invalidInputs}
       />
     ),
   },
@@ -250,6 +283,7 @@ const createRoutes = [
         nav={<Nav location={"/addresses"} />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
+        invalidInputs={invalidInputs}
       />
     ),
   },
@@ -260,6 +294,7 @@ const createRoutes = [
         nav={<Nav location={"/compensations"} />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
+        invalidInputs={invalidInputs}
       />
     ),
   },

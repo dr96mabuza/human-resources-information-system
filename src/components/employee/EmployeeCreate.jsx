@@ -3,7 +3,12 @@ import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 
-export default function CreateEmployee({ nav, header, postRequest }) {
+export default function CreateEmployee({
+  nav,
+  header,
+  postRequest,
+  invalidInputs,
+}) {
   const navigate = useNavigate();
   const defaultState = {
     firstName: "",
@@ -23,10 +28,7 @@ export default function CreateEmployee({ nav, header, postRequest }) {
 
   const handleEmployeeSubmit = async (e) => {
     e.preventDefault();
-    const employeePostJson = await postRequest(
-      "employee/create",
-      employeeForm,
-    );
+    const employeePostJson = await postRequest("employee/create", employeeForm);
     if (employeePostJson.status === "ok") {
       setEmployeeForm(defaultState);
       navigate("/employees");

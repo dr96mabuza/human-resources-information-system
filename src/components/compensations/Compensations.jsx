@@ -9,22 +9,21 @@ import {
 
 export default function Compensations({
   nav,
+  isLoggedIn,
   getRequest,
   getEmployeeNamesList,
 }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchCompansationsList = async () => {
-    const results = await getRequest(
-      `compansations`,
-    );
+    const results = await getRequest(`compansations`);
     setData(results);
   };
 
   useEffect(() => {
-    if (localStorage.getItem("hrmsToken") === null || localStorage.getItem("hrmsToken") === "") {
-      navigate("/login")
+    if (!isLoggedIn) {
+      navigate("/login");
     }
     fetchCompansationsList();
   }, []);

@@ -15,10 +15,7 @@ export default function Search({ nav }) {
   };
 
   const deleteEmployee = async (id) => {
-    const resJson = await postRequest(
-      `employee/${id}/delete`,
-      {},
-    );
+    const resJson = await postRequest(`employee/${id}/delete`, {});
     if (resJson.status === "ok") {
       setData(await getRequest("employees"));
     }

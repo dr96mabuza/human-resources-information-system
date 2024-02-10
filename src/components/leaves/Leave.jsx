@@ -4,12 +4,12 @@ import { date } from "./../../../helpers/dateHelper";
 const dateFormatter = date();
 
 export default function Leave({
-  header,
+  isLoggedIn,
   nav,
   getRequest,
   getEmployeeNamesList,
 }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchLeaveList = async () => {
@@ -18,8 +18,8 @@ export default function Leave({
   };
 
   useEffect(() => {
-    if (localStorage.getItem("hrmsToken") === null || localStorage.getItem("hrmsToken") === "") {
-      navigate("/login")
+    if (!isLoggedIn) {
+      navigate("/login");
     }
     fetchLeaveList();
   }, []);

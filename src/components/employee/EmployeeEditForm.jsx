@@ -22,9 +22,7 @@ export default function PersonalInfoEditForm({
   const [formData, setFormData] = useState(defaultState);
 
   const getPersonalInfo = async (id) => {
-    const result = await getRequest(
-      `employee/${id}`,
-    );
+    const result = await getRequest(`employee/${id}`);
     setFormData({
       firstName: await result.firstName,
       lastName: await result.lastName,
@@ -49,10 +47,7 @@ export default function PersonalInfoEditForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const resJson = await postRequest(
-      `employee/${id}/update`,
-      formData,
-    );
+    const resJson = await postRequest(`employee/${id}/update`, formData);
     console.log(resJson);
     if (resJson.status === "ok") {
       setFormData(defaultState);

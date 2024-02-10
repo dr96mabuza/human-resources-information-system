@@ -9,12 +9,12 @@ import {
 
 export default function Contacts({
   nav,
-  header,
+  isLoggedIn,
   getRequest,
   postRequest,
   getEmployeeNamesList,
 }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchContactsList = async () => {
@@ -23,8 +23,8 @@ export default function Contacts({
   };
 
   useEffect(() => {
-    if (localStorage.getItem("hrmsToken") === null || localStorage.getItem("hrmsToken") === "") {
-      navigate("/login")
+    if (!isLoggedIn) {
+      navigate("/login");
     }
     fetchContactsList();
   }, []);
@@ -43,10 +43,7 @@ export default function Contacts({
   };
 
   const deleteContact = async (id) => {
-    const resJson = await postRequest(
-      `contact/${id}/delete`,
-      {},
-    );
+    const resJson = await postRequest(`contact/${id}/delete`, {});
 
     if (resJson.status === "ok") {
       fetchContactsList();

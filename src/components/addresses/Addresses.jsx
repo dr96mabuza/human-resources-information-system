@@ -9,23 +9,22 @@ import {
 
 export default function Addresses({
   nav,
+  isLoggedIn,
   getRequest,
   postRequest,
   getEmployeeNamesList,
 }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchAddressesList = async () => {
-    const results = await getRequest(
-      `addresses`,
-    );
+    const results = await getRequest(`addresses`);
     setData(results);
   };
 
   useEffect(() => {
-    if (localStorage.getItem("hrmsToken") === null || localStorage.getItem("hrmsToken") === "") {
-      navigate("/login")
+    if (!isLoggedIn) {
+      navigate("/login");
     }
     fetchAddressesList();
   }, []);
@@ -44,10 +43,7 @@ export default function Addresses({
   };
 
   const deleteAddress = async (id) => {
-    const resJson = await postRequest(
-      `address/${id}/delete`,
-      {},
-    );
+    const resJson = await postRequest(`address/${id}/delete`, {});
     if (resJson.status === "ok") {
       fetchAddressesList();
     }

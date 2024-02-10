@@ -16,9 +16,7 @@ export default function ContactEditForm({ nav, getRequest, postRequest }) {
   const [formData, setFormData] = useState(defaultState);
 
   const getContact = async (id) => {
-    const result = await getRequest(
-      `contact/${id}`,
-    );
+    const result = await getRequest(`contact/${id}`);
     setFormData({
       email: await result.email,
       cellphoneNumber: await result.cellphoneNumber,
@@ -41,10 +39,7 @@ export default function ContactEditForm({ nav, getRequest, postRequest }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const resJson = await postRequest(
-      `contact/${id}/update`,
-      formData,
-    );
+    const resJson = await postRequest(`contact/${id}/update`, formData);
     if (resJson.status === "ok") {
       navigate("/contacts");
     }

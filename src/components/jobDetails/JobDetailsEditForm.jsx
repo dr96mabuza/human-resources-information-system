@@ -15,9 +15,7 @@ export default function JobInfoEditForm({ nav, getRequest, postRequest }) {
   const [formData, setFormData] = useState(defaultState);
 
   const getJobInfo = async (id) => {
-    const result = await getRequest(
-      `employmentdetail/${id}`,
-    );
+    const result = await getRequest(`employmentdetail/${id}`);
     setFormData({
       company: result.company,
       jobRole: result.jobRole,

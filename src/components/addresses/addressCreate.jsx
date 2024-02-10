@@ -3,7 +3,12 @@ import { useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
 
-export default function CreateAddress({ nav, postRequest, fetchEmployees }) {
+export default function CreateAddress({
+  nav,
+  postRequest,
+  fetchEmployees,
+  invalidInputs,
+}) {
   const navigate = useNavigate();
   const [employeeNames, setEmployeeNames] = useState([]);
   const defaultState = {
@@ -17,7 +22,7 @@ export default function CreateAddress({ nav, postRequest, fetchEmployees }) {
   const [addressForm, setAddressForm] = useState(defaultState);
 
   if (localStorage.getItem("hrmsToken") === undefined) {
-    navigate("/login")
+    navigate("/login");
   }
 
   // const loaderContainer = document.querySelector(".loaderContainer").;
@@ -78,10 +83,7 @@ export default function CreateAddress({ nav, postRequest, fetchEmployees }) {
       addressForm.province != ""
     ) {
       console.log(addressForm);
-      const addressPostJson = await postRequest(
-        "address/create",
-        addressForm,
-      );
+      const addressPostJson = await postRequest("address/create", addressForm);
 
       if (addressPostJson.status === "ok") {
         setAddressForm(defaultState);

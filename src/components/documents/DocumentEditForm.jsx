@@ -12,9 +12,7 @@ export default function DocumentEditForm({ nav, getRequest, postRequest }) {
   const [formData, setFormData] = useState(defaultState);
 
   const getDocument = async (id) => {
-    const result = await getRequest(
-      `document/${id}`,
-    );
+    const result = await getRequest(`document/${id}`);
     setFormData({
       documentName: await result.documentName,
       document: await result.document,
@@ -35,10 +33,7 @@ export default function DocumentEditForm({ nav, getRequest, postRequest }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const resJson = await postRequest(
-      `document/${id}/update`,
-      formData,
-    );
+    const resJson = await postRequest(`document/${id}/update`, formData);
 
     if (resJson.status === "ok") {
       navigate("/documents");

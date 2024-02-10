@@ -5,7 +5,7 @@ import { mdiArrowLeft } from "@mdi/js";
 
 export default function CreateEmploymentDetails({
   nav,
-  header,
+  invalidInputs,
   postRequest,
   fetchEmployees,
 }) {

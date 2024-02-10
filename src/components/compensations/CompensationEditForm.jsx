@@ -15,9 +15,7 @@ export default function CompansationForm({ nav, getRequest, postRequest }) {
   const [formData, setFormData] = useState(defaultState);
 
   const getCompensation = async (id) => {
-    const result = await getRequest(
-      `compansation/${id}`,
-    );
+    const result = await getRequest(`compansation/${id}`);
     setFormData({
       salary: await result.salary,
       deductions: await result.deductions,
@@ -39,10 +37,7 @@ export default function CompansationForm({ nav, getRequest, postRequest }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const resJson = await postRequest(
-      `compansation/${id}/update`,
-      formData,
-    );
+    const resJson = await postRequest(`compansation/${id}/update`, formData);
     if (resJson.status === "ok") {
       navigate("/compensations");
     }

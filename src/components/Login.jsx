@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Login({ postRequest }) {
+export default function Login({ postRequest, invalidInputs }) {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     username: "",
@@ -19,27 +19,14 @@ export default function Login({ postRequest }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (form.username.length < 9 || form.password < 4) {
-      const form = document.querySelector("form");
-      const invalidFields = form.querySelectorAll(
-        "input:invalid, select:invalid",
-      );
-      invalidFields.forEach((field) => {
-        setTimeout(() => {
-          field.style.border = "1px solid #ccc";
-        }, 1000);
-
-        field.style.border = "solid red 5px";
-      });
+      invalidInputs();
       return;
     }
     if (form.username != "" && form.password != "") {
-      const result = await postRequest(
-        "login",
-        form,
-      );
+      const result = await postRequest("login", form);
       if (result.status === "ok") {
-        // localStorage.setItem("hrmsToken", result.result.token);
-        // localStorage.setItem("hrmsUser", result.result.employee);
+        localStorage.setItem("hrmsToken", result.result.token);
+        localStorage.setItem("hrmsUser", result.result.employee);
         navigate("/");
       }
     }

@@ -16,9 +16,7 @@ export default function AddressEditForm({ nav, getRequest, postRequest }) {
   const [formData, setFormData] = useState(defaultState);
 
   const getAddress = async (id) => {
-    const result = await getRequest(
-      `address/${id}`,
-    );
+    const result = await getRequest(`address/${id}`);
     setFormData({
       street: result.street,
       suburb: result.suburb,
@@ -45,10 +43,7 @@ export default function AddressEditForm({ nav, getRequest, postRequest }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const resJson = await postRequest(
-      `address/${id}/update`,
-      formData,
-    );
+    const resJson = await postRequest(`address/${id}/update`, formData);
     if (resJson.status === "ok") {
       navigate("/addresses");
     }

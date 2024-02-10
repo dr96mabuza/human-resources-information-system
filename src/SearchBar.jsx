@@ -15,10 +15,7 @@ export default function SearchBar({ postRequest }) {
 
   const handleSearchClick = async (e) => {
     e.preventDefault();
-    const result = await postRequest(
-      "search",
-      search,
-    );
+    const result = await postRequest("search", search);
     // console.log(search);
     const list = await result.result;
     if (result.status === "ok") {

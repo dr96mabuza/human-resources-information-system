@@ -9,18 +9,16 @@ import {
 import SearchBar from "../../SearchBar";
 import { date } from "../../../helpers/dateHelper";
 
-export default function Employee({ nav, header, getRequest, postRequest }) {
+export default function Employee({ nav, isLoggedIn, getRequest, postRequest }) {
   const [data, setData] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("hrmsToken") === null || localStorage.getItem("hrmsToken") === "") {
-      navigate("/login")
+    if (!isLoggedIn) {
+      navigate("/login");
     }
     const fetchData = async () => {
-      const result = await getRequest(
-        "employees",
-      );
+      const result = await getRequest("employees");
       setData(result);
     };
 
@@ -34,10 +32,7 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
   };
 
   const deleteEmployee = async (id) => {
-    const resJson = await postRequest(
-      `employee/${id}/delete`,
-      {},
-    );
+    const resJson = await postRequest(`employee/${id}/delete`, {});
     if (resJson.status === "ok") {
       setData(await getRequest("employees"));
     }

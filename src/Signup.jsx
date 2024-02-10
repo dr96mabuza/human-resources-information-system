@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Signup({ postRequest }) {
+export default function Signup({ postRequest, invalidInputs }) {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     username: "",
@@ -24,17 +24,7 @@ export default function Signup({ postRequest }) {
       form.password.length < 1 ||
       form.password != form.passwordConfirm
     ) {
-      const form = document.querySelector("form");
-      const invalidFields = form.querySelectorAll(
-        "input:invalid, select:invalid",
-      );
-      invalidFields.forEach((field) => {
-        setTimeout(() => {
-          field.style.border = "1px solid #ccc";
-        }, 1000);
-
-        field.style.border = "solid red 5px";
-      });
+      invalidInputs();
       return;
     }
     if (
@@ -42,10 +32,7 @@ export default function Signup({ postRequest }) {
       form.password === form.passwordConfirm &&
       form.password.length > 1
     ) {
-      const result = await postRequest(
-        "signup",
-        form,
-      );
+      const result = await postRequest("signup", form);
       if (result.status === "ok") {
         console.log(result.result);
         navigate("/login");

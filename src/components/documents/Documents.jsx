@@ -9,23 +9,22 @@ import Icon from "@mdi/react";
 
 export default function Documents({
   nav,
+  isLoggedIn,
   getRequest,
   postRequest,
   getEmployeeNamesList,
 }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchDocumentsList = async () => {
-    const results = await getRequest(
-      `documents`,
-    );
+    const results = await getRequest(`documents`);
     setData(results);
   };
 
   useEffect(() => {
-    if (localStorage.getItem("hrmsToken") === null || localStorage.getItem("hrmsToken") === "") {
-      navigate("/login")
+    if (!isLoggedIn) {
+      navigate("/login");
     }
     fetchDocumentsList();
   }, []);
@@ -44,10 +43,7 @@ export default function Documents({
   };
 
   const deleteDocument = async (id) => {
-    const resJson = await postRequest(
-      `document/${id}/delete`,
-      {},
-    );
+    const resJson = await postRequest(`document/${id}/delete`, {});
 
     if (resJson.status === "ok") {
       fetchDocumentsList();

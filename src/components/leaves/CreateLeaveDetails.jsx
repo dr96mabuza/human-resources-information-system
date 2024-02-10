@@ -7,6 +7,7 @@ export default function CreateLeaveDetails({
   nav,
   postRequest,
   fetchEmployees,
+  invalidInputs,
 }) {
   const navigate = useNavigate();
   const [employeeNames, setEmployeeNames] = useState([]);
