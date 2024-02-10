@@ -23,7 +23,7 @@ export default function Contacts({
   };
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (isLoggedIn()) {
       navigate("/login");
     }
     fetchContactsList();

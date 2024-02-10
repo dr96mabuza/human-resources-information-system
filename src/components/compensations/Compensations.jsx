@@ -22,7 +22,7 @@ export default function Compensations({
   };
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (isLoggedIn()) {
       navigate("/login");
     }
     fetchCompansationsList();

@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 
-export default function Nav({ location }) {
+export default function Nav({ location, isLoggedIn }) {
+  const logOut = () => {
+    localStorage.setItem("hrmsToken", "");
+    localStorage.setItem("hrmsUser", "");
+  };
+
   return (
     <div id="nav">
       <Link to="/">
@@ -84,13 +89,17 @@ export default function Nav({ location }) {
             <a href="/leaves">Leave</a>
           </li>
         )}
-        {/* <li style={location === "/compensations"? {{backgroundColor: "#4CAF50"}}><a href="/compensations">Compensations</a></li>
-                <li style={location === "/documents"? {{backgroundColor: "#4CAF50"}}><a href="/documents">Documents</a></li> 
-                <li style={location === "/employees"? {{backgroundColor: "#4CAF50"}}><a href="/employees">Employees</a></li>
-                <li style={location === "/employmentdetails"? {{backgroundColor: "#4CAF50"}}><a href="/employmentdetails">job details</a></li>
-                <li style={location === "/leaves"? {{backgroundColor: "#4CAF50"}}><a href="/leaves">Time off</a></li> */}
       </ul>
-      {/* {!name && !link? (<></>) : (<a href={link}><button type="submit">{name}</button></a>)} */}
+      {isLoggedIn() ? null : (
+        <button
+          onClick={() => {
+            logOut();
+          }}
+          type="submit"
+        >
+          Sign Out
+        </button>
+      )}
     </div>
   );
 }

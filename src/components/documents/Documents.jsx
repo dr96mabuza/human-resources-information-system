@@ -23,7 +23,7 @@ export default function Documents({
   };
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (isLoggedIn()) {
       navigate("/login");
     }
     fetchDocumentsList();

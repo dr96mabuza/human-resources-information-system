@@ -6,7 +6,7 @@ import {
   mdiOpenInNew,
   mdiFileEditOutline,
 } from "@mdi/js";
-import SearchBar from "../../SearchBar";
+import SearchBar from "../SearchBar";
 import { date } from "../../../helpers/dateHelper";
 
 export default function Employee({ nav, isLoggedIn, getRequest, postRequest }) {
@@ -14,7 +14,7 @@ export default function Employee({ nav, isLoggedIn, getRequest, postRequest }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (isLoggedIn()) {
       navigate("/login");
     }
     const fetchData = async () => {

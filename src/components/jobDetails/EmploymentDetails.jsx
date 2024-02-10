@@ -24,7 +24,7 @@ export default function EmployementDetails({
   };
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (isLoggedIn()) {
       navigate("/login");
     }
     fetchJobDetailsList();

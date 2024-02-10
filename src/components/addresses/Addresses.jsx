@@ -23,7 +23,7 @@ export default function Addresses({
   };
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (isLoggedIn()) {
       navigate("/login");
     }
     fetchAddressesList();

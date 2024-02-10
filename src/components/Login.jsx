@@ -22,13 +22,12 @@ export default function Login({ postRequest, invalidInputs }) {
       invalidInputs();
       return;
     }
-    if (form.username != "" && form.password != "") {
-      const result = await postRequest("login", form);
-      if (result.status === "ok") {
-        localStorage.setItem("hrmsToken", result.result.token);
-        localStorage.setItem("hrmsUser", result.result.employee);
-        navigate("/");
-      }
+
+    const result = await postRequest("login", form);
+    if (result.status === "ok") {
+      localStorage.setItem("hrmsToken", result.result.token);
+      localStorage.setItem("hrmsUser", JSON.stringify(result.result.employee));
+      navigate("/");
     }
   };
 
@@ -45,9 +44,8 @@ export default function Login({ postRequest, invalidInputs }) {
           <input
             type="text"
             name="username"
-            id=""
             // value={form.username}
-            placeholder="username"
+            placeholder="Enter your username....."
             onChange={handleChange}
             minLength={9}
             required={true}
@@ -55,15 +53,13 @@ export default function Login({ postRequest, invalidInputs }) {
           <span>Enter valid username</span>
         </div>
         <div>
-          <label htmlFor="">Password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
-            id=""
-            // value={form.password}
-            placeholder="password"
+            placeholder="Enter your password...."
             onChange={handleChange}
-            minLength={2}
+            minLength={4}
             required={true}
           />
           <span>Password must contain special character and number.</span>

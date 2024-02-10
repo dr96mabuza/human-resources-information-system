@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
+import Main from "./components/Hero.jsx";
 import "./index.css";
+import "./App.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Employee from "./components/employee/Employee.jsx";
@@ -28,13 +29,15 @@ import Nav from "./components/Nav.jsx";
 import Header from "./components/Header.jsx";
 import PageNotFound from "./components/404.jsx";
 import Login from "./components/Login.jsx";
-import Signup from "./Signup.jsx";
+import Signup from "./components/Signup.jsx";
 import Search from "./components/Search.jsx";
 
 const isLoggedIn = () => {
   return (
     localStorage.getItem("hrmsToken") === null ||
-    localStorage.getItem("hrmsToken") === ""
+    localStorage.getItem("hrmsToken") === "" ||
+    localStorage.getItem("hrmsUser") === null ||
+    localStorage.getItem("hrmsUser") === "" 
   );
 };
 
@@ -112,7 +115,7 @@ const parentRoutes = [
   {
     // Home path
     path: "/",
-    element: <App />,
+    element: <Main getRequest={getRequest} isLoggedIn={isLoggedIn} />,
   },
   {
     path: "*",
@@ -124,7 +127,7 @@ const parentRoutes = [
   },
   {
     path: "/search",
-    element: <Search nav={<Nav />} />,
+    element: <Search nav={<Nav isLoggedIn={isLoggedIn} />} />,
   },
   {
     path: "/signup",
@@ -135,7 +138,7 @@ const parentRoutes = [
     path: "employees",
     element: (
       <Employee
-        nav={<Nav location={"/employees"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/employees"} />}
         getRequest={getRequest}
         postRequest={postRequest}
         isLoggedIn={isLoggedIn}
@@ -147,7 +150,7 @@ const parentRoutes = [
     path: "contacts",
     element: (
       <Contacts
-        nav={<Nav location={"/contacts"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/contacts"} />}
         getRequest={getRequest}
         postRequest={postRequest}
         getEmployeeNamesList={getEmployeeNamesList}
@@ -160,7 +163,7 @@ const parentRoutes = [
     path: "documents",
     element: (
       <Documents
-        nav={<Nav location={"/documents"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/documents"} />}
         getRequest={getRequest}
         postRequest={postRequest}
         getEmployeeNamesList={getEmployeeNamesList}
@@ -173,7 +176,7 @@ const parentRoutes = [
     path: "leaves",
     element: (
       <Leave
-        nav={<Nav location={"/leaves"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/leaves"} />}
         getRequest={getRequest}
         getEmployeeNamesList={getEmployeeNamesList}
         isLoggedIn={isLoggedIn}
@@ -185,7 +188,7 @@ const parentRoutes = [
     path: "addresses",
     element: (
       <Addresses
-        nav={<Nav location={"/addresses"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/addresses"} />}
         getRequest={getRequest}
         postRequest={postRequest}
         getEmployeeNamesList={getEmployeeNamesList}
@@ -198,7 +201,7 @@ const parentRoutes = [
     path: "employmentdetails",
     element: (
       <EmployementDetails
-        nav={<Nav location={"/employmentdetails"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/employmentdetails"} />}
         getRequest={getRequest}
         getEmployeeNamesList={getEmployeeNamesList}
         isLoggedIn={isLoggedIn}
@@ -210,7 +213,7 @@ const parentRoutes = [
     path: "compensations",
     element: (
       <Compensations
-        nav={<Nav location={"/compensations"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/compensations"} />}
         getRequest={getRequest}
         getEmployeeNamesList={getEmployeeNamesList}
         isLoggedIn={isLoggedIn}
@@ -224,7 +227,7 @@ const createRoutes = [
     path: "contact/create",
     element: (
       <CreateContact
-        nav={<Nav location={"/contacts"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/contacts"} />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
         invalidInputs={invalidInputs}
@@ -235,7 +238,7 @@ const createRoutes = [
     path: "document/create",
     element: (
       <CreateDocument
-        nav={<Nav location={"/documents"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/documents"} />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
         invalidInputs={invalidInputs}
@@ -246,7 +249,7 @@ const createRoutes = [
     path: "leave/create",
     element: (
       <CreateLeaveDetails
-        nav={<Nav location={"/leaves"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/leaves"} />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
         invalidInputs={invalidInputs}
@@ -257,7 +260,7 @@ const createRoutes = [
     path: "employmentdetail/create",
     element: (
       <CreateEmploymentDetails
-        nav={<Nav location={"/emplotmentdetails"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/emplotmentdetails"} />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
         invalidInputs={invalidInputs}
@@ -269,7 +272,7 @@ const createRoutes = [
     path: "employee/create",
     element: (
       <CreateEmployee
-        nav={<Nav location={"/employees"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/employees"} />}
         postRequest={postRequest}
         invalidInputs={invalidInputs}
       />
@@ -280,7 +283,7 @@ const createRoutes = [
     path: "address/create",
     element: (
       <CreateAddress
-        nav={<Nav location={"/addresses"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/addresses"} />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
         invalidInputs={invalidInputs}
@@ -291,7 +294,7 @@ const createRoutes = [
     path: "compensation/create",
     element: (
       <CreateCompensation
-        nav={<Nav location={"/compensations"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/compensations"} />}
         postRequest={postRequest}
         fetchEmployees={fetchEmployees}
         invalidInputs={invalidInputs}
@@ -306,7 +309,7 @@ const updateRoutes = [
     path: "employee/:id/update",
     element: (
       <PersonalInfoEditForm
-        nav={<Nav location={"/employees"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/employees"} />}
         getRequest={getRequest}
         postRequest={postRequest}
       />
@@ -317,7 +320,7 @@ const updateRoutes = [
     path: "contact/:id/update",
     element: (
       <ContactEditForm
-        nav={<Nav location={"/contacts"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/contacts"} />}
         getRequest={getRequest}
         postRequest={postRequest}
       />
@@ -328,7 +331,7 @@ const updateRoutes = [
     path: "document/:id/update",
     element: (
       <DocumentEditForm
-        nav={<Nav location={"/documents"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/documents"} />}
         getRequest={getRequest}
         postRequest={postRequest}
       />
@@ -339,7 +342,7 @@ const updateRoutes = [
     path: "employmentdetail/:id/update",
     element: (
       <JobInfoEditForm
-        nav={<Nav location={"/employmentdetails"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/employmentdetails"} />}
         getRequest={getRequest}
         postRequest={postRequest}
       />
@@ -350,7 +353,7 @@ const updateRoutes = [
     path: "address/:id/update",
     element: (
       <AddressEditForm
-        nav={<Nav location={"/addresses"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/addresses"} />}
         getRequest={getRequest}
         postRequest={postRequest}
       />
@@ -361,7 +364,7 @@ const updateRoutes = [
     path: "compensation/:id/update",
     element: (
       <CompensationsEditForm
-        nav={<Nav location={"/compensations"} />}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/compensations"} />}
         getRequest={getRequest}
         postRequest={postRequest}
       />

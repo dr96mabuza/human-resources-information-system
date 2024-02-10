@@ -1,6 +1,8 @@
-import Nav from "./Nav";
 import { useEffect, useState } from "react";
-export default function Main() {
+import { useNavigate } from "react-router-dom";
+export default function Main({ getRequest, isLoggedIn }) {
+  const navigate = useNavigate();
+
   const defaultState = {
     addressCount: 0,
     contactCount: 0,
@@ -12,46 +14,10 @@ export default function Main() {
   };
   const [counts, setCounts] = useState(defaultState);
 
-  const fetchGetRequest = async (request) => {
-    const res = await fetch(`${request}`, {
-      method: "GET",
-      mode: "cors",
-    });
-    const data = await res.json();
-    return data;
-  };
-
-  const getRequestResultCount = (data) => {
-    return data.result.length;
-  };
-
-  const getCounts = async () => {
-    try {
-      setCounts({
-        addressCount: getRequestResultCount(await fetchGetRequest("addresses")),
-        contactCount: getRequestResultCount(await fetchGetRequest("contacts")),
-        compensationCount: getRequestResultCount(
-          await fetchGetRequest("compansations"),
-        ),
-        documentCount: getRequestResultCount(
-          await fetchGetRequest("documents"),
-        ),
-        employeeCount: getRequestResultCount(
-          await fetchGetRequest("employees"),
-        ),
-        employementDetailCount: getRequestResultCount(
-          await fetchGetRequest("employmentdetails"),
-        ),
-        leaveCount: getRequestResultCount(await fetchGetRequest("leaves")),
-      });
-    } catch (error) {
-      console.error("Error getting address count:", error);
-      setCounts({ error: "Error" });
-    }
-  };
-
   useEffect(() => {
-    getCounts();
+    if (isLoggedIn()) {
+      navigate("/login");
+    }
   }, []);
 
   return (

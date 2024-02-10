@@ -18,7 +18,7 @@ export default function Leave({
   };
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (isLoggedIn()) {
       navigate("/login");
     }
     fetchLeaveList();
