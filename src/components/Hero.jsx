@@ -13,7 +13,7 @@ export default function Main() {
   const [counts, setCounts] = useState(defaultState);
 
   const fetchGetRequest = async (request) => {
-    const res = await fetch(`https://hris-qp6t.onrender.com/${request}`, {
+    const res = await fetch(`${request}`, {
       method: "GET",
       mode: "cors",
     });

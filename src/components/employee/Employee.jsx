@@ -19,7 +19,7 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
     }
     const fetchData = async () => {
       const result = await getRequest(
-        "https://hris-qp6t.onrender.com/employees",
+        "employees",
       );
       setData(result);
     };
@@ -35,11 +35,11 @@ export default function Employee({ nav, header, getRequest, postRequest }) {
 
   const deleteEmployee = async (id) => {
     const resJson = await postRequest(
-      `https://hris-qp6t.onrender.com/employee/${id}/delete`,
+      `employee/${id}/delete`,
       {},
     );
     if (resJson.status === "ok") {
-      setData(await getRequest("https://hris-qp6t.onrender.com/employees"));
+      setData(await getRequest("employees"));
     }
   };
 

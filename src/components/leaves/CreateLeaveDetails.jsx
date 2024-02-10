@@ -28,7 +28,7 @@ export default function CreateLeaveDetails({
   const handleLeaveDetailsSubmit = async (e) => {
     e.preventDefault();
     const leaveDetailsPostJson = await postRequest(
-      "https://hris-qp6t.onrender.com/leave/create",
+      "leave/create",
       leaveDetailsForm,
     );
     if (leaveDetailsPostJson.status === "ok") {

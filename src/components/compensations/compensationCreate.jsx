@@ -28,7 +28,7 @@ export default function CreateCompensation({
   const handleCompensationSubmit = async (e) => {
     e.preventDefault();
     const compensationPostJson = await postRequest(
-      "https://hris-qp6t.onrender.com/compansation/create",
+      "compansation/create",
       compensationForm,
     );
     if (compensationPostJson.status === "ok") {

@@ -16,7 +16,7 @@ export default function SearchBar({ postRequest }) {
   const handleSearchClick = async (e) => {
     e.preventDefault();
     const result = await postRequest(
-      "https://hris-qp6t.onrender.com/search",
+      "search",
       search,
     );
     // console.log(search);

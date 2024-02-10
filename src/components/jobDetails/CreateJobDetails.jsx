@@ -31,7 +31,7 @@ export default function CreateEmploymentDetails({
   const handleEmploymentDetailsSubmit = async (e) => {
     e.preventDefault();
     const employmentDetailsPostJson = await postRequest(
-      "https://hris-qp6t.onrender.com/employmentdetail/create",
+      "employmentdetail/create",
       employmentDetailsForm,
     );
     if (employmentDetailsPostJson.status === "ok") {

@@ -18,7 +18,7 @@ export default function Contacts({
   const [data, setData] = useState([]);
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchContactsList = async () => {
-    const results = await getRequest(`https://hris-qp6t.onrender.com/contacts`);
+    const results = await getRequest(`contacts`);
     setData(results);
   };
 
@@ -44,7 +44,7 @@ export default function Contacts({
 
   const deleteContact = async (id) => {
     const resJson = await postRequest(
-      `https://hris-qp6t.onrender.com/contact/${id}/delete`,
+      `contact/${id}/delete`,
       {},
     );
 

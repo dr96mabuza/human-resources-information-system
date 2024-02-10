@@ -34,7 +34,7 @@ export default function Login({ postRequest }) {
     }
     if (form.username != "" && form.password != "") {
       const result = await postRequest(
-        "https://hris-qp6t.onrender.com/login",
+        "login",
         form,
       );
       if (result.status === "ok") {

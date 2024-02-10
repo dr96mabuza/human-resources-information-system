@@ -16,7 +16,7 @@ export default function JobInfoEditForm({ nav, getRequest, postRequest }) {
 
   const getJobInfo = async (id) => {
     const result = await getRequest(
-      `https://hris-qp6t.onrender.com/employmentdetail/${id}`,
+      `employmentdetail/${id}`,
     );
     setFormData({
       company: result.company,
@@ -44,7 +44,7 @@ export default function JobInfoEditForm({ nav, getRequest, postRequest }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const resJson = await postRequest(
-      `https://hris-qp6t.onrender.com/employmentdetail/${id}/update`,
+      `employmentdetail/${id}/update`,
       formData,
     );
     //

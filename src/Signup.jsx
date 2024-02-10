@@ -43,7 +43,7 @@ export default function Signup({ postRequest }) {
       form.password.length > 1
     ) {
       const result = await postRequest(
-        "https://hris-qp6t.onrender.com/signup",
+        "signup",
         form,
       );
       if (result.status === "ok") {

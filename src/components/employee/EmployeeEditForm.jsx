@@ -23,7 +23,7 @@ export default function PersonalInfoEditForm({
 
   const getPersonalInfo = async (id) => {
     const result = await getRequest(
-      `https://hris-qp6t.onrender.com/employee/${id}`,
+      `employee/${id}`,
     );
     setFormData({
       firstName: await result.firstName,
@@ -50,7 +50,7 @@ export default function PersonalInfoEditForm({
     e.preventDefault();
 
     const resJson = await postRequest(
-      `https://hris-qp6t.onrender.com/employee/${id}/update`,
+      `employee/${id}/update`,
       formData,
     );
     console.log(resJson);

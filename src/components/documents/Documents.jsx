@@ -18,7 +18,7 @@ export default function Documents({
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchDocumentsList = async () => {
     const results = await getRequest(
-      `https://hris-qp6t.onrender.com/documents`,
+      `documents`,
     );
     setData(results);
   };
@@ -45,7 +45,7 @@ export default function Documents({
 
   const deleteDocument = async (id) => {
     const resJson = await postRequest(
-      `https://hris-qp6t.onrender.com/document/${id}/delete`,
+      `document/${id}/delete`,
       {},
     );
 

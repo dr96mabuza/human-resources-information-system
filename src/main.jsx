@@ -32,7 +32,7 @@ import Signup from "./Signup.jsx";
 import Search from "./components/Search.jsx";
 
 const getRequest = async (route) => {
-  const res = await fetch(route, {
+  const res = await fetch(`https://hris-qp6t.onrender.com/${route}`, {
     method: "GET",
     mode: "cors",
     headers: {
@@ -46,7 +46,7 @@ const getRequest = async (route) => {
 };
 
 const postRequest = async (route, data) => {
-  const response = await fetch(route, {
+  const response = await fetch(`https://hris-qp6t.onrender.com/${route}`, {
     method: "post",
     mode: "cors",
     headers: {
@@ -62,7 +62,7 @@ const getEmployeeNamesList = async (data) => {
   const employeeNames = await Promise.all(
     data.map(async (item) => {
       const results = await getRequest(
-        `https://hris-qp6t.onrender.com/employee/${Object.keys(item).includes("employeeId") ? item.employeeId : item.employee_id}`,
+        `employee/${Object.keys(item).includes("employeeId") ? item.employeeId : item.employee_id}`,
       );
       return `${results.firstName} ${results.lastName}`;
     }),
@@ -73,7 +73,7 @@ const getEmployeeNamesList = async (data) => {
 
 const fetchEmployees = async () => {
   const employees = await getRequest(
-    "https://hris-qp6t.onrender.com/employees",
+    "employees",
   );
   const result = await Promise.all(
     employees.map((employee) => {

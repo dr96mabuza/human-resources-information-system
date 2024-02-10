@@ -16,7 +16,7 @@ export default function CompansationForm({ nav, getRequest, postRequest }) {
 
   const getCompensation = async (id) => {
     const result = await getRequest(
-      `https://hris-qp6t.onrender.com/compansation/${id}`,
+      `compansation/${id}`,
     );
     setFormData({
       salary: await result.salary,
@@ -40,7 +40,7 @@ export default function CompansationForm({ nav, getRequest, postRequest }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const resJson = await postRequest(
-      `https://hris-qp6t.onrender.com/compansation/${id}/update`,
+      `compansation/${id}/update`,
       formData,
     );
     if (resJson.status === "ok") {

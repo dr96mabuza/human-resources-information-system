@@ -17,7 +17,7 @@ export default function Compensations({
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchCompansationsList = async () => {
     const results = await getRequest(
-      `https://hris-qp6t.onrender.com/compansations`,
+      `compansations`,
     );
     setData(results);
   };

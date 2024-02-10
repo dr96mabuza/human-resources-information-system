@@ -79,7 +79,7 @@ export default function CreateAddress({ nav, postRequest, fetchEmployees }) {
     ) {
       console.log(addressForm);
       const addressPostJson = await postRequest(
-        "https://hris-qp6t.onrender.com/address/create",
+        "address/create",
         addressForm,
       );
 

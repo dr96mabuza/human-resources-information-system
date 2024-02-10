@@ -19,7 +19,7 @@ export default function EmployementDetails({
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchJobDetailsList = async () => {
     const results = await getRequest(
-      `https://hris-qp6t.onrender.com/employmentdetails`,
+      `employmentdetails`,
     );
     setData(results);
   };
@@ -46,7 +46,7 @@ export default function EmployementDetails({
 
   const deleteJobDetail = async (id) => {
     const resJson = await postRequest(
-      `https://hris-qp6t.onrender.com/employmentdetail/${id}/delete`,
+      `employmentdetail/${id}/delete`,
       {},
     );
 

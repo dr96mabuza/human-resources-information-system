@@ -13,7 +13,7 @@ export default function Leave({
   const [data, setData] = useState([]);
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchLeaveList = async () => {
-    const results = await getRequest(`https://hris-qp6t.onrender.com/leaves`);
+    const results = await getRequest(`leaves`);
     setData(results);
   };
 

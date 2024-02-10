@@ -13,7 +13,7 @@ export default function DocumentEditForm({ nav, getRequest, postRequest }) {
 
   const getDocument = async (id) => {
     const result = await getRequest(
-      `https://hris-qp6t.onrender.com/document/${id}`,
+      `document/${id}`,
     );
     setFormData({
       documentName: await result.documentName,
@@ -36,7 +36,7 @@ export default function DocumentEditForm({ nav, getRequest, postRequest }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const resJson = await postRequest(
-      `https://hris-qp6t.onrender.com/document/${id}/update`,
+      `document/${id}/update`,
       formData,
     );
 

@@ -18,7 +18,7 @@ export default function Addresses({
   const [employeeNames, setEmployeeNames] = useState([]);
   const fetchAddressesList = async () => {
     const results = await getRequest(
-      `https://hris-qp6t.onrender.com/addresses`,
+      `addresses`,
     );
     setData(results);
   };
@@ -45,7 +45,7 @@ export default function Addresses({
 
   const deleteAddress = async (id) => {
     const resJson = await postRequest(
-      `https://hris-qp6t.onrender.com/address/${id}/delete`,
+      `address/${id}/delete`,
       {},
     );
     if (resJson.status === "ok") {

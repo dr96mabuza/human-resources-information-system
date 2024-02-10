@@ -17,7 +17,7 @@ export default function AddressEditForm({ nav, getRequest, postRequest }) {
 
   const getAddress = async (id) => {
     const result = await getRequest(
-      `https://hris-qp6t.onrender.com/address/${id}`,
+      `address/${id}`,
     );
     setFormData({
       street: result.street,
@@ -46,7 +46,7 @@ export default function AddressEditForm({ nav, getRequest, postRequest }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const resJson = await postRequest(
-      `https://hris-qp6t.onrender.com/address/${id}/update`,
+      `address/${id}/update`,
       formData,
     );
     if (resJson.status === "ok") {

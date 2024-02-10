@@ -17,7 +17,7 @@ export default function ContactEditForm({ nav, getRequest, postRequest }) {
 
   const getContact = async (id) => {
     const result = await getRequest(
-      `https://hris-qp6t.onrender.com/contact/${id}`,
+      `contact/${id}`,
     );
     setFormData({
       email: await result.email,
@@ -42,7 +42,7 @@ export default function ContactEditForm({ nav, getRequest, postRequest }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const resJson = await postRequest(
-      `https://hris-qp6t.onrender.com/contact/${id}/update`,
+      `contact/${id}/update`,
       formData,
     );
     if (resJson.status === "ok") {

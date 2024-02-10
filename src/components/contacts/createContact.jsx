@@ -30,7 +30,7 @@ export default function CreateContact({
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     const contactPostJson = await postRequest(
-      "https://hris-qp6t.onrender.com/contact/create",
+      "contact/create",
       contactForm,
     );
 

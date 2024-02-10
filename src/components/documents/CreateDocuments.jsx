@@ -36,7 +36,7 @@ export default function CreateDocument({ nav, postRequest, fetchEmployees }) {
   const handleDocumentSubmit = async (e) => {
     e.preventDefault();
     const documentPostJson = await postRequest(
-      "https://hris-qp6t.onrender.com/document/create",
+      "document/create",
       documentForm,
     );
     console.log(documentForm);

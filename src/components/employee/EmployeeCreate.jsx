@@ -24,7 +24,7 @@ export default function CreateEmployee({ nav, header, postRequest }) {
   const handleEmployeeSubmit = async (e) => {
     e.preventDefault();
     const employeePostJson = await postRequest(
-      "https://hris-qp6t.onrender.com/employee/create",
+      "employee/create",
       employeeForm,
     );
     if (employeePostJson.status === "ok") {
