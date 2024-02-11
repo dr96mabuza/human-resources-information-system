@@ -340,3 +340,18 @@ input:valid,
 select:valid {
   border: solid #45a049 5px;
 }
+
+#compansationsSection,
+#contactsSection,
+#documentsSection,
+#employeeDetailsSection,
+#leaveSection {
+  display: none;
+}
+
+#profileNav {
+  display: flex;
+  flex-direction: row;
+  justify-self: center;
+  align-self: center;
+}
