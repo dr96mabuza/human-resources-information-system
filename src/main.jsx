@@ -31,13 +31,14 @@ import PageNotFound from "./components/404.jsx";
 import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
 import Search from "./components/Search.jsx";
+import Profile from "./components/profile.jsx";
 
 const isLoggedIn = () => {
   return (
     localStorage.getItem("hrmsToken") === null ||
     localStorage.getItem("hrmsToken") === "" ||
     localStorage.getItem("hrmsUser") === null ||
-    localStorage.getItem("hrmsUser") === "" 
+    localStorage.getItem("hrmsUser") === ""
   );
 };
 
@@ -219,6 +220,10 @@ const parentRoutes = [
         isLoggedIn={isLoggedIn}
       />
     ),
+  },
+  {
+    path: "profile",
+    element: <Profile getRequest={getRequest} />,
   },
 ];
 

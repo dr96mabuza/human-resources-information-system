@@ -4,12 +4,7 @@ export default function Main({ getRequest, isLoggedIn }) {
   const navigate = useNavigate();
 
   const defaultState = {
-    addressCount: 0,
-    contactCount: 0,
-    compensationCount: 0,
-    documentCount: 0,
     employeeCount: 0,
-    employementDetailCount: 0,
     leaveCount: 0,
   };
   const [counts, setCounts] = useState(defaultState);
@@ -18,6 +13,15 @@ export default function Main({ getRequest, isLoggedIn }) {
     if (isLoggedIn()) {
       navigate("/login");
     }
+    const setCurrentCounts = async () => {
+      const requestResult = await getRequest("");
+      setCounts({
+        employeeCount: requestResult.employeeCount,
+        leaveCount: requestResult.leaveCount,
+      });
+    };
+
+    setCurrentCounts();
   }, []);
 
   return (
@@ -66,10 +70,6 @@ export default function Main({ getRequest, isLoggedIn }) {
             <p>HR Team</p>
           </div>
 
-          <p>addresses available: {counts.addressCount}</p>
-          <p>employee count: {counts.employeeCount}</p>
-          <p>compensation count: {counts.compensationCount}</p>
-          <p>document Count: {counts.documentCount}</p>
           <p>employee count: {counts.employeeCount}</p>
           <p>leave count: {counts.leaveCount}</p>
         </section>
