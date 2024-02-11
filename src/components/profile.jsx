@@ -32,31 +32,31 @@ export default function Profile({ getRequest }) {
             );
           })}
           <div className="profileContainer">
-            <ul id="profileNav">
+            <div id="profileNav">
               {Object.keys(userProfile).map((key) => {
                 return (
-                  <li
+                  <p
                     key={`${key}Tab`}
                     onClick={() => {
                       dis(key);
                     }}
                   >
                     {key}
-                  </li>
+                  </p>
                 );
               })}
-            </ul>
+            </div>
 
             {Object.keys(userProfile).map((key) => {
               return (
                 <div key={key} id={`${key}Section`} className="hu">
                   <h3>{key}</h3>
                   {Object.keys(userProfile[key]).map((item) => {
-                    return (
+                    return !["id", "employeeId", "leave_id", "employee_id"].toString().includes(item) ? (
                       <p key={item}>
                         {item}: {userProfile[key][item]}
                       </p>
-                    );
+                    ) : null;
                   })}
                 </div>
               );

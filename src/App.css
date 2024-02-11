@@ -352,6 +352,11 @@ select:valid {
 #profileNav {
   display: flex;
   flex-direction: row;
-  justify-self: center;
-  align-self: center;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100svw;
+}
+
+#profileNav :hover {
+  cursor: pointer;
 }
