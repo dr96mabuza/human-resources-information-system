@@ -96,25 +96,26 @@ export default function AddressEditForm({ nav, getRequest, postRequest }) {
               />
             </div>
 
-              <Input
+            <Input
               label={"Province"}
-                type={"text"}
-                value={formData.province}
-                name="province"
-                onChange={event => handleChange(event)}
-                required={true}
-                span={"enter valid province"}
-              />
+              type={"text"}
+              value={formData.province}
+              name="province"
+              onChange={(event) => handleChange(event)}
+              required={true}
+              span={"enter valid province"}
+            />
 
-            <Input type={"number"}
+            <Input
+              type={"number"}
               label={"Postal code"}
               name={"postalCode"}
               value={formData.postalCode}
-              onChange={event => handleChange(event)}
+              onChange={(event) => handleChange(event)}
               minLength={1}
               required={true}
               span={"Enter valid postal code."}
-              />
+            />
             <button type="submit" onClick={handleSubmit}>
               Submit
             </button>

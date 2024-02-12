@@ -154,14 +154,15 @@ export default function CreateAddressPage({
             </select>
             <span>Select valid province.</span>
           </div>
-          <Input type={"number"}
-              label={"Postal code"}
-              name={"postalCode"}
-              onChange={event => handleChange(event)}
-              minLength={1}
-              required={true}
-              span={"Enter valid postal code."}
-              />
+          <Input
+            type={"number"}
+            label={"Postal code"}
+            name={"postalCode"}
+            onChange={(event) => handleChange(event)}
+            minLength={1}
+            required={true}
+            span={"Enter valid postal code."}
+          />
           <button type="submit" onClick={handleAddressSubmit}>
             Submit
           </button>
