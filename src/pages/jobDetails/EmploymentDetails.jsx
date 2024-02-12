@@ -6,7 +6,7 @@ import {
   mdiFileEditOutline,
 } from "@mdi/js";
 import Icon from "@mdi/react";
-import { date } from "../../../helpers/dateHelper";
+import { date } from "../../helpers/dateHelper";
 
 export default function EmployementDetails({
   nav,

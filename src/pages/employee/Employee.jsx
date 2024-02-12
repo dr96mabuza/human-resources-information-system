@@ -6,8 +6,8 @@ import {
   mdiOpenInNew,
   mdiFileEditOutline,
 } from "@mdi/js";
-import SearchBar from "../SearchBar";
-import { date } from "../../../helpers/dateHelper";
+import SearchBar from "./../../components/SearchBar";
+import { date } from "../../helpers/dateHelper";
 
 export default function Employee({ nav, isLoggedIn, getRequest, postRequest }) {
   const [data, setData] = useState([]);

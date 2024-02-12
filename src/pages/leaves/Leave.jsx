@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { date } from "./../../../helpers/dateHelper";
+import { date } from "../../helpers/dateHelper";
 const dateFormatter = date();
 
 export default function Leave({

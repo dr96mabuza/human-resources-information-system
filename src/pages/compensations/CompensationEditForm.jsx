@@ -2,46 +2,44 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
-import Nav from "../Nav";
+import Input from "../../components/Input";
 
-export default function ContactEditForm({ nav, getRequest, postRequest }) {
+export default function CompansationForm({ nav, getRequest, postRequest }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const defaultState = {
-    email: "",
-    cellphoneNumber: "",
-    companyEmail: "",
-    alternateNumber: "",
+    salary: 0,
+    deductions: 0,
+    bonus: 0,
   };
   const [formData, setFormData] = useState(defaultState);
 
-  const getContact = async (id) => {
-    const result = await getRequest(`contact/${id}`);
+  const getCompensation = async (id) => {
+    const result = await getRequest(`compansation/${id}`);
     setFormData({
-      email: await result.email,
-      cellphoneNumber: await result.cellphoneNumber,
-      companyEmail: await result.companyEmail,
-      alternateNumber: await result.alternateNumber,
+      salary: await result.salary,
+      deductions: await result.deductions,
+      bonus: await result.bonus,
     });
   };
 
   useEffect(() => {
-    getContact(id);
+    getCompensation(id);
   }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: Number(value),
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const resJson = await postRequest(`contact/${id}/update`, formData);
+    const resJson = await postRequest(`compansation/${id}/update`, formData);
     if (resJson.status === "ok") {
-      navigate("/contacts");
+      navigate("/compensations");
     }
   };
 
@@ -53,49 +51,41 @@ export default function ContactEditForm({ nav, getRequest, postRequest }) {
           <div className="loader"></div>
         </section>
       ) : (
-        <div className="content edit">
-          <a href="/contacts">
+        <div className=" content edit">
+          <a href="/compensations">
             <Icon path={mdiArrowLeft} size={1} />
           </a>
           <form>
             <legend>
               <em>
-                <strong>EDIT CONTACT</strong>
+                <strong>EDIT COMPENSATION</strong>
               </em>
             </legend>
             <div>
-              <label>Email</label>
+              <label>Salary</label>
               <input
-                type="text"
-                value={formData.email}
-                name="email"
+                type="number"
+                value={formData.salary}
+                name="salary"
+                onChange={handleChange}
+              />
+            </div>
+            {/* <Input label={"Deductions"} type={"number"} value={formData.deductions} onChange={handleChange}/> */}
+            <div>
+              <label>Deductions</label>
+              <input
+                type="number"
+                value={formData.deductions}
+                name="deductions"
                 onChange={handleChange}
               />
             </div>
             <div>
-              <label>Contact Number</label>
+              <label>Bonus</label>
               <input
-                type="text"
-                value={formData.cellphoneNumber}
-                name="cellphoneNumber"
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Second Email</label>
-              <input
-                type="text"
-                value={formData.companyEmail}
-                name="companyEmail"
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Second Contact NUmber</label>
-              <input
-                type="text"
-                value={formData.alternateNumber}
-                name="alternateNumber"
+                type="number"
+                value={formData.bonus}
+                name="bonus"
                 onChange={handleChange}
               />
             </div>
