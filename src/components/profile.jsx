@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-export default function Profile({ getRequest }) {
-  const user = JSON.parse(localStorage.getItem("hrmsUser"));
+export default function Profile({ getRequest, person, nav }) {
+  const user = person;
   const [userProfile, setUserProfile] = useState("");
 
   useEffect(() => {
@@ -20,9 +20,10 @@ export default function Profile({ getRequest }) {
   };
 
   return (
-    <div>
+    <div className="main">
+      {nav}
       {user && userProfile != "" ? (
-        <div>
+        <div className="content">
           <h2>Employee</h2>
           {Object.keys(user).map((key) => {
             return (

@@ -42,6 +42,10 @@ const isLoggedIn = () => {
   );
 };
 
+const getLoggedInUser = () => {
+  return localStorage.getItem("hrmsUser")? JSON.parse(localStorage.getItem("hrmsUser")) : ""
+}
+
 const getRequest = async (route) => {
   const res = await fetch(`https://hris-qp6t.onrender.com/${route}`, {
     method: "GET",
@@ -223,7 +227,7 @@ const parentRoutes = [
   },
   {
     path: "profile",
-    element: <Profile getRequest={getRequest} />,
+    element: <Profile getRequest={getRequest} nav={<Nav isLoggedIn={isLoggedIn} location={"/profile"} />} person={getLoggedInUser()}/>,
   },
 ];
 

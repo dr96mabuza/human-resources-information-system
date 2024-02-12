@@ -89,6 +89,17 @@ export default function Nav({ location, isLoggedIn }) {
             <a href="/leaves">Leave</a>
           </li>
         )}
+        {location === "/profile" ? (
+          <li style={{ backgroundColor: "#4CAF50" }}>
+            <a href="/profile" style={{ color: "#ffffff" }}>
+              My Profile
+            </a>
+          </li>
+        ) : (
+          <li>
+            <a href="/profile">My Profile</a>
+          </li>
+        )}
       </ul>
       {isLoggedIn() ? null : (
         <button
