@@ -19,7 +19,7 @@ import DocumentEditForm from "./pages/documents/DocumentEditForm.jsx";
 import ContactEditForm from "./pages/contacts/ContactEditForm.jsx";
 import PersonalInfoEditForm from "./pages/employee/EmployeeEditForm.jsx";
 import CreateEmployee from "./pages/employee/EmployeeCreate.jsx";
-import CreateAddress from "./pages/addresses/addressCreate.jsx";
+import CreateAddress from "./pages/addresses/addressCreatePage.jsx";
 import CreateCompensation from "./pages/compensations/compensationCreate.jsx";
 import CreateEmploymentDetails from "./pages/jobDetails/CreateJobDetails.jsx";
 import CreateLeaveDetails from "./pages/leaves/CreateLeaveDetails.jsx";
@@ -43,8 +43,10 @@ const isLoggedIn = () => {
 };
 
 const getLoggedInUser = () => {
-  return localStorage.getItem("hrmsUser")? JSON.parse(localStorage.getItem("hrmsUser")) : ""
-}
+  return localStorage.getItem("hrmsUser")
+    ? JSON.parse(localStorage.getItem("hrmsUser"))
+    : "";
+};
 
 const getRequest = async (route) => {
   const res = await fetch(`https://hris-qp6t.onrender.com/${route}`, {
@@ -120,7 +122,13 @@ const parentRoutes = [
   {
     // Home path
     path: "/",
-    element: <Main getRequest={getRequest} isLoggedIn={isLoggedIn} />,
+    element: (
+      <Main
+        getRequest={getRequest}
+        nav={<Nav isLoggedIn={isLoggedIn} />}
+        isLoggedIn={isLoggedIn}
+      />
+    ),
   },
   {
     path: "*",
@@ -227,7 +235,13 @@ const parentRoutes = [
   },
   {
     path: "profile",
-    element: <Profile getRequest={getRequest} nav={<Nav isLoggedIn={isLoggedIn} location={"/profile"} />} person={getLoggedInUser()}/>,
+    element: (
+      <Profile
+        getRequest={getRequest}
+        nav={<Nav isLoggedIn={isLoggedIn} location={"/profile"} />}
+        person={getLoggedInUser()}
+      />
+    ),
   },
 ];
 

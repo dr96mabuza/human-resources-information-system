@@ -53,7 +53,9 @@ export default function Profile({ getRequest, person, nav }) {
                 <div key={key} id={`${key}Section`} className="hu">
                   <h3>{key}</h3>
                   {Object.keys(userProfile[key]).map((item) => {
-                    return !["id", "employeeId", "leave_id", "employee_id"].toString().includes(item) ? (
+                    return !["id", "employeeId", "leave_id", "employee_id"]
+                      .toString()
+                      .includes(item) ? (
                       <p key={item}>
                         {item}: {userProfile[key][item]}
                       </p>

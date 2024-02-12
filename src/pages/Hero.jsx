@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-export default function Main({ getRequest, isLoggedIn }) {
+export default function Main({ getRequest, isLoggedIn, nav }) {
   const navigate = useNavigate();
 
   const defaultState = {
@@ -25,13 +25,14 @@ export default function Main({ getRequest, isLoggedIn }) {
   }, []);
 
   return (
-    <section id="main" className="content">
+    <section id="main" className="main">
+      {nav}
       {counts === defaultState ? (
         <section className="loaderContainer">
           <div className="loader"></div>
         </section>
       ) : (
-        <section>
+        <section className="content edit">
           <div>
             <h3>Welcome to Our HR Management System!</h3>
             <p>Dear Team,</p>

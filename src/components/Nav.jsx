@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Nav({ location, isLoggedIn }) {
+  const navigate = useNavigate();
   const logOut = () => {
     localStorage.setItem("hrmsToken", "");
     localStorage.setItem("hrmsUser", "");
+    navigate("/");
   };
 
   return (

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
+import Input from "../../components/Input";
 
 export default function AddressEditForm({ nav, getRequest, postRequest }) {
   const navigate = useNavigate();
@@ -94,24 +95,26 @@ export default function AddressEditForm({ nav, getRequest, postRequest }) {
                 onChange={handleChange}
               />
             </div>
-            <div>
-              <label>Province</label>
-              <input
-                type="text"
+
+              <Input
+              label={"Province"}
+                type={"text"}
                 value={formData.province}
                 name="province"
-                onChange={handleChange}
+                onChange={event => handleChange(event)}
+                required={true}
+                span={"enter valid province"}
               />
-            </div>
-            <div>
-              <label>Postal code</label>
-              <input
-                type="number"
-                value={formData.postalCode}
-                name="postalCode"
-                onChange={handleChange}
+
+            <Input type={"number"}
+              label={"Postal code"}
+              name={"postalCode"}
+              value={formData.postalCode}
+              onChange={event => handleChange(event)}
+              minLength={1}
+              required={true}
+              span={"Enter valid postal code."}
               />
-            </div>
             <button type="submit" onClick={handleSubmit}>
               Submit
             </button>

@@ -2,6 +2,8 @@ import { useState } from "react";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
+import Addresses from "../addresses/Addresses";
+import CreateAddress from "../addresses/addressCreatePage";
 
 export default function CreateEmployee({
   nav,
@@ -73,6 +75,7 @@ export default function CreateEmployee({
             Next
           </button>
         </form>
+        <CreateAddress />
       </div>
     </div>
   );

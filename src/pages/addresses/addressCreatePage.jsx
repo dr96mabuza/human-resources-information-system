@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiArrowLeft } from "@mdi/js";
+import Input from "../../components/Input";
 
-export default function CreateAddress({
+export default function CreateAddressPage({
   nav,
   postRequest,
   fetchEmployees,
@@ -21,13 +22,6 @@ export default function CreateAddress({
   };
   const [addressForm, setAddressForm] = useState(defaultState);
 
-  if (localStorage.getItem("hrmsToken") === undefined) {
-    navigate("/login");
-  }
-
-  // const loaderContainer = document.querySelector(".loaderContainer").;
-  // loaderContainer.style.display = "none"
-
   useEffect(() => {
     const requestData = async () => {
       try {
@@ -37,6 +31,10 @@ export default function CreateAddress({
         console.log("Error fetching employees:", error);
       }
     };
+
+    if (localStorage.getItem("hrmsToken") === undefined) {
+      navigate("/login");
+    }
 
     requestData();
   }, [fetchEmployees]);
@@ -60,35 +58,15 @@ export default function CreateAddress({
       addressForm.city.length < 1 ||
       addressForm.province.length < 1
     ) {
-      const addressCreateForm = document.querySelector("form");
-      const invalidFields = addressCreateForm.querySelectorAll(
-        "input:invalid, select:invalid",
-      );
-      invalidFields.forEach((field) => {
-        setTimeout(() => {
-          field.style.border = "1px solid #ccc";
-        }, 1000);
-
-        field.style.border = "solid red 5px";
-      });
+      invalidInputs();
       return;
     }
 
-    if (
-      addressForm.postalCode != 0 &&
-      addressForm.employeeId != 0 &&
-      addressForm.street != "" &&
-      addressForm.suburb != "" &&
-      addressForm.city != "" &&
-      addressForm.province != ""
-    ) {
-      console.log(addressForm);
-      const addressPostJson = await postRequest("address/create", addressForm);
+    const addressPostJson = await postRequest("address/create", addressForm);
 
-      if (addressPostJson.status === "ok") {
-        setAddressForm(defaultState);
-        navigate("/addresses");
-      }
+    if (addressPostJson.status === "ok") {
+      setAddressForm(defaultState);
+      navigate("/addresses");
     }
   };
 
@@ -122,42 +100,39 @@ export default function CreateAddress({
             </select>
             <span>Select current employee</span>
           </div>
-          <div>
-            <label>Street</label>
-            <input
-              type="text"
-              name="street"
-              onChange={handleChange}
-              minLength={8}
-              required={true}
-            />
-            <span>
-              Street should be a minimun length of 6 and should include a
-              number.
-            </span>
-          </div>
-          <div>
-            <label>Suburb</label>
-            <input
-              type="text"
-              name="suburb"
-              onChange={handleChange}
-              minLength={3}
-              required={true}
-            />
-            <span>Suburb should be a minimum length of 3.</span>
-          </div>
-          <div>
-            <label>City</label>
-            <input
-              type="text"
-              name="city"
-              onChange={handleChange}
-              minLength={3}
-              required={true}
-            />
-            <span>City should be a minimum length of 3.</span>
-          </div>
+          <Input
+            type={"text"}
+            label={"Street"}
+            name={"street"}
+            onChange={(event) => handleChange(event)}
+            minLength={8}
+            required={true}
+            span={
+              "Street should be a minimun length of 6 and should include a number."
+            }
+          />
+
+          <Input
+            label={"Suburb"}
+            type={"text"}
+            name={"suburb"}
+            // value={""}
+            onChange={(event) => handleChange(event)}
+            minLength={3}
+            required={true}
+            span={"Suburb should be a minimum length of 3."}
+          />
+
+          <Input
+            type={"text"}
+            label={"City"}
+            name={"city"}
+            onChange={(event) => handleChange(event)}
+            minLength={3}
+            required={true}
+            span={"City should be a minimum length of 3."}
+          />
+
           <div>
             <label>Select a Province:</label>
             <select
@@ -179,17 +154,14 @@ export default function CreateAddress({
             </select>
             <span>Select valid province.</span>
           </div>
-          <div>
-            <label>Postal code</label>
-            <input
-              type="number"
-              name="postalCode"
-              onChange={handleChange}
+          <Input type={"number"}
+              label={"Postal code"}
+              name={"postalCode"}
+              onChange={event => handleChange(event)}
               minLength={1}
               required={true}
-            />
-            <span>Enter valid postal code.</span>
-          </div>
+              span={"Enter valid postal code."}
+              />
           <button type="submit" onClick={handleAddressSubmit}>
             Submit
           </button>
