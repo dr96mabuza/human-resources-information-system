@@ -81,20 +81,71 @@ export default function CreateEmployee({
     }
   };
 
-
-  const handleEmploymentDetailsSubmit = (e) => {
+  const handleEmploymentDetailsSubmit = async (e) => {
     if (
+      employeeForm.street.length < 8 ||
+      employeeForm.suburb.length < 3 ||
+      employeeForm.city.length < 3 ||
+      employeeForm.province.length < 7 ||
+      employeeForm.postalCode.length < 1 ||
+      employeeForm.salary.length < 4 ||
+      employeeForm.deductions.length < 4 ||
+      employeeForm.bonus.length < 2 ||
+      employeeForm.documentName.length < 3 ||
+      !employeeForm.alternateNumber.length === 10 ||
+      !employeeForm.cellphoneNumber.length === 10 ||
+      employeeForm.email.length < 13 ||
+      employeeForm.companyEmail.length < 13 ||
       employeeForm.company.length < 3 ||
       employeeForm.jobRole.length < 3 ||
-      employeeForm.reportsTo > 0 ||
+      employeeForm.reportsTo < 1 ||
       employeeForm.employmentStatus.length < 6
     ) {
       invalidInputs();
       return;
     }
-    // setEmployeeForm(defaultState)
-    console.log(employeeForm);
-    navigate("/employees");
+
+    const address = await postRequest("address/create", {
+      street: employeeForm.street,
+      suburb: employeeForm.suburb,
+      city: employeeForm.city,
+      province: employeeForm.province,
+      postalCode: employeeForm.postalCode,
+      employeeId: employeeForm.employeeId
+    });
+    const compensation = await postRequest("compensation/create", {salary:  employeeForm.salary,
+      deductions: employeeForm.deductions,
+      bonus: employeeForm.bonus, employeeId: employeeForm.employeeId });
+    const contacts = await postRequest("contact/create", {
+      alternateNumber: employeeForm.alternateNumber,
+      cellphoneNumber: employeeForm.cellphoneNumber,
+      email: employeeForm.email,
+      companyEmail: employeeForm.companyEmail,
+      employeeId: employeeForm.employeeId
+    });
+    const documents = await postRequest("document/create", {
+      document: employeeForm.document,
+      documentName: employeeForm.documentName,
+      employeeId: employeeForm.employeeId
+    });
+    const jobDetails = await postRequest("employmentdetail/create", {
+      company: employeeForm.company,
+      jobRole: employeeForm.jobRole,
+      reportsTo: employeeForm.reportsTo ,
+      employmentStatus: employeeForm.employmentStatus,
+      employeeId: employeeForm.employeeId
+    });
+    // const leave = await postRequest("leave/create", {});
+    for (const key in object) {
+      if (Object.hasOwnProperty.call(object, key)) {
+        const element = object[key];
+        
+      }
+    }
+    if (jobDetails.status === "ok" || documents.status === "ok" || address.status === "ok" || compensation.status === "ok" || contacts.status === "ok") {
+      navigate("/employees");
+    }
+    console.log("error")
   };
 
   return (
@@ -168,7 +219,7 @@ export default function CreateEmployee({
           <button type="submit" onClick={handleEmployeeSubmit}>
             Next
           </button>
-        </form >
+        </form>
         <form className="employeeForm" id="employeeForm2">
           <legend>
             <em>
@@ -239,7 +290,6 @@ export default function CreateEmployee({
             required={true}
             span={"Enter valid postal code."}
           />
-          
 
           <legend>
             <em>
@@ -253,7 +303,6 @@ export default function CreateEmployee({
               type="number"
               name="salary"
               onChange={handleChange}
-              min={50000}
               minLength={4}
               required={true}
             />
@@ -278,7 +327,6 @@ export default function CreateEmployee({
               required={true}
             />
           </div>
-          
 
           <legend>
             <em>
@@ -399,7 +447,7 @@ export default function CreateEmployee({
               name="reportsTo"
               id=""
               onChange={handleChange}
-              min={1}
+              minLength={1}
             />
           </div>
           <div>
