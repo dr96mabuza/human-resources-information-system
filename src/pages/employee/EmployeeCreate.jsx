@@ -43,11 +43,12 @@ export default function CreateEmployee({
     setEmployeeForm((prevData) => ({
       ...prevData,
       [name]:
-        name === "postalCode" ||
         name === "employeeId" ||
-        name === "salary" ||
+        name === "reportsTo" ||
+        name === "bonus" ||
         name === "deductions" ||
-        name === "bonus"
+        name === "salary" ||
+        name === "postalCode"
           ? Number(value)
           : value,
     }));
@@ -55,16 +56,46 @@ export default function CreateEmployee({
 
   const handleEmployeeSubmit = async (e) => {
     e.preventDefault();
-    const employeePostJson = await postRequest("employee/create", employeeForm);
+    if (
+      employeeForm.firstName.length < 2 ||
+      employeeForm.lastName.length < 2 ||
+      employeeForm.idNumber.length < 13 ||
+      employeeForm.gender.length < 4
+    ) {
+      invalidInputs();
+      return;
+    }
+
+    const employeePostJson = await postRequest("employee/create", {
+      firstName: employeeForm.firstName,
+      lastName: employeeForm.lastName,
+      idNumber: employeeForm.idNumber,
+      gender: employeeForm.gender,
+    });
     if (employeePostJson.status === "ok") {
-      setEmployeeForm(defaultState);
-      navigate("/employees");
+      employeeForm.employeeId = employeePostJson.result.id;
+      document.querySelectorAll(".employeeForm").forEach((item) => {
+        item.style.display = "none";
+      });
+      document.querySelector("#employeeForm2").style.display = "block";
     }
   };
 
-  /////////////
 
-  ////////////
+  const handleEmploymentDetailsSubmit = (e) => {
+    if (
+      employeeForm.company.length < 3 ||
+      employeeForm.jobRole.length < 3 ||
+      employeeForm.reportsTo > 0 ||
+      employeeForm.employmentStatus.length < 6
+    ) {
+      invalidInputs();
+      return;
+    }
+    // setEmployeeForm(defaultState)
+    console.log(employeeForm);
+    navigate("/employees");
+  };
 
   return (
     <div className="main">
@@ -73,7 +104,7 @@ export default function CreateEmployee({
         <a href="/employees">
           <Icon path={mdiArrowLeft} size={1} />
         </a>
-        <form method="post">
+        <form className="employeeForm" id="employeeForm1">
           <legend>
             <strong>
               <em>PERSONAL DETAILS</em>
@@ -81,33 +112,67 @@ export default function CreateEmployee({
           </legend>
           <div>
             <label>Name</label>
-            <input type="text" name="firstName" onChange={handleChange} />
+            <input
+              type="text"
+              name="firstName"
+              onChange={handleChange}
+              minLength={2}
+              required={true}
+            />
+            <span>
+              Name has to be a minimum length of 2 and must not contain any
+              special charecters.
+            </span>
           </div>
           <div>
             <label>Surname</label>
-            <input type="text" name="lastName" onChange={handleChange} />
+            <input
+              type="text"
+              name="lastName"
+              onChange={handleChange}
+              minLength={2}
+              required={true}
+            />
+            <span>
+              Name has to be a minimum length of 2 and must not contain any
+              special charecters.
+            </span>
           </div>
           <div>
             <label>ID Number</label>
-            <input type="text" name="idNumber" onChange={handleChange} />
+            <input
+              type="text"
+              name="idNumber"
+              onChange={handleChange}
+              minLength={13}
+              maxLength={13}
+              required={true}
+            />
+            <span>Enter valid id. id must be 13 characters long.</span>
           </div>
           <div>
             <label>Gender</label>
-            <select name="gender" onChange={handleChange}>
+            <select
+              name="gender"
+              onChange={handleChange}
+              required={true}
+              minLength={4}
+            >
               <option value="">Select an Option</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Prefer not to state">Prefer not to state</option>
             </select>
+            <span>Select valid option above.</span>
           </div>
           <button type="submit" onClick={handleEmployeeSubmit}>
             Next
           </button>
-        </form>
-        <form>
+        </form >
+        <form className="employeeForm" id="employeeForm2">
           <legend>
             <em>
-              <strong>ADD NEW ADDRESS</strong>
+              <strong>ADDRESS</strong>
             </em>
           </legend>
 
@@ -174,64 +239,116 @@ export default function CreateEmployee({
             required={true}
             span={"Enter valid postal code."}
           />
-          <button type="submit">Submit</button>
-        </form>
-        <form>
+          
+
           <legend>
             <em>
-              <strong>ADD NEW COMPENSATION DETAILS</strong>
+              <strong>COMPENSATION DETAILS</strong>
             </em>
           </legend>
 
           <div>
             <label>Salary</label>
-            <input type="number" name="salary" onChange={handleChange} />
+            <input
+              type="number"
+              name="salary"
+              onChange={handleChange}
+              min={50000}
+              minLength={4}
+              required={true}
+            />
           </div>
           <div>
             <label>Deductions</label>
-            <input type="number" name="deductions" onChange={handleChange} />
+            <input
+              type="number"
+              name="deductions"
+              onChange={handleChange}
+              minLength={4}
+              required={true}
+            />
           </div>
           <div>
             <label>Bonus</label>
-            <input type="number" name="bonus" onChange={handleChange} />
+            <input
+              type="number"
+              name="bonus"
+              onChange={handleChange}
+              minLength={2}
+              required={true}
+            />
           </div>
-          <button type="submit">Submit</button>
-        </form>
-        <form>
+          
+
           <legend>
             <em>
-              <strong>ADD NEW CONTACT</strong>
+              <strong>CONTACT</strong>
             </em>
           </legend>
 
           <div>
             <label>Email</label>
-            <input type="text" name="email" onChange={handleChange} />
+            <input
+              type="email"
+              minLength={15}
+              name="email"
+              placeholder="example@example.com"
+              onChange={handleChange}
+              required={true}
+            />
+            <span>Enter valid email address.</span>
           </div>
           <div>
             <label>Contact Number</label>
-            <input type="text" name="cellphoneNumber" onChange={handleChange} />
+            <input
+              type="text"
+              name="cellphoneNumber"
+              minLength={10}
+              maxLength={10}
+              onChange={handleChange}
+              required={true}
+            />
+            <span>Enter valid cellphone number</span>
           </div>
           <div>
             <label>Second Email</label>
-            <input type="text" name="companyEmail" onChange={handleChange} />
+            <input
+              type="email"
+              minLength={15}
+              name="companyEmail"
+              placeholder="example@example.com"
+              onChange={handleChange}
+              required={true}
+            />
+            <span>Enter valid email address.</span>
           </div>
           <div>
             <label>Second Contact Number</label>
-            <input type="text" name="alternateNumber" onChange={handleChange} />
+            <input
+              type="text"
+              name="alternateNumber"
+              minLength={10}
+              maxLength={10}
+              onChange={handleChange}
+              required={true}
+            />
+            <span>Enter valid cellphone number</span>
           </div>
-          <button type="submit">Submit</button>
-        </form>
-        <form>
+
           <legend>
             <em>
-              <strong>ADD NEW DOCUMENT</strong>
+              <strong>DOCUMENT</strong>
             </em>
           </legend>
 
           <div>
             <label>Document Type</label>
-            <select name="documentName" onChange={handleChange}>
+            <select
+              name="documentName"
+              onChange={handleChange}
+              required={true}
+              minLength={3}
+            >
               <option value="">Select an Option</option>
               <option value="Resume">Resume</option>
               <option value="Certificate">Certificate</option>
@@ -241,44 +358,67 @@ export default function CreateEmployee({
           </div>
           <div>
             <label>Document</label>
-            <input type="file" name="document" onChange={handleChange} />
+            <input
+              type="file"
+              name="document"
+              onChange={handleChange}
+              required={true}
+            />
           </div>
-          <button type="submit">Submit</button>
-        </form>
-        <form>
+
           <legend>
             <em>
-              <strong>ADD NEW JOB DETAILS</strong>
+              <strong>JOB DETAILS</strong>
             </em>
           </legend>
 
           <div>
             <label>Company</label>
-            <input type="text" name="company" onChange={handleChange} />
+            <input
+              type="text"
+              name="company"
+              minLength={3}
+              onChange={handleChange}
+              required={true}
+            />
           </div>
           <div>
             <label>Role</label>
-            <input type="text" name="jobRole" onChange={handleChange} />
+            <input
+              type="text"
+              name="jobRole"
+              minLength={3}
+              onChange={handleChange}
+              required={true}
+            />
           </div>
           <div>
             <label>Senior/Manager</label>
             <input
               type="number"
-              name="reportTo"
+              name="reportsTo"
               id=""
               onChange={handleChange}
+              min={1}
             />
           </div>
           <div>
             <label>Employment Status</label>
-            <select name="employmentStatus" onChange={handleChange}>
+            <select
+              name="employmentStatus"
+              minLength={6}
+              onChange={handleChange}
+              required={true}
+            >
               <option value="">Select an Option</option>
               <option value="Full Time">Full Time</option>
               <option value="Part Time">Part Time</option>
               <option value="Remote">Remote</option>
             </select>
           </div>
-          <button type="submit">Submit</button>
+          <button type="submit" onClick={handleEmploymentDetailsSubmit}>
+            Submit
+          </button>
         </form>
       </div>
     </div>

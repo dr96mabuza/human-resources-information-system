@@ -360,3 +360,11 @@ select:valid {
 #profileNav :hover {
   cursor: pointer;
 }
+
+#employeeForm6,
+#employeeForm2,
+#employeeForm3,
+#employeeForm4,
+#employeeForm5 {
+  display: none;
+}
