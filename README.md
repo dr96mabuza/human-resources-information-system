@@ -1,8 +1,4 @@
-# React + Vite
+Basic HR Information System for managing and organizing information about all employees in workplace.
+The goal is to have a centralized and efficient wat to manage employee information across the organization. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+For live demo: https://delightful-cajeta-c7d19a.netlify.app/
