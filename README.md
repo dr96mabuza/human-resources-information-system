@@ -1,11 +1,11 @@
 # Human Resource Information System
 
 ## Contents
-    - project status(#project-status)
-    - Description(#description)
-    - System Requirements(#system-requirements)
-    - For Development(#for-development)
-    - Issues(#issues)
+    - [project status](#project-status)
+    - [Description](#description)
+    - [System Requirements](#system-requirements)
+    - [For Development](#for-development)
+    - [Issues](#issues)
 
 ## Project Status
     - Ongoing
