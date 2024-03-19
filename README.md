@@ -3,6 +3,7 @@
 ## Contents
     - [project status](#project-status)
     - [Description](#description)
+    - [Technologies used](#technologies-used)
     - [System Requirements](#system-requirements)
     - [For Development](#for-development)
     - [Issues](#issues)
@@ -15,7 +16,11 @@
     The goal is to have a centralized and efficient wat to manage employee information across the organization. 
     - For live demo: https://delightful-cajeta-c7d19a.netlify.app/
 
-## system requirements 
+## Technologies used
+    - React + Vite
+    - Vanilla CSS
+
+## System requirements 
     - Node Version Manager
     - Nodejs
     - Node Package Manager
