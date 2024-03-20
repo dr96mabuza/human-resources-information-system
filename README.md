@@ -1,34 +1,34 @@
 # Human Resource Information System
 
+## Description
+- Basic HR Information System for managing and organizing information about all employees in workplace.
+The goal is to have a centralized and efficient way to manage employee information across the organization. 
+
+- ***For live demo***: https://delightful-cajeta-c7d19a.netlify.app/
+
 ## Contents
 - [project status](#project-status)
-- [Description](#description)
 - [Technologies used](#technologies-used)
-- [System Requirements](#system-requirements)
 - [For Development](#for-development)
 - [Issues](#issues)
 
 ## Project Status
 - Ongoing
 
-## Description
-- Basic HR Information System for managing and organizing information about all employees in workplace.
-The goal is to have a centralized and efficient wat to manage employee information across the organization. 
-- For live demo: https://delightful-cajeta-c7d19a.netlify.app/
-
 ## Technologies used
 - React + Vite
 - Vanilla CSS
 
-## System requirements 
-- Node Version Manager
-- Nodejs
-- Node Package Manager
-
 ## For Development
+- You will need to have ***node.js*** and ***npm*** already installed on your computer.
+- Clone project
 ```bash
-npm install &&
-npm run dev
+git clone git@github.com:dr96mabuza/human-resources-information-system.git
+```
+- **npm install** gets all the project dependencies.
+- **npm run dev** runs nodemon server locally.
+```bash
+npm install && npm run dev
 ```
 
 ## Issues
