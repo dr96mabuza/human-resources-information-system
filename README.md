@@ -15,10 +15,6 @@ The goal is to have a centralized and efficient way to manage employee informati
 ## Project Status
 - Ongoing
 
-## Technologies used
-- React + Vite
-- Vanilla CSS
-
 ## For Development
 - You will need to have ***node.js*** and ***npm*** already installed on your computer.
 - Clone project
@@ -32,5 +28,10 @@ npm install && npm run dev
 ```
 
 ## Issues
+- Backend response time is slow on first call. So please be patient.
 - When i started the project, the spec i was given was not clear enough on how the app is suppose to look and how it need to work. Therefore its hard to style/format the project.
 - Storing tokens. since the token is generated from the backend, i am currently saving it on local storage. could not choose between sessions, cookies or local storage.
+
+## Technologies used
+- React + Vite
+- Vanilla CSS
